@@ -14,11 +14,6 @@ export const withI18n: MiddlewareFactory = (next) => {
     if (pathnameIsMissingLocale) {
       const locale = getLocale(request);
 
-      const cookieLang = request.cookies.get("locale")?.value;
-      if (!cookieLang) {
-        request.cookies.set("locale", locale);
-      }
-
       return NextResponse.redirect(
         new URL(`/${locale}/${pathname}`, request.url),
       );
