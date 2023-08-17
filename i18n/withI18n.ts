@@ -1,12 +1,12 @@
 import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 import { MiddlewareFactory } from "@/types/middlewareFactory";
-import { locales } from "@/i18n/locales";
+import { LOCALES } from "@/i18n/locales";
 import { getLang } from "@/i18n/getLang";
 
 export const withI18n: MiddlewareFactory = (next) => {
   return (request: NextRequest, _next: NextFetchEvent) => {
     const pathname = request.nextUrl.pathname;
-    const pathnameIsMissingLocale = locales.every(
+    const pathnameIsMissingLocale = LOCALES.every(
       (locale) =>
         !pathname.startsWith(`/${locale}/`) && pathname !== `/${locale}`,
     );

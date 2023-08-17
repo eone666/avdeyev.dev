@@ -2,7 +2,7 @@ import { NextRequest } from "next/server";
 import { match } from "@formatjs/intl-localematcher";
 import Negotiator from "negotiator";
 
-import { defaultLocale, locales } from "@/i18n/locales";
+import { DEFAULT_LOCALE, LOCALES } from "@/i18n/locales";
 
 export function getLang(request: NextRequest) {
   const cookieLang = request.cookies.get("lang")?.value;
@@ -15,5 +15,5 @@ export function getLang(request: NextRequest) {
     headers: Object.fromEntries(request.headers),
   }).languages();
 
-  return match(languages, locales, defaultLocale);
+  return match(languages, LOCALES as unknown as string[], DEFAULT_LOCALE);
 }
