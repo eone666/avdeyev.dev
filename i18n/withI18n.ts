@@ -1,7 +1,7 @@
 import { NextFetchEvent, NextRequest, NextResponse } from "next/server";
 import { MiddlewareFactory } from "@/types/middlewareFactory";
 import { locales } from "@/i18n/locales";
-import { getLocale } from "@/i18n/getLocale";
+import { getLang } from "@/i18n/getLang";
 
 export const withI18n: MiddlewareFactory = (next) => {
   return (request: NextRequest, _next: NextFetchEvent) => {
@@ -12,10 +12,15 @@ export const withI18n: MiddlewareFactory = (next) => {
     );
 
     if (pathnameIsMissingLocale) {
-      const locale = getLocale(request);
+      const lang = getLang(request);
+
+      const cookieLang = request.cookies.get("lang")?.value;
+      if (!cookieLang) {
+        request.cookies.set("lang", lang);
+      }
 
       return NextResponse.redirect(
-        new URL(`/${locale}/${pathname}`, request.url),
+        new URL(`/${lang}/${pathname}`, request.url),
       );
     }
     return next(request, _next);

@@ -4,18 +4,16 @@ import Negotiator from "negotiator";
 
 import { defaultLocale, locales } from "@/i18n/locales";
 
-export function getLocale(request: NextRequest) {
-  if (request.cookies.has("lang")) {
-    return request.cookies.get("lang");
+export function getLang(request: NextRequest) {
+  const cookieLang = request.cookies.get("lang")?.value;
+
+  if (cookieLang) {
+    return cookieLang;
   }
 
   const languages = new Negotiator({
     headers: Object.fromEntries(request.headers),
   }).languages();
 
-  const lang = match(languages, locales, defaultLocale);
-
-  request.cookies.set("lang", lang);
-
-  return lang;
+  return match(languages, locales, defaultLocale);
 }
