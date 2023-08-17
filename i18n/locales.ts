@@ -1,3 +1,3 @@
-export const locales = ['en'];
+export const locales = ["en"];
 
-export const defaultLocale = 'en';
+export const defaultLocale = "en";
