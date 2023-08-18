@@ -11,6 +11,9 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        "open-sans": "var(--font-open-sans)",
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
