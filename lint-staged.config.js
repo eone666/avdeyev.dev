@@ -4,7 +4,6 @@ const micromatch = require("micromatch");
 const eslintConfig = require("./.eslintrc.json");
 
 module.exports = {
-  "*.{ts,tsx}": () => "npx tsc -p .",
   "*.{js,jsx,ts,tsx}": (files) => {
     const match = micromatch.not(files, eslintConfig.ignorePatterns, {
       matchBase: true,
