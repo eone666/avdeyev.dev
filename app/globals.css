@@ -56,19 +56,12 @@
     @apply border-border;
   }
   body {
-    @apply font-open-sans text-foreground;
+    @apply bg-background font-open-sans text-foreground;
   }
   .dark body {
     background: radial-gradient(
       1400px circle at top center,
       theme("colors.gray.900"),
-      theme("colors.background")
-    );
-  }
-  .light body {
-    background: radial-gradient(
-      1400px circle at top center,
-      theme("colors.cyan.200"),
       theme("colors.background")
     );
   }
