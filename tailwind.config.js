@@ -16,7 +16,7 @@ module.exports = {
         "overpass-mono": "var(--font-overpass-mono)",
       },
       gridTemplateRows: {
-        body: "1fr auto",
+        body: "max(1fr,auto) auto",
       },
       height: {
         header: "var(--header-height)",

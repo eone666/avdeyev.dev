@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="h-footer flex items-center border-t bg-background">
+    <footer className="flex h-footer items-center border-t bg-background">
       <Container className="flex items-center justify-center">
         <ul className="flex items-center gap-2">
           <li>
