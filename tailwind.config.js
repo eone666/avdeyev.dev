@@ -15,10 +15,14 @@ module.exports = {
         "open-sans": "var(--font-open-sans)",
         "overpass-mono": "var(--font-overpass-mono)",
       },
+      gridTemplateRows: {
+        body: "max(1fr,auto) auto",
+      },
       height: {
         header: "var(--header-height)",
         footer: "var(--footer-height)",
-        "screen-no-h": "calc(100vh - var(--header-height))",
+        "screen-wo-hf":
+          "calc(100vh - var(--header-height) - var(--footer-height))",
       },
       colors: {
         border: "hsl(var(--border))",
