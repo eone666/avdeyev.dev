@@ -68,11 +68,11 @@
   ::-webkit-scrollbar {
     height: 5px;
     width: 5px;
-    background: hsl(var(--background));
+    background: theme("colors.background/0.5");
   }
 
   ::-webkit-scrollbar-thumb {
-    background: hsl(var(--primary));
+    background: theme("colors.primary.DEFAULT/0.5");
     -webkit-border-radius: 1ex;
   }
 
