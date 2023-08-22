@@ -26,8 +26,9 @@ const timelineData: TimelineItemProps[] = [
 
 export default function Timeline() {
   return (
-    <div className="flex gap-5">
-      <div className="flex flex-col justify-around">
+    <div className="relative flex gap-5">
+      <div className="absolute left-[6px] h-full w-1 bg-primary" />
+      <div className="relative flex flex-col justify-around">
         {timelineData.map((item, index) => (
           <TimelineBullet key={index} present={item.dates[1] === "present"} />
         ))}
