@@ -55,8 +55,21 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
-    @apply font-open-sans;
+    @apply font-open-sans text-foreground;
+  }
+  .dark body {
+    background: radial-gradient(
+      1400px circle at top center,
+      theme("colors.gray.900"),
+      theme("colors.background")
+    );
+  }
+  .light body {
+    background: radial-gradient(
+      1400px circle at top center,
+      theme("colors.cyan.200"),
+      theme("colors.background")
+    );
   }
   ::-webkit-scrollbar {
     height: 5px;
