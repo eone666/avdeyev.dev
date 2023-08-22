@@ -5,7 +5,7 @@
 @layer base {
   :root {
     --header-height: 60px;
-    --footer-height: 60px;
+    --footer-height: 40px;
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
     --card: 0 0% 100%;
