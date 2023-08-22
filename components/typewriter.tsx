@@ -16,12 +16,10 @@ const Typewriter = ({ text, delay, infinite, ...props }: TypewriterProps) => {
   useEffect(() => {
     let timeout: NodeJS.Timeout;
 
-    if (currentIndex <= text.length) {
+    if (currentIndex < text.length) {
       timeout = setTimeout(() => {
-        if (currentIndex < text.length) {
-          setCurrentText((prevText) => prevText + text[currentIndex]);
-          setCurrentIndex((prevIndex) => prevIndex + 1);
-        }
+        setCurrentText((prevText) => prevText + text[currentIndex]);
+        setCurrentIndex((prevIndex) => prevIndex + 1);
       }, delay);
     } else if (infinite) {
       setCurrentIndex(0);
