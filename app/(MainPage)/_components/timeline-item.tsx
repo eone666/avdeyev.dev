@@ -35,7 +35,7 @@ export default function TimelineItem({
   const startDate = dayjs(`${startYear}/${startMonth}/01`);
   const endDate =
     endDateString === "present"
-      ? dayjs(Date.now())
+      ? dayjs()
       : dayjs(`${endYear}/${endMonth}/01`).endOf("month");
 
   const diff = endDate.diff(startDate);
