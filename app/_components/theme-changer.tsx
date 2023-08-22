@@ -19,7 +19,12 @@ export default function ThemeChanger() {
   };
 
   return (
-    <Button variant="ghost" onClick={toggle} size="icon">
+    <Button
+      variant="ghost"
+      onClick={toggle}
+      size="icon"
+      aria-label={theme === "light" ? "Dark theme" : "Light theme"}
+    >
       {mounted && theme === "light" ? <Moon /> : <Sun />}
     </Button>
   );
