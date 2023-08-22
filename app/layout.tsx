@@ -4,7 +4,6 @@ import { Open_Sans, Overpass_Mono } from "next/font/google";
 import "@/app/globals.css";
 import Header from "@/app/_components/header";
 import { cn } from "@/lib/utils";
-import Footer from "@/app/_components/footer";
 import Providers from "@/app/_components/providers";
 
 const openSans = Open_Sans({
@@ -35,11 +34,10 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className={cn(openSans.variable, overpassMono.variable)}
       suppressHydrationWarning
     >
-      <body className="grid min-h-screen grid-rows-body pt-[60px]">
+      <body className="min-h-screen pt-[60px]">
         <Providers>
           <Header />
           <main className="h-full">{children}</main>
-          <Footer />
         </Providers>
       </body>
     </html>

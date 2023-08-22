@@ -10,7 +10,7 @@ export default function Section({
   DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
 >) {
   return (
-    <section className={cn("h-screen-wo-hf snap-center", className)} {...props}>
+    <section className={cn("h-screen-no-h snap-center", className)} {...props}>
       <Container className={className}>{children}</Container>
     </section>
   );
