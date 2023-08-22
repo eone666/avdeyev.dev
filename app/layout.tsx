@@ -2,10 +2,10 @@ import { ReactNode } from "react";
 import type { Metadata } from "next";
 import { Open_Sans, Overpass_Mono } from "next/font/google";
 import "@/app/globals.css";
-import { ThemeProvider } from "@/app/_components/theme-provider";
 import Header from "@/app/_components/header";
 import { cn } from "@/lib/utils";
 import Footer from "@/app/_components/footer";
+import Providers from "@/app/_components/providers";
 
 const openSans = Open_Sans({
   subsets: ["latin", "cyrillic"],
@@ -36,11 +36,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       suppressHydrationWarning
     >
       <body className="grid min-h-screen grid-rows-body pt-[60px]">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+        <Providers>
           <Header />
           <main className="h-full">{children}</main>
           <Footer />
-        </ThemeProvider>
+        </Providers>
       </body>
     </html>
   );
