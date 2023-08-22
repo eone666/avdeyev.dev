@@ -6,6 +6,12 @@ import Header from "@/app/_components/header";
 import { cn } from "@/lib/utils";
 import Footer from "@/app/_components/footer";
 import Providers from "@/app/_components/providers";
+import dayjs from "dayjs";
+import duration from "dayjs/plugin/duration";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+dayjs.extend(duration);
+dayjs.extend(relativeTime);
 
 const openSans = Open_Sans({
   subsets: ["latin", "cyrillic"],
