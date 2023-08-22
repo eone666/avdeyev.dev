@@ -1,5 +1,3 @@
-import { locales } from "@/i18n/config";
-import { WithI18n } from "@/i18n/types";
 import Container from "@/components/ui/container";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -9,11 +7,7 @@ import {
   SiTelegram,
 } from "@icons-pack/react-simple-icons";
 
-export async function generateStaticParams() {
-  return locales.map((locale) => ({ lang: locale }));
-}
-
-export default async function Page({ params: { lang } }: WithI18n) {
+export default async function Page() {
   return (
     <Container className="h-screen">
       <section className="flex h-full flex-col items-center justify-center gap-3">
