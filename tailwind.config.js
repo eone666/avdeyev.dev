@@ -22,7 +22,7 @@ module.exports = {
         header: "var(--header-height)",
         footer: "var(--footer-height)",
         "screen-wo-hf":
-          "calc(100vh - var(--header-height) - var(--footer-height))",
+          "calc(100dvh - var(--header-height) - var(--footer-height))",
       },
       colors: {
         border: "hsl(var(--border))",

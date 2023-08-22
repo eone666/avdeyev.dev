@@ -35,7 +35,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       className={cn(openSans.variable, overpassMono.variable)}
       suppressHydrationWarning
     >
-      <body className="grid min-h-screen grid-rows-body pt-[60px]">
+      <body className="grid min-h-[100dvh] grid-rows-body pt-[60px]">
         <Providers>
           <Header />
           <main className="h-full">{children}</main>
