@@ -5,7 +5,7 @@ module.exports = {
   theme: {
     container: {
       center: true,
-      padding: "2rem",
+      padding: "1rem",
       screens: {
         "2xl": "1400px",
       },
@@ -13,6 +13,16 @@ module.exports = {
     extend: {
       fontFamily: {
         "open-sans": "var(--font-open-sans)",
+        "overpass-mono": "var(--font-overpass-mono)",
+      },
+      gridTemplateRows: {
+        body: "1fr auto",
+      },
+      height: {
+        header: "var(--header-height)",
+        footer: "var(--footer-height)",
+        "screen-wo-hf":
+          "calc(100vh - var(--header-height) - var(--footer-height))",
       },
       colors: {
         border: "hsl(var(--border))",

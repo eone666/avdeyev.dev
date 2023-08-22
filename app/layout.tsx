@@ -1,15 +1,26 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
-import { Open_Sans } from "next/font/google";
+import { Open_Sans, Overpass_Mono } from "next/font/google";
 import "@/app/globals.css";
+import { ThemeProvider } from "@/app/_components/theme-provider";
+import Header from "@/app/_components/header";
+import { cn } from "@/lib/utils";
+import Footer from "@/app/_components/footer";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const openSans = Open_Sans({
   subsets: ["latin", "cyrillic"],
   fallback: ["sans-serif"],
   display: "swap",
   variable: "--font-open-sans",
   weight: ["400", "600", "700"],
+});
+
+const overpassMono = Overpass_Mono({
+  subsets: ["latin"],
+  fallback: ["sans-serif"],
+  display: "swap",
+  variable: "--font-overpass-mono",
+  weight: ["400"],
 });
 
 export const metadata: Metadata = {
@@ -19,8 +30,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <body className="font-open-sans">{children}</body>
+    <html
+      lang="en"
+      className={cn(openSans.variable, overpassMono.variable)}
+      suppressHydrationWarning
+    >
+      <body className="grid-rows-body grid min-h-screen pt-[60px]">
+        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Header />
+          <main className="h-full">{children}</main>
+          <Footer />
+        </ThemeProvider>
+      </body>
     </html>
   );
 }
