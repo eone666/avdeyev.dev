@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, DetailedHTMLProps, HTMLAttributes } from "react";
+import { cn } from "@/lib/utils";
 
 export interface TypewriterProps
   extends DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement> {
@@ -9,9 +10,22 @@ export interface TypewriterProps
   infinite?: boolean;
 }
 
-const Typewriter = ({ text, delay, infinite, ...props }: TypewriterProps) => {
-  const [currentText, setCurrentText] = useState("");
+const Typewriter = ({
+  text,
+  delay,
+  infinite,
+  className,
+  ...props
+}: TypewriterProps) => {
+  const [currentText, setCurrentText] = useState(text);
   const [currentIndex, setCurrentIndex] = useState(0);
+
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setCurrentText("");
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
@@ -29,7 +43,11 @@ const Typewriter = ({ text, delay, infinite, ...props }: TypewriterProps) => {
     return () => clearTimeout(timeout);
   }, [currentIndex, delay, infinite, text]);
 
-  return <span {...props}>{currentText}</span>;
+  return (
+    <span className={cn({ hidden: !mounted }, className)} {...props}>
+      {currentText}
+    </span>
+  );
 };
 
 export default Typewriter;
