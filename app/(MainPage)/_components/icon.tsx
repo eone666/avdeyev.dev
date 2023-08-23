@@ -4,5 +4,5 @@ export interface IconProps {
   children: ReactElement;
 }
 export default function Icon({ children }: IconProps) {
-  return cloneElement(children, { className: "sm:w-20 sm:h-20 h-10 w-10" });
+  return cloneElement(children, { className: "sm:w-16 sm:h-16 h-10 w-10" });
 }
