@@ -6,7 +6,6 @@ import {
   SiTelegram,
 } from "@icons-pack/react-simple-icons";
 import Section from "@/app/(MainPage)/_components/section";
-import Location from "@/app/(MainPage)/_components/location";
 
 export default function MainSection() {
   return (
@@ -16,7 +15,6 @@ export default function MainSection() {
       </h1>
       <h2 className="text-center text-xl sm:text-3xl">Frontend Developer</h2>
       <h3 className="text-center text-lg sm:text-2xl">#opentowork</h3>
-      <Location />
       <ul className="flex items-center gap-2">
         <li>
           <Button asChild variant="ghost" size="icon">
