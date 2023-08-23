@@ -17,7 +17,7 @@ const timelineData: TimelineItemProps[] = [
     dates: ["09/2020", "07/2022"],
   },
   {
-    name: "MegaGroup.kz",
+    name: "Megagroup.kz",
     website: "https://megagroup.kz/",
     position: "HTML Coder",
     dates: ["04/2019", "05/2020"],
