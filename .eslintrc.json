@@ -1,22 +1,27 @@
 {
-    "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
-    "parser": "@typescript-eslint/parser",
-    "plugins": ["@typescript-eslint"],
-    "root": true,
-    "rules": {
-        "@typescript-eslint/no-unused-vars": "error",
-        "@typescript-eslint/no-explicit-any": "error",
-        "eqeqeq": "error",
-        "no-duplicate-imports": "error",
-        "strict": "error",
-        "no-console": "error",
-        "react-hooks/exhaustive-deps": "off",
-        "no-implicit-coercion": [
-            "error",
-            {
-                "disallowTemplateShorthand": true
-            }
-        ]
-    },
-    "ignorePatterns": ["*.test.*", "*.spec.*", "*.stories.*"]
+  "extends": [
+    "next/core-web-vitals",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "root": true,
+  "rules": {
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-explicit-any": "error",
+    "eqeqeq": "error",
+    "no-duplicate-imports": "error",
+    "strict": "error",
+    "no-console": "error",
+    "react-hooks/exhaustive-deps": "off",
+    "no-implicit-coercion": [
+      "error",
+      {
+        "disallowTemplateShorthand": true
+      }
+    ]
+  },
+  "ignorePatterns": ["*.test.*", "*.spec.*", "*.stories.*"]
 }
