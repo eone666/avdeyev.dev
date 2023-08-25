@@ -15,7 +15,9 @@ export default function AboutMe() {
         />
       </div>
       <div>
-        <H2 className="mb-1 xs:mb-2 md:mb-3">About me</H2>
+        <H2 className="mb-1 text-center xs:mb-2 md:mb-3 md:text-left">
+          About me
+        </H2>
         <div>
           <p className="mb-1 text-sm xs:text-[1em] md:mb-2">
             Hello, I&apos;m Ivan Avdeyev, a frontend developer who&apos;s all
