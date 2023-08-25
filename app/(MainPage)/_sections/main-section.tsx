@@ -6,15 +6,16 @@ import {
   SiTelegram,
 } from "@icons-pack/react-simple-icons";
 import Section from "@/app/(MainPage)/_components/section";
+import H2 from "@/components/ui/h2";
+import H1 from "@/components/ui/h1";
+import H3 from "@/components/ui/h3";
 
 export default function MainSection() {
   return (
     <Section className="flex flex-col items-center justify-center gap-3">
-      <h1 className="text-center text-2xl font-bold sm:text-5xl">
-        Hello, World! I am Ivan.
-      </h1>
-      <h2 className="text-center text-xl sm:text-3xl">Frontend Developer</h2>
-      <h3 className="text-center text-lg sm:text-2xl">#opentowork</h3>
+      <H1 className="text-center">Hello, World! I am Ivan.</H1>
+      <H2 className="text-center">Frontend Developer</H2>
+      <H3 className="text-center">#opentowork</H3>
       <ul className="flex items-center gap-2">
         <li>
           <Button asChild variant="ghost" size="icon">
