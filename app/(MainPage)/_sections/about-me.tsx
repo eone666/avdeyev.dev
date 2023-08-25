@@ -22,11 +22,9 @@ export default function AboutMe() {
             about making websites look good and work smoothly. My journey into
             web development started when I was in college.
           </p>
-
           <p className="mb-1 text-sm xs:text-[1em] md:mb-2">
             <strong>From Learning to React Expert:</strong>
           </p>
-
           <p className="mb-1 text-sm xs:text-[1em] md:mb-2">
             I began by making web pages with HTML and CSS. In my free time, I
             taught myself React, which is a cool tool for building websites.
