@@ -30,7 +30,7 @@ export default function Timeline() {
       <div className="absolute left-[6px] h-full w-1 bg-primary" />
       <div className="relative flex flex-col justify-around">
         {timelineData.map((item, index) => (
-          <TimelineBullet key={index} present={item.dates[1] === "present"} />
+          <TimelineBullet key={index} />
         ))}
       </div>
       <ul className="flex flex-col gap-4">

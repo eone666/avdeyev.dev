@@ -4,7 +4,7 @@ import Image from "next/image";
 
 export default function AboutMe() {
   return (
-    <Section className="flex flex-col items-center gap-2 pt-2 xs:gap-4 sm:justify-between md:flex-row md:gap-10">
+    <Section className="mx-auto flex max-w-[1000px] flex-col items-center gap-2 pt-2 xs:gap-4 sm:justify-between md:flex-row md:gap-10">
       <div className="shrink-0">
         <Image
           src="/my-photo.jpg"
