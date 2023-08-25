@@ -46,18 +46,18 @@ export default function TimelineItem({
       <Link
         href={website}
         target="_blank"
-        className="text-md flex items-center gap-1 sm:text-lg"
+        className="flex items-center gap-1 text-sm sm:text-lg"
       >
         {name} <ExternalLink size="14px" />
       </Link>
-      <div>{position}</div>
-      <div>
+      <div className="text-sm">{position}</div>
+      <div className="text-sm">
         {startDate.format("MMM YYYY")} -{" "}
         {endDateString === "present"
           ? "Present day"
           : endDate.format("MMM YYYY")}
       </div>
-      <div>{duration}</div>
+      <div className="text-sm">{duration}</div>
     </li>
   );
 }

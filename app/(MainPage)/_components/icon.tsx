@@ -5,6 +5,6 @@ export interface IconProps {
 }
 export default function Icon({ children }: IconProps) {
   return cloneElement(children, {
-    className: "sm:w-16 sm:h-16 xs:h-10 xs:w-10 w-8 h-8",
+    className: "sm:h-6 sm:w-6 w-4 h-4",
   });
 }
