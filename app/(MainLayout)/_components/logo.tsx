@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Typewriter from "@/components/typewriter";
+import Typewriter from "@/components/ui/typewriter";
 
 export default function Logo() {
   return (
