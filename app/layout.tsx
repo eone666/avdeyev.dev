@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/react";
 import { Open_Sans, Overpass_Mono } from "next/font/google";
 import "@/app/globals.css";
 import Header from "@/app/_components/header";
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <Header />
           <main className="h-full">{children}</main>
           <Footer />
+          <Analytics />
         </Providers>
       </body>
     </html>
