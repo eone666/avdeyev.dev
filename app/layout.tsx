@@ -2,14 +2,13 @@ import { ReactNode } from "react";
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { Open_Sans, Overpass_Mono } from "next/font/google";
-import "@/app/globals.css";
-import Header from "@/app/_components/header";
 import { cn } from "@/lib/utils";
-import Footer from "@/app/_components/footer";
-import Providers from "@/app/_components/providers";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
+
 import relativeTime from "dayjs/plugin/relativeTime";
+import Providers from "@/app/(MainLayout)/_components/providers";
+import "@/app/globals.css";
 
 dayjs.extend(duration);
 dayjs.extend(relativeTime);
@@ -44,9 +43,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     >
       <body className="grid min-h-[100dvh] grid-rows-body pt-[60px]">
         <Providers>
-          <Header />
-          <main className="h-full">{children}</main>
-          <Footer />
+          {children}
           <Analytics />
         </Providers>
       </body>

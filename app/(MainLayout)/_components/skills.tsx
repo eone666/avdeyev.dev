@@ -10,7 +10,7 @@ import {
   SiMongodb,
   SiPostgresql,
 } from "@icons-pack/react-simple-icons";
-import Skill, { SkillProps } from "@/app/(MainPage)/_components/skill";
+import Skill, { SkillProps } from "@/app/(MainLayout)/_components/skill";
 
 const skills: SkillProps[] = [
   {

@@ -5,7 +5,7 @@ import {
   SiLinkedin,
   SiTelegram,
 } from "@icons-pack/react-simple-icons";
-import Section from "@/app/(MainPage)/_components/section";
+import Section from "@/app/(MainLayout)/_components/section";
 import H2 from "@/components/ui/h2";
 import H1 from "@/components/ui/h1";
 import H3 from "@/components/ui/h3";

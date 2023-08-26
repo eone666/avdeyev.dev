@@ -1,6 +1,6 @@
-import MainSection from "@/app/(MainPage)/_sections/main-section";
-import ExperienceSection from "@/app/(MainPage)/_sections/experience-section";
-import AboutMe from "@/app/(MainPage)/_sections/about-me";
+import MainSection from "@/app/(MainLayout)/_sections/main-section";
+import ExperienceSection from "@/app/(MainLayout)/_sections/experience-section";
+import AboutMe from "@/app/(MainLayout)/_sections/about-me";
 
 export default async function Page() {
   return (

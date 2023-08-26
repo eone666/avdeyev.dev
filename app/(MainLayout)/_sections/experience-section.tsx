@@ -1,6 +1,6 @@
-import Timeline from "@/app/(MainPage)/_components/timeline";
-import Section from "@/app/(MainPage)/_components/section";
-import Skills from "@/app/(MainPage)/_components/skills";
+import Timeline from "@/app/(MainLayout)/_components/timeline";
+import Section from "@/app/(MainLayout)/_components/section";
+import Skills from "@/app/(MainLayout)/_components/skills";
 import H2 from "@/components/ui/h2";
 
 export default function ExperienceSection() {

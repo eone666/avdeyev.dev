@@ -1,7 +1,7 @@
 import TimelineItem, {
   TimelineItemProps,
-} from "@/app/(MainPage)/_components/timeline-item";
-import TimelineBullet from "@/app/(MainPage)/_components/timeline-bullet";
+} from "@/app/(MainLayout)/_components/timeline-item";
+import TimelineBullet from "@/app/(MainLayout)/_components/timeline-bullet";
 
 const timelineData: TimelineItemProps[] = [
   {

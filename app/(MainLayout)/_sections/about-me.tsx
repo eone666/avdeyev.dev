@@ -1,4 +1,4 @@
-import Section from "@/app/(MainPage)/_components/section";
+import Section from "@/app/(MainLayout)/_components/section";
 import H2 from "@/components/ui/h2";
 import Image from "next/image";
 

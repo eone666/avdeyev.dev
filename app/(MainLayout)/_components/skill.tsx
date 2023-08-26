@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Icon from "@/app/(MainPage)/_components/icon";
+import Icon from "@/app/(MainLayout)/_components/icon";
 import { ReactElement } from "react";
 
 export interface SkillProps {

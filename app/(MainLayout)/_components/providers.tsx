@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactNode } from "react";
-import { ThemeProvider } from "@/app/_components/theme-provider";
+import { ThemeProvider } from "@/app/(MainLayout)/_components/theme-provider";
 
 export default function Providers({ children }: { children: ReactNode }) {
   return (

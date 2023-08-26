@@ -1,6 +1,6 @@
 import Container from "@/components/ui/container";
-import Logo from "@/app/_components/logo";
-import ThemeChanger from "@/app/_components/theme-changer";
+import Logo from "@/app/(MainLayout)/_components/logo";
+import ThemeChanger from "@/app/(MainLayout)/_components/theme-changer";
 
 export default function Header() {
   return (
