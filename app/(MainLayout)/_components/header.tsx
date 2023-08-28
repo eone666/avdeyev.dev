@@ -1,6 +1,7 @@
 import Container from "@/components/ui/container";
 import Logo from "@/app/(MainLayout)/_components/logo";
 import ThemeChanger from "@/app/(MainLayout)/_components/theme-changer";
+import NonSsrWrapper from "@/components/non-ssr-wrapper";
 
 export default function Header() {
   return (
@@ -9,7 +10,9 @@ export default function Header() {
         <Logo />
         <nav className="flex items-center gap-4">
           {/*<TextMenu />*/}
-          <ThemeChanger />
+          <NonSsrWrapper>
+            <ThemeChanger />
+          </NonSsrWrapper>
         </nav>
       </Container>
     </header>

@@ -25,7 +25,6 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "dayjs": "^1.11.9",
-    "framer-motion": "^10.16.1",
     "lucide-react": "0.263.1",
     "micromatch": "^4.0.5",
     "negotiator": "^0.6.3",
