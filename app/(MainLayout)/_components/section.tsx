@@ -1,6 +1,6 @@
 import { DetailedHTMLProps, HTMLAttributes, PropsWithChildren } from "react";
-import { cn } from "@/lib/utils";
 import Container from "@/components/ui/container";
+import { cn } from "@/lib/utils";
 
 export default function Section({
   children,
@@ -10,8 +10,8 @@ export default function Section({
   DetailedHTMLProps<HTMLAttributes<HTMLElement>, HTMLElement>
 >) {
   return (
-    <section className={cn("h-screen-wo-hf snap-center", className)} {...props}>
-      <Container className={className}>{children}</Container>
+    <section className="h-screen-wo-hf snap-center overflow-hidden" {...props}>
+      <Container className={cn("h-full", className)}>{children}</Container>
     </section>
   );
 }
