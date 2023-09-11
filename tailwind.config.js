@@ -1,7 +1,7 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   darkMode: ["class"],
-  content: ["./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}"],
+  content: ["./**/*.{jsx,tsx,mdx}"],
   theme: {
     container: {
       center: true,
@@ -21,16 +21,17 @@ module.exports = {
     extend: {
       fontFamily: {
         "open-sans": "var(--font-open-sans)",
-        "overpass-mono": "var(--font-overpass-mono)",
-      },
-      gridTemplateRows: {
-        body: "1fr auto",
       },
       height: {
         header: "var(--header-height)",
         footer: "var(--footer-height)",
-        "screen-wo-hf":
-          "calc(100dvh - var(--header-height) - var(--footer-height))",
+        "screen-without-header": "calc(100dvh - var(--header-height))",
+      },
+      minHeight: {
+        "screen-without-header": "calc(100dvh - var(--header-height))",
+      },
+      spacing: {
+        header: "var(--header-height)",
       },
       colors: {
         border: "hsl(var(--border))",

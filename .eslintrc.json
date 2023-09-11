@@ -10,6 +10,7 @@
   "rules": {
     "@typescript-eslint/no-unused-vars": "error",
     "@typescript-eslint/no-explicit-any": "error",
+    "@typescript-eslint/no-var-requires": "off",
     "eqeqeq": "error",
     "no-duplicate-imports": "error",
     "strict": "error",

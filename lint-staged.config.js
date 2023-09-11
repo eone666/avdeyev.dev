@@ -1,7 +1,5 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const micromatch = require("micromatch");
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const eslintConfig = require("./.eslintrc.json");
+let eslintConfig = require("./.eslintrc.json");
 
 module.exports = {
   "*.{js,jsx,ts,tsx}": (files) => {
