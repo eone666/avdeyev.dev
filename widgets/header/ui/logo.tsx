@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { cn } from "@/shared/utils/shadcn";
-import { WithClassName } from "@/shared/types/with-className";
+import { WithClassname } from "@/shared/types/with-classname";
 
-export default function Logo({ className }: WithClassName) {
+export default function Logo({ className }: WithClassname) {
   return (
     <Link
       href="/"

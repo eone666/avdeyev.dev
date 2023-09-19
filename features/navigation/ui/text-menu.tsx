@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { buttonVariants } from "@/shared/ui/button";
-import { WithClassName } from "@/shared/types/with-className";
+import { WithClassname } from "@/shared/types/with-classname";
 import { cn } from "@/shared/utils/shadcn";
 
-export interface TextMenuProps extends WithClassName {
+export interface TextMenuProps extends WithClassname {
   orientation?: "horizontal" | "vertical";
 }
 
