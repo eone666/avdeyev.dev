@@ -6,7 +6,7 @@ import { Footer } from "@/widgets/footer";
 export default function MainLayout({ children }: { children: ReactNode }) {
   return (
     <>
-      <Header mainPage />
+      <Header isMainPage />
       <main className="h-full">{children}</main>
       <Footer />
     </>

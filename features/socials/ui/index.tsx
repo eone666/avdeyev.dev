@@ -8,7 +8,7 @@ import {
 
 export default function Socials() {
   return (
-    <ul className="flex items-center gap-2">
+    <ul className="flex flex-wrap items-center justify-center gap-2">
       <li>
         <Button asChild variant="ghost" size="icon">
           <Link href="https://t.me/eone666" target="_blank">

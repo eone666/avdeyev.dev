@@ -35,7 +35,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={openSans.variable} suppressHydrationWarning>
-      <body className="grid min-h-[100dvh]">
+      <body>
         <Providers>
           {children}
           <Analytics />

@@ -5,7 +5,7 @@
 @layer base {
   :root {
     --header-height: 60px;
-    --footer-height: 40px;
+    --footer-height: 60px;
   }
 
   :root {
@@ -37,13 +37,12 @@
     @apply border-border;
   }
 
-  body {
-    @apply font-open-sans text-foreground;
-    background: radial-gradient(
-      1400px circle at top center,
-      theme("colors.neutral.900"),
-      theme("colors.background")
-    );
+  html body {
+    @apply bg-background font-open-sans text-foreground;
+    display: grid;
+    padding-top: var(--header-height);
+    grid-template-rows: 1fr var(--footer-height);
+    min-height: 100dvh;
   }
 
   ::-webkit-scrollbar {

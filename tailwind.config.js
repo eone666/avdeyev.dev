@@ -25,10 +25,6 @@ module.exports = {
       height: {
         header: "var(--header-height)",
         footer: "var(--footer-height)",
-        "screen-without-header": "calc(100dvh - var(--header-height))",
-      },
-      minHeight: {
-        "screen-without-header": "calc(100dvh - var(--header-height))",
       },
       spacing: {
         header: "var(--header-height)",

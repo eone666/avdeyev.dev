@@ -9,7 +9,13 @@ export default function Container({
   DetailedHTMLProps<HTMLAttributes<HTMLDivElement>, HTMLDivElement>
 >) {
   return (
-    <div className={cn("container mx-auto w-full", className)} {...props}>
+    <div
+      className={cn(
+        "container mx-auto w-full px-[10px] lg:px-[20px]",
+        className,
+      )}
+      {...props}
+    >
       {children}
     </div>
   );
