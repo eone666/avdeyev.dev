@@ -7,7 +7,6 @@ import duration from "dayjs/plugin/duration";
 import relativeTime from "dayjs/plugin/relativeTime";
 import Providers from "@/app/providers";
 import "@/app/globals.css";
-import favicon from "./favicon.ico";
 
 dayjs.extend(duration);
 dayjs.extend(relativeTime);
@@ -23,15 +22,34 @@ const openSans = Open_Sans({
 export const metadata: Metadata = {
   title: "Ivan Avdeyev | Frontend Developer",
   description: "Ivan Avdeyev | Frontend Developer",
+  applicationName: "AVDEYEV.DEV",
+  themeColor: "#000000",
   icons: [
     {
       type: "image/x-icon",
-      url: favicon.src,
+      rel: "icon",
+      url: "/favicon.ico",
       sizes: "all",
+    },
+    {
+      type: "image/png",
+      rel: "icon",
+      url: "/favicon-16x16.png",
+      sizes: "16x16",
+    },
+    {
+      type: "image/png",
+      rel: "icon",
+      url: "/favicon-32x32.png",
+      sizes: "32x32",
+    },
+    {
+      rel: "apple-touch-icon",
+      url: "/apple-touch-icon.png",
+      sizes: "/apple-touch-icon.png",
     },
   ],
 };
-
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className={openSans.variable} suppressHydrationWarning>
