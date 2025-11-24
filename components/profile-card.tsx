@@ -43,7 +43,7 @@ export function ProfileCard() {
       <div className="flex flex-col items-center gap-6">
         {/* Profile Section */}
         <div className="flex flex-col items-center gap-4 text-center">
-          <div className="h-24 w-24 border-2 border-primary rounded-full shadow-[0_0_15px_rgba(190,242,2,0.5)] overflow-hidden bg-primary flex items-center justify-center">
+          <div className="h-24 w-24 rounded-full shadow-[0_0_15px_rgba(190,242,2,0.5)] overflow-hidden bg-primary flex items-center justify-center">
             <Image src="/logo.webp" alt="Logo" width={96} height={96} className="object-cover" />
           </div>
 

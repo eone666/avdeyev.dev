@@ -7,8 +7,8 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "AVDEYEV.DEV",
-  description: "My personal link hub",
+  title: "Ivan Avdeyev | AVDEYEV.DEV",
+  description: "Ivan Avdeyev's link hub.",
 }
 
 export default function RootLayout({
@@ -18,9 +18,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>  
-        <meta name="apple-mobile-web-app-title" content="AVDEYEV.DEV" />
-      </head>
       <body className={`font-sans antialiased`}>
         {children}
       </body>
