@@ -21,7 +21,7 @@ const links = [
     icon: RiTelegram2Line,
   },
   {
-    title: "Telegram Channel",
+    title: "Telegram channel",
     url: "https://t.me/avdeyev_dev",
     icon: RiTelegram2Line,
   },
