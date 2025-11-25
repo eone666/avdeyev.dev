@@ -1,8 +1,10 @@
 "use client"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import {RiGithubLine, RiLinkedinLine, RiTelegram2Line, RiMailLine, RiExternalLinkLine, RiInstagramLine } from "react-icons/ri"
+import { RiGithubLine, RiLinkedinLine, RiTelegram2Line, RiMailLine, RiExternalLinkLine, RiInstagramLine } from "react-icons/ri"
 import Image from "next/image"
+import { SocialShare } from "./social-share"
+import { useState } from "react"
 
 const links = [
   {
@@ -74,6 +76,10 @@ export function ProfileCard() {
               </Button>
             )
           })}
+        </div>
+
+        <div className="flex gap-2 items-center">
+          <SocialShare title="Check out Ivan Avdeyev's link hub!" />
         </div>
       </div>
     </Card>
