@@ -60,7 +60,7 @@ export function SocialShare({ url, title = "Check this out!", text = "", classNa
         <div className={`flex items-center flex-col gap-2 ${className}`}>
             <span className="text-sm text-muted-foreground mr-1">Share:</span>
 
-            <div className="flex gap-2">
+            <div className="flex gap-2 justify-center align-center flex-wrap">
                 <Button asChild variant="outline" size="icon" className="h-8 w-8 bg-transparent">
                     <a href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" aria-label="Share on X (Twitter)">
                         <RiTwitterXLine className="h-4 w-4" />

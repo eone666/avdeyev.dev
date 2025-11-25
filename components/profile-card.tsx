@@ -63,13 +63,13 @@ export function ProfileCard() {
               <Button
                 key={index}
                 variant="secondary"
-                className="w-full h-14 justify-between group hover:bg-secondary/80 hover:border-primary/50 border border-transparent transition-all"
+                className="w-full h-14 justify-between group hover:bg-secondary/80 hover:border-primary/50 border border-transparent transition-all overflow-hidden"
                 asChild
               >
                 <a href={link.url} target="_blank" rel="noopener noreferrer">
-                  <div className="flex items-center gap-3">
+                  <div className="flex items-center gap-3 overflow-hidden">
                     <Icon className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
-                    <span className="font-medium">{link.title}</span>
+                    <span className="font-medium  overflow-hidden overflow-ellipsis whitespace-nowrap">{link.title}</span>
                   </div>
                   <RiExternalLinkLine className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-primary transition-all" />
                 </a>
