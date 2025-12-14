@@ -2,7 +2,7 @@
 import { CVContent } from "@/components/cv/content"
 import { DownloadButton } from "@/components/cv/download-button"
 import { ScalableBlock } from "@/components/cv/scalable-block"
-import { Viewport } from 'next'
+import { Viewport, Metadata } from 'next'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -11,6 +11,10 @@ export const viewport: Viewport = {
   userScalable: false
 }
 
+export const metadata: Metadata = {
+  title: 'Ivan Avdeyev | CV',
+  description: "Ivan Avdeyev's CV."
+}
 
 export default async function CVPage() {
   return (
