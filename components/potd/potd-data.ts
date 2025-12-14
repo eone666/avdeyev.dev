@@ -1,13 +1,12 @@
-export const phrases: string[] = [
+// NO MORE THAN 40 CHARACTERS
+export const potd: string[] = [
     "Keep it simple, stupid!",
     "Try Minecraft!",
     "Try Terraria!",
-    "Try Jägermeister!",
     "Rubber duck debugging works!",
     "Code like nobody’s watching",
     "Refactor before you wreck it",
     "Coffee first, then code",
-    "Sleep is for the weak… or for tomorrow",
     "Hello world! Again...",
     "Don’t reinvent the wheel",
     "Eat, sleep, code, repeat",
@@ -16,12 +15,9 @@ export const phrases: string[] = [
     "Keep calm and debug",
     "Code today, fix tomorrow",
     "Absolude coding!",
-    "There is no bug — just undocumented features",
-    "Debugging is like being a detective in a crime movie",
     "Console.log — the universal debugger",
     "It works on my machine!",
     "CI/CD? More like Cry/Complain/Deploy",
-    "Git push --force: my daily adrenaline shot",
     "LGTM",
     "Do a barrel roll!",
     "Press F to pay respects",
@@ -32,5 +28,11 @@ export const phrases: string[] = [
     "Read the docs… seriously.",
     "Hello, world!",
     "Friday is for debugging",
-    "Review first, code second — keep the team moving"
+    "sleep(8 * 60 * 60); // mandatory",
+    "Simply lovely",
+    "No bugs, just features",
+    "Box box!",
+    "Task failed successfully",
+    "Hello there!",
+    "This is the way"
 ];
