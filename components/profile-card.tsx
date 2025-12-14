@@ -5,7 +5,7 @@ import Image from "next/image"
 import { SocialShare } from "./social-share"
 import Link from "next/link"
 import { MinecraftText } from "./minecraft-text"
-import { phrases } from "@/app/const phrases"
+import { phrases } from "@/app/phrases"
 
 const links = [
   {
