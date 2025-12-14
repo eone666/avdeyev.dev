@@ -1,6 +1,6 @@
 
 import { CVContent } from "@/components/cv/content"
-import { PrintButton } from "@/components/cv/print-button"
+import { DownloadButton } from "@/components/cv/download-button"
 import { ScalableBlock } from "@/components/cv/scalable-block"
 import { Viewport } from 'next'
 
@@ -20,7 +20,7 @@ export default async function CVPage() {
           <CVContent />
         </main>
       </ScalableBlock>
-      <PrintButton />
+      <DownloadButton />
     </div>
   )
 }
