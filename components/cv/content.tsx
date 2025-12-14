@@ -14,10 +14,10 @@ export function CVContent() {
     <div className="flex flex-col gap-4 print:gap-0">
       {/* Page 1 */}
       <PageFrame>
-        <Header name="Ivan Avdeyev" email="contact@avdeyev.dev" label="Frontend Engineer" url="https://avdeyev.dev" location={{ city: "Almaty", countryCode: "KZ" }} />
+        <Header name="Ivan Avdeyev" email="contact@avdeyev.dev" label="Frontend Developer" url="https://avdeyev.dev" location={{ city: "Almaty", countryCode: "KZ" }} />
 
         <Summary>
-          Frontend Engineer with 6+ years of experience, skilled in creating responsive, user-friendly web applications using modern frameworks and technologies, ensuring clean, maintainable, and well-structured code.
+          Frontend Developer with 6+ years of experience, skilled in creating responsive, user-friendly web applications using modern frameworks and technologies, ensuring clean, maintainable, and well-structured code.
         </Summary>
 
         <WorkXPContainer>

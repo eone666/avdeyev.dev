@@ -1,6 +1,6 @@
 "use client";
 
-import { RiDownload2Line } from "react-icons/ri";
+import { RiDownload2Line, RiPrinterLine } from "react-icons/ri";
 import { Button } from "../ui/button";
 
 export function PrintButton() {
@@ -16,6 +16,7 @@ export function PrintButton() {
         size="lg"
         className="fixed bottom-8 right-8 z-50 shadow-lg print:hidden"
     >
-        Print/Downlad
+        <RiPrinterLine className="size-4" />
+        Print
     </Button>
 }
