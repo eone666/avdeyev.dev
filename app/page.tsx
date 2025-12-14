@@ -2,7 +2,7 @@ import { ProfileCard } from "@/components/profile-card"
 import { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: 'Ivan Avdeyev | Frontend Developer | Links',
+  title: 'Ivan Avdeyev | Frontend Developer | LinksP',
   description: "Ivan Avdeyev's link hub."
 }
 

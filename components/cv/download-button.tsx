@@ -9,7 +9,7 @@ export function DownloadButton() {
         asChild
         variant="default"
         size="lg"
-        className="fixed bottom-8 right-8 z-50 shadow-lg print:hidden"
+        className="print:hidden"
     >
         <a href="/cv.pdf" download>
             <RiDownload2Line className="size-4" />
