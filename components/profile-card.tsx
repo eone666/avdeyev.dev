@@ -5,6 +5,7 @@ import { RiGithubLine, RiLinkedinLine, RiTelegram2Line, RiMailLine, RiExternalLi
 import Image from "next/image"
 import { SocialShare } from "./social-share"
 import Link from "next/link"
+import { MinecraftText } from "./minecraft-text"
 
 const links = [
   {
@@ -63,6 +64,8 @@ export function ProfileCard() {
             <h1 className="text-2xl font-bold text-foreground">Ivan Avdeyev</h1>
             <p className="text-muted-foreground">Frontend Developer</p>
           </div>
+
+          <MinecraftText text="Keep it simple, stupid!" />
         </div>
 
         {/* Main Links */}
