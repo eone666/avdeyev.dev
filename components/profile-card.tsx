@@ -1,4 +1,3 @@
-"use client"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { RiGithubLine, RiLinkedinLine, RiTelegram2Line, RiMailLine, RiExternalLinkLine, RiInstagramLine, RiFileTextLine } from "react-icons/ri"
@@ -6,6 +5,7 @@ import Image from "next/image"
 import { SocialShare } from "./social-share"
 import Link from "next/link"
 import { MinecraftText } from "./minecraft-text"
+import { phrases } from "@/app/const phrases"
 
 const links = [
   {
@@ -50,7 +50,29 @@ const links = [
   },
 ]
 
-export function ProfileCard() {
+function seededRandom(seed: number) {
+  return Math.sin(seed) * 10000 % 1;
+}
+
+export function getPhraseOfTheDay(): string {
+  const now = new Date();
+  const utcYear = now.getUTCFullYear();
+  const utcMonth = now.getUTCMonth();
+  const utcDate = now.getUTCDate();
+
+  const start = new Date(Date.UTC(1999, 11, 22));
+
+  const diffDays = Math.floor(
+    (Date.UTC(utcYear, utcMonth, utcDate) - start.getTime()) / (1000 * 60 * 60 * 24)
+  );
+
+  const shuffledIndex = (diffDays * 7) % phrases.length;
+
+  return phrases[shuffledIndex];
+}
+
+export async function ProfileCard() {
+  const dailyText = getPhraseOfTheDay()
   return (
     <Card className="w-full max-w-md p-8 bg-card border-border">
       <div className="flex flex-col items-center gap-6">
@@ -65,7 +87,7 @@ export function ProfileCard() {
             <p className="text-muted-foreground">Frontend Developer</p>
           </div>
 
-          <MinecraftText text="Keep it simple, stupid!" />
+          <MinecraftText text={dailyText} />
         </div>
 
         {/* Main Links */}
