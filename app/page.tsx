@@ -1,4 +1,11 @@
 import { ProfileCard } from "@/components/profile-card"
+import { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: 'Ivan Avdeyev | Frontend Developer | Links',
+  description: "Ivan Avdeyev's link hub."
+}
+
 
 export default function Home() {
   return (

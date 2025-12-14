@@ -7,7 +7,6 @@ const geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Ivan Avdeyev | Frontent Developer",
-  description: "Ivan Avdeyev's link hub.",
 }
 
 export default function RootLayout({
