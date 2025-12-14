@@ -5,21 +5,34 @@ import { useRef, useEffect, useState, PropsWithChildren, useLayoutEffect } from 
 export function ScalableBlock({ children }: PropsWithChildren) {
     const blockRef = useRef<HTMLDivElement>(null);
     const [scale, setScale] = useState(1);
+    const [isReady, setIsReady] = useState(false);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (typeof window === 'undefined') return
+
+
         const adjustScale = () => {
             if (!blockRef.current) return;
 
-            const windowWidth = window.innerWidth;
-            const blockWidth = blockRef.current.scrollWidth;
 
-            // Вычисляем масштаб по ширине окна
-            const newScale = Math.min(windowWidth / blockWidth, 1);
+            const viewportWidth = window.visualViewport
+                ? window.visualViewport.width
+                : window.innerWidth;
+
+            const availableWidth = viewportWidth;
+            const contentWidth = blockRef.current.scrollWidth;
+
+            const newScale = Math.min(availableWidth / contentWidth, 1);
             setScale(newScale);
+            setIsReady(true);
         };
 
-        adjustScale();
+        requestAnimationFrame(() => {
+            adjustScale();
+        });
+        if (window.visualViewport) {
+            window.visualViewport.addEventListener("resize", adjustScale);
+        }
         window.addEventListener("resize", adjustScale);
         return () => window.removeEventListener("resize", adjustScale);
     }, []);
@@ -28,9 +41,13 @@ export function ScalableBlock({ children }: PropsWithChildren) {
         <div
             ref={blockRef}
             style={{
+                opacity: isReady ? 1 : 0,
                 transform: `scale(${scale})`,
                 transformOrigin: "top left",
                 boxSizing: "border-box",
+                padding: '0 16px',
+                width: "fit-content",
+                marginInline: 'auto'
             }}
         >
             {children}
