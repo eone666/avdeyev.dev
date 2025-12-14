@@ -1,35 +1,46 @@
 "use client"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { RiGithubLine, RiLinkedinLine, RiTelegram2Line, RiMailLine, RiExternalLinkLine, RiInstagramLine } from "react-icons/ri"
+import { RiGithubLine, RiLinkedinLine, RiTelegram2Line, RiMailLine, RiExternalLinkLine, RiInstagramLine, RiFileTextLine } from "react-icons/ri"
 import Image from "next/image"
 import { SocialShare } from "./social-share"
+import Link from "next/link"
 
 const links = [
   {
     title: "GitHub",
     url: "https://github.com/eone666",
     icon: RiGithubLine,
+    external: true
   },
   {
     title: "LinkedIn",
     url: "https://www.linkedin.com/in/eone666/",
     icon: RiLinkedinLine,
+    external: true
+  },
+  {
+    title: "CV",
+    url: "/cv",
+    icon: RiFileTextLine,
   },
   {
     title: "Telegram",
     url: "https://t.me/eone666",
     icon: RiTelegram2Line,
+    external: true
   },
   {
     title: "Telegram Channel",
     url: "https://t.me/avdeyev_dev",
     icon: RiTelegram2Line,
+    external: true
   },
   {
     title: "Instagram",
     url: "https://instagram.com/avdeyev.dev",
     icon: RiInstagramLine,
+    external: true
   },
   {
     title: "Email Me",
@@ -65,13 +76,13 @@ export function ProfileCard() {
                 className="w-full h-14 justify-between group hover:bg-secondary/80 hover:border-primary/50 border border-transparent transition-all overflow-hidden"
                 asChild
               >
-                <a href={link.url} target="_blank" rel="noopener noreferrer">
+                <Link href={link.url} target={link.external ? '_blank' : undefined} rel="noopener noreferrer">
                   <div className="flex items-center gap-3 overflow-hidden">
                     <Icon className="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
                     <span className="font-medium  overflow-hidden overflow-ellipsis whitespace-nowrap">{link.title}</span>
                   </div>
-                  <RiExternalLinkLine className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-primary transition-all" />
-                </a>
+                  {link.external && <RiExternalLinkLine className="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-primary transition-all" />}
+                </Link>
               </Button>
             )
           })}
