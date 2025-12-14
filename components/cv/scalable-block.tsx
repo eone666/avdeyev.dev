@@ -47,7 +47,8 @@ export function ScalableBlock({ children }: PropsWithChildren) {
                 boxSizing: "border-box",
                 padding: '0 16px',
                 width: "fit-content",
-                marginInline: 'auto'
+                marginInline: 'auto',
+                height: isReady ? `${blockRef.current?.scrollHeight ? blockRef.current.scrollHeight * scale : 'auto'}px` : 'auto',
             }}
         >
             {children}

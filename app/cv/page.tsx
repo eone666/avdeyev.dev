@@ -14,7 +14,7 @@ export const viewport: Viewport = {
 
 export default async function CVPage() {
   return (
-    <div className="min-h-screen bg-muted/30">
+    <div className="bg-muted/30">
       <ScalableBlock>
         <main className="py-8 print:p-0 flex">
           <CVContent />
