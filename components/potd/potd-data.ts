@@ -1,5 +1,5 @@
 // NO MORE THAN 40 CHARACTERS
-export const potd: string[] = [
+export const potds: string[] = [
     "Keep it simple, stupid!",
     "Try Minecraft!",
     "Try Terraria!",
@@ -14,7 +14,7 @@ export const potd: string[] = [
     "Stack Overflow saves lives",
     "Keep calm and debug",
     "Code today, fix tomorrow",
-    "Absolude coding!",
+    "Absolute coding!",
     "Console.log — the universal debugger",
     "It works on my machine!",
     "CI/CD? More like Cry/Complain/Deploy",

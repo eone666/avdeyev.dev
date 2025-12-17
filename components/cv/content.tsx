@@ -11,7 +11,7 @@ import { Languages } from "./certifications/languages"
 
 export function CVContent() {
   return (
-    <div className="flex flex-col gap-4 print:gap-0">
+    <div className="flex flex-col gap-4 print:gap-0 use-mm">
       {/* Page 1 */}
       <PageFrame>
         <Header name="Ivan Avdeyev" email="contact@avdeyev.dev" label="Frontend Developer" url="https://avdeyev.dev" location={{ city: "Almaty", countryCode: "KZ" }} />

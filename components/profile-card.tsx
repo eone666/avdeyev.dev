@@ -4,7 +4,7 @@ import { RiGithubLine, RiLinkedinLine, RiTelegram2Line, RiMailLine, RiExternalLi
 import Image from "next/image"
 import { SocialShare } from "./social-share"
 import Link from "next/link"
-import { POTD } from "./potd/podt"
+import { POTD } from "./potd/podt-c"
 
 const links = [
   {
