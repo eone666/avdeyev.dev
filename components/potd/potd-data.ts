@@ -35,5 +35,6 @@ export const potds: string[] = [
     "Task failed successfully.",
     "Hello there!",
     "This is the way.",
-    "Jägermeister, please sponsor me."
+    "Jägermeister, please sponsor me.",
+    "Trust me, I’m an engineer!"
 ];
