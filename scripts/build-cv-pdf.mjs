@@ -177,8 +177,25 @@ try {
     await send('Page.enable')
     await send('Page.navigate', { url: TARGET })
 
-    // Fonts and the island's layout pass both need a beat.
-    await sleep(2500)
+    // Wait for the fonts rather than sleeping on a guess. Printing before they
+    // land silently swaps in a fallback face and embeds fewer glyphs, which
+    // shows up as a PDF that is quietly both wrong and smaller.
+    await waitFor(
+        async () => {
+            const { result } = await send('Runtime.evaluate', {
+                expression: `document.readyState === 'complete'
+                    && document.fonts.status === 'loaded'
+                    && document.fonts.size > 0`,
+                returnByValue: true
+            })
+
+            return result.value === true
+        },
+        'the page and its fonts to be ready'
+    )
+
+    // One more frame so the island's layout pass has been applied.
+    await sleep(250)
 
     const { data } = await send('Page.printToPDF', {
         printBackground: true,
