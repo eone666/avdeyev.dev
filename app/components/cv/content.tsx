@@ -15,7 +15,7 @@ export function CVContent() {
         <Header name="Ivan Avdeyev" email="contact@avdeyev.dev" label="Frontend Developer" url="https://avdeyev.dev" location={{ city: "Almaty", countryCode: "KZ" }} />
 
         <Summary>
-          Frontend developer, mostly React and Next.js. Most of the work has been rebuilding what outgrew its first design: a legacy JavaScript codebase migrated to TypeScript, a shared component library, complex data visualizations.
+          I'm a frontend engineer who likes being able to take on any part of it — product features, shared component libraries, legacy migrations, data-heavy interfaces. Design is not my trade, but UX is where I put the extra effort: I would rather build something people enjoy using than something that merely works.
         </Summary>
 
         <WorkXPContainer>
