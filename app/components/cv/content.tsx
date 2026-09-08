@@ -76,10 +76,10 @@ export function CVContent() {
         </EducationContainer>
 
         <SkillsContainer>
-          <SkillsBlock title="Languages" skills={["JavaScript/TypeScript", "HTML", "CSS/SCSS", "SQL", "GraphQL"]} />
-          <SkillsBlock title="Frameworks & Libraries" skills={["React/Next.js", "Tailwind", "Astro", "Vue/Nuxt", "TanStack Query/SWR", "Redux/Thunk/Saga", "Zod", "tRPC"]} />
+          <SkillsBlock title="Languages" skills={["JavaScript", "TypeScript", "HTML", "CSS", "SCSS", "SQL", "GraphQL"]} />
+          <SkillsBlock title="Frameworks & Libraries" skills={["React", "Next.js", "Tailwind", "Astro", "Vue", "Nuxt", "TanStack Query", "SWR", "Redux", "Redux Thunk", "Redux Saga", "Zod", "tRPC"]} />
           <SkillsBlock title="Tools & Platforms" skills={["Storybook", "Git", "Vitest", "Node.js", "PostgreSQL", "Docker", "Linux", "Vite"]} />
-          <SkillsBlock title="Concepts" skills={["REST APIs", "Agile/Scrum", "CI/CD", "Software Design Principles", "SEO"]} />
+          <SkillsBlock title="Concepts" skills={["REST APIs", "Agile", "Scrum", "CI/CD", "Software Design Principles", "SEO"]} />
         </SkillsContainer>
 
         <Languages langs={[["Russian", "Native"], ["English", "Intermediate"]]} />
