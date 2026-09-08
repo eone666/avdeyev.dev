@@ -18,7 +18,7 @@ export function ErrorPage({ code, title, description }: ErrorPageProps) {
         <main class="pixel-dither relative min-h-dvh flex items-center justify-center p-4">
             <CloudSky seed={randomSeed()} />
 
-            <Card class="pixel-panel w-full max-w-md p-8 bg-card border-border">
+            <Card class="w-full max-w-md p-8 bg-card border-border">
                 <div class="flex flex-col items-center gap-6 text-center">
                     <p class="pixel-mark text-6xl font-bold leading-none">
                         <MinecraftText text={code} />
@@ -31,7 +31,7 @@ export function ErrorPage({ code, title, description }: ErrorPageProps) {
 
                     <ButtonLink
                         variant="secondary"
-                        class="pixel-btn w-full h-14 group hover:bg-secondary/80 hover:border-primary/50 border border-transparent"
+                        class="w-full h-14 group hover:bg-secondary/80 hover:border-primary/50 border border-transparent"
                         href="/"
                     >
                         <RiArrowLeftLine class="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />

@@ -52,7 +52,7 @@ export default function SocialShare({ title = "Check this out!", text = "", clas
 
     if (isWebShareSupported && !showFallback) {
         return (
-            <Button onClick={handleNativeShare} variant="outline" size="sm" class={`pixel-btn pixel-btn-sm ${className}`}>
+            <Button onClick={handleNativeShare} variant="outline" size="sm" class={className}>
                 <RiShareLine class="h-4 w-4 mr-2" />
                 Share
             </Button>
@@ -64,23 +64,23 @@ export default function SocialShare({ title = "Check this out!", text = "", clas
             <span class="text-sm text-muted-foreground mr-1">Share:</span>
 
             <div class="flex gap-2 justify-center align-center flex-wrap">
-                <ButtonLink variant="outline" size="icon" class="pixel-btn pixel-btn-sm h-8 w-8 bg-transparent" href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" aria-label="Share on X (Twitter)">
+                <ButtonLink variant="outline" size="icon" class="h-8 w-8 bg-transparent" href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" aria-label="Share on X (Twitter)">
                     <RiTwitterXLine class="h-4 w-4" />
                 </ButtonLink>
 
-                <ButtonLink variant="outline" size="icon" class="pixel-btn pixel-btn-sm h-8 w-8 bg-transparent" href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook">
+                <ButtonLink variant="outline" size="icon" class="h-8 w-8 bg-transparent" href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook">
                     <RiFacebookLine class="h-4 w-4" />
                 </ButtonLink>
 
-                <ButtonLink variant="outline" size="icon" class="pixel-btn pixel-btn-sm h-8 w-8 bg-transparent" href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn">
+                <ButtonLink variant="outline" size="icon" class="h-8 w-8 bg-transparent" href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn">
                     <RiLinkedinLine class="h-4 w-4" />
                 </ButtonLink>
 
-                <ButtonLink variant="outline" size="icon" class="pixel-btn pixel-btn-sm h-8 w-8 bg-transparent" href={socialLinks.reddit} target="_blank" rel="noopener noreferrer" aria-label="Share on Reddit">
+                <ButtonLink variant="outline" size="icon" class="h-8 w-8 bg-transparent" href={socialLinks.reddit} target="_blank" rel="noopener noreferrer" aria-label="Share on Reddit">
                     <RiRedditLine class="h-4 w-4" />
                 </ButtonLink>
 
-                <ButtonLink variant="outline" size="icon" class="pixel-btn pixel-btn-sm h-8 w-8 bg-transparent" href={socialLinks.telegram} target="_blank" rel="noopener noreferrer" aria-label="Share on Telegram">
+                <ButtonLink variant="outline" size="icon" class="h-8 w-8 bg-transparent" href={socialLinks.telegram} target="_blank" rel="noopener noreferrer" aria-label="Share on Telegram">
                     <RiTelegram2Line class="h-4 w-4" />
                 </ButtonLink>
             </div>

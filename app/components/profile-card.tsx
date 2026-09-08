@@ -58,15 +58,20 @@ const links = [
 
 export function ProfileCard() {
   return (
-    <Card class="pixel-panel w-full max-w-md p-8 bg-card border-border">
-      <div class="flex flex-col items-center gap-6">
+    <Card class="w-full max-w-md p-8 bg-card border-border">
+      {/* A container, so the wordmark below can size itself against the card
+          rather than the viewport. */}
+      <div class="@container flex flex-col items-center gap-6">
         {/* Profile Section */}
         <div class="flex flex-col items-center gap-4 text-center">
           {/* Wordmark instead of the logo image — no plate, no image request.
               font-bold is 700, which is the top of Pixelify Sans' wght axis. */}
-          {/* Fluid: the wordmark has no break opportunity, so a fixed size
-              could overflow the card on a narrow screen. */}
-          <span class="pixel-mark font-pixel text-primary text-[clamp(1.5rem,8vw,3rem)] font-bold leading-none">
+          {/* Fluid, and measured against the card rather than the viewport:
+              the wordmark is a constant 6.24em wide and has no break
+              opportunity, so 14.7cqw holds it at ~92% of the card on any
+              screen. In vw it tracked the window instead and stalled at 78%
+              the moment the card stopped growing. */}
+          <span class="pixel-mark font-pixel text-primary text-[clamp(1.5rem,14.7cqw,3.6rem)] font-bold leading-none">
             AVDEYEV.DEV
           </span>
 
@@ -87,7 +92,7 @@ export function ProfileCard() {
               <ButtonLink
                 key={index}
                 variant="secondary"
-                class="pixel-btn w-full h-14 justify-between group hover:bg-secondary/80 hover:border-primary/50 border border-transparent overflow-hidden"
+                class="w-full h-14 justify-between group hover:bg-secondary/80 hover:border-primary/50 border border-transparent overflow-hidden"
                 href={link.url}
                 target={link.external ? '_blank' : undefined}
                 rel="noopener noreferrer"
