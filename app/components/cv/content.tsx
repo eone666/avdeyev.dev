@@ -55,7 +55,7 @@ export function CVContent() {
       <PageFrame>
 
         <section>
-          <WorkXPItem position="HTML Coder" company="LLC Megagroup IT" startDate="Apr 2019" endDate="May 2020" location={{
+          <WorkXPItem position="Markup Developer" company="LLC Megagroup IT" startDate="Apr 2019" endDate="May 2020" location={{
             city: "Oskemen",
             countryCode: "KZ"
           }}
