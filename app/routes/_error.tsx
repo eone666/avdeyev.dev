@@ -1,0 +1,24 @@
+import type { ErrorHandler } from 'hono'
+import { ErrorPage } from '@/components/error-page'
+
+const handler: ErrorHandler = (e, c) => {
+  if ('getResponse' in e) {
+    return e.getResponse()
+  }
+
+  // Log the whole error, not just the message — the stack is what makes a 500
+  // debuggable from the container logs.
+  console.error(e)
+
+  c.status(500)
+  return c.render(
+    <ErrorPage
+      code="500"
+      title="Internal server error"
+      description="Task failed successfully."
+    />,
+    { title: 'Ivan Avdeyev | Internal server error' }
+  )
+}
+
+export default handler

@@ -1,0 +1,467 @@
+@import 'tailwindcss' source('../app');
+
+/* Self-hosted, replaces next/font/google */
+@import '@fontsource-variable/geist-mono';
+@import '@fontsource-variable/pixelify-sans';
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  --background: oklch(0.11 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.93 0.24 120);
+  --primary-foreground: oklch(0.11 0 0);
+  --secondary: oklch(0.2 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.22 0 0);
+  --muted-foreground: oklch(0.65 0 0);
+  --accent: oklch(0.93 0.24 120);
+  --accent-foreground: oklch(0.11 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.28 0 0);
+  --input: oklch(0.28 0 0);
+  --ring: oklch(0.93 0.24 120);
+  --chart-1: oklch(0.93 0.24 120);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --radius: 0.75rem;
+  --sidebar: oklch(0.145 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.93 0.24 120);
+  --sidebar-primary-foreground: oklch(0.11 0 0);
+  --sidebar-accent: oklch(0.2 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.28 0 0);
+  --sidebar-ring: oklch(0.93 0.24 120);
+
+  /* Pixel-UI palette: hard, un-blurred highlights and shadows. */
+  --pixel-light: oklch(1 0 0 / 0.14);
+  --pixel-dark: oklch(0 0 0 / 0.45);
+  --pixel-drop: oklch(0 0 0 / 0.55);
+  --pixel-glow: oklch(0.93 0.24 120 / 0.35);
+  --pixel-dither: oklch(1 0 0 / 0.022);
+}
+
+.dark {
+  --background: oklch(0.11 0 0);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.145 0 0);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.145 0 0);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.93 0.24 120);
+  --primary-foreground: oklch(0.11 0 0);
+  --secondary: oklch(0.2 0 0);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.22 0 0);
+  --muted-foreground: oklch(0.65 0 0);
+  --accent: oklch(0.93 0.24 120);
+  --accent-foreground: oklch(0.11 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: oklch(0.985 0 0);
+  --border: oklch(0.28 0 0);
+  --input: oklch(0.28 0 0);
+  --ring: oklch(0.93 0.24 120);
+  --chart-1: oklch(0.93 0.24 120);
+  --chart-2: oklch(0.6 0.118 184.704);
+  --chart-3: oklch(0.398 0.07 227.392);
+  --chart-4: oklch(0.828 0.189 84.429);
+  --chart-5: oklch(0.769 0.188 70.08);
+  --sidebar: oklch(0.145 0 0);
+  --sidebar-foreground: oklch(0.985 0 0);
+  --sidebar-primary: oklch(0.93 0.24 120);
+  --sidebar-primary-foreground: oklch(0.11 0 0);
+  --sidebar-accent: oklch(0.2 0 0);
+  --sidebar-accent-foreground: oklch(0.985 0 0);
+  --sidebar-border: oklch(0.28 0 0);
+  --sidebar-ring: oklch(0.93 0.24 120);
+}
+
+@theme inline {
+  --font-mono: 'Geist Mono Variable', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-pixel: 'Pixelify Sans Variable', 'Geist Mono Variable', monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  /* HonoX wraps every island in this custom element; keep it out of layout. */
+  honox-island {
+    display: contents;
+  }
+}
+
+@layer utilities {
+  @keyframes mc-wobble {
+
+    0%,
+    100% {
+      transform: translateY(0) rotate(0deg);
+    }
+
+    25% {
+      transform: translateY(-2px) rotate(-1deg);
+    }
+
+    50% {
+      transform: translateY(0) rotate(1deg);
+    }
+
+    75% {
+      transform: translateY(1px) rotate(-0.5deg);
+    }
+  }
+
+  @keyframes mc-float {
+
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+
+    50% {
+      transform: translateY(-3px);
+    }
+  }
+
+  .animate-mc-wobble {
+    animation: mc-wobble 2.5s ease-in-out infinite;
+  }
+
+  .animate-mc-float {
+    animation: mc-float 1.8s ease-in-out infinite;
+  }
+
+  /*
+   * Pixel-UI surfaces. These are hand-written utilities, so they land after
+   * Tailwind's own in the utilities layer and win the tie against rounded-*
+   * and shadow-* on the same element.
+   */
+
+  /* Raised panel: light bevel top-left, dark bottom-right, hard drop shadow. */
+  .pixel-panel {
+    border-radius: 0;
+    box-shadow:
+      inset 3px 3px 0 0 var(--pixel-light),
+      inset -3px -3px 0 0 var(--pixel-dark),
+      6px 6px 0 0 var(--pixel-drop);
+  }
+
+  /*
+   * Wordmark. The hard offset shadow is how Minecraft renders text — no blur.
+   * The second shadow is the ambient glow the logo image used to carry.
+   */
+  .pixel-mark {
+    text-shadow:
+      4px 4px 0 var(--pixel-drop),
+      0 0 24px var(--pixel-glow);
+  }
+
+  .pixel-btn {
+    --pixel-bevel: 2px;
+    --pixel-depth: 4px;
+    --pixel-nudge: 2px;
+
+    border-radius: 0;
+    box-shadow:
+      inset var(--pixel-bevel) var(--pixel-bevel) 0 0 var(--pixel-light),
+      inset calc(var(--pixel-bevel) * -1) calc(var(--pixel-bevel) * -1) 0 0 var(--pixel-dark),
+      var(--pixel-depth) var(--pixel-depth) 0 0 var(--pixel-drop);
+    /* steps() so the button snaps between states instead of gliding. */
+    transition:
+      transform 90ms steps(2),
+      box-shadow 90ms steps(2);
+  }
+
+  /* Compact variant for small icon controls, so the shadow stays in scale. */
+  .pixel-btn-sm {
+    --pixel-bevel: 1px;
+    --pixel-depth: 2px;
+    --pixel-nudge: 1px;
+  }
+
+  .pixel-btn:hover {
+    transform: translate(calc(var(--pixel-nudge) * -1), calc(var(--pixel-nudge) * -1));
+    box-shadow:
+      inset var(--pixel-bevel) var(--pixel-bevel) 0 0 var(--pixel-light),
+      inset calc(var(--pixel-bevel) * -1) calc(var(--pixel-bevel) * -1) 0 0 var(--pixel-dark),
+      calc(var(--pixel-depth) + var(--pixel-nudge)) calc(var(--pixel-depth) + var(--pixel-nudge)) 0 0 var(--pixel-drop);
+  }
+
+  /*
+   * box-shadow is spoken for by the bevel, and Tailwind draws its focus ring
+   * with box-shadow too — so focus gets a real outline instead. Also beats
+   * the `outline-none` in buttonVariants on specificity.
+   */
+  .pixel-btn:focus-visible {
+    outline: 3px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  /* Pressed: bevel inverts and the button sits down onto its own shadow. */
+  .pixel-btn:active {
+    transform: translate(var(--pixel-depth), var(--pixel-depth));
+    box-shadow:
+      inset var(--pixel-bevel) var(--pixel-bevel) 0 0 var(--pixel-dark),
+      inset calc(var(--pixel-bevel) * -1) calc(var(--pixel-bevel) * -1) 0 0 var(--pixel-light),
+      0 0 0 0 var(--pixel-drop);
+  }
+
+  /*
+   * The WebGL cloud sky sits here. z-index -1 puts it behind the page content
+   * while still painting above the canvas background, so the card needs no
+   * wrapper and keeps its own width basis.
+   */
+  .pixel-sky {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+
+    /*
+     * The sun and its halo live in the scene itself, so the only thing left
+     * here is light pooling along the horizon — the canvas is drawn with
+     * alpha, so its own background shows through at no cost. 70% is where the
+     * horizon lands for the camera's fixed vertical field of view.
+     */
+    background:
+      radial-gradient(150% 26% at 50% 70%,
+        oklch(0.93 0.24 120 / 0.05) 0%,
+        transparent 80%);
+  }
+
+  /*
+   * The CV's scaling wrapper. These live in a class rather than inline on the
+   * element so the print rules below can override them — printing has to be
+   * deterministic whatever the ScalableBlock island computed for the screen.
+   */
+  .cv-scale {
+    opacity: 0;
+    transform-origin: top left;
+    box-sizing: border-box;
+    padding: 0 16px;
+    width: fit-content;
+    margin-inline: auto;
+  }
+
+  @media print {
+    .cv-scale {
+      /* !important beats the island's inline transform, height and opacity. */
+      opacity: 1 !important;
+      transform: none !important;
+      height: auto !important;
+      /* The pages are exactly 210mm; side padding would overflow the paper. */
+      padding: 0 !important;
+    }
+  }
+
+  /* 3px checkerboard, barely visible — gives the backdrop a pixel grain. */
+  .pixel-dither {
+    background-image: conic-gradient(var(--pixel-dither) 0 25%,
+        transparent 0 50%,
+        var(--pixel-dither) 0 75%,
+        transparent 0);
+    background-size: 6px 6px;
+  }
+
+  .use-mm>* {
+    --spacing: 1mm;
+
+    &.border {
+      border-width: calc(1 * var(--spacing));
+    }
+
+    &.border-0 {
+      border-width: calc(0 * var(--spacing));
+    }
+
+    &.border-2 {
+      border-width: calc(2 * var(--spacing));
+    }
+
+    &.border-4 {
+      border-width: calc(4 * var(--spacing));
+    }
+
+    &.border-8 {
+      border-width: calc(8 * var(--spacing));
+    }
+
+    &.border-t {
+      border-top-width: calc(1 * var(--spacing));
+    }
+
+    &.border-t-0 {
+      border-top-width: calc(0 * var(--spacing));
+    }
+
+    &.border-t-2 {
+      border-top-width: calc(2 * var(--spacing));
+    }
+
+    &.border-t-4 {
+      border-top-width: calc(4 * var(--spacing));
+    }
+
+    &.border-b {
+      border-bottom-width: calc(1 * var(--spacing));
+    }
+
+    &.border-b-0 {
+      border-bottom-width: calc(0 * var(--spacing));
+    }
+
+    &.border-b-2 {
+      border-bottom-width: calc(2 * var(--spacing));
+    }
+
+    &.border-b-4 {
+      border-bottom-width: calc(4 * var(--spacing));
+    }
+
+    &.border-l {
+      border-left-width: calc(1 * var(--spacing));
+    }
+
+    &.border-l-0 {
+      border-left-width: calc(0 * var(--spacing));
+    }
+
+    &.border-l-2 {
+      border-left-width: calc(2 * var(--spacing));
+    }
+
+    &.border-l-4 {
+      border-left-width: calc(4 * var(--spacing));
+    }
+
+    &.border-r {
+      border-right-width: calc(1 * var(--spacing));
+    }
+
+    &.border-r-0 {
+      border-right-width: calc(0 * var(--spacing));
+    }
+
+    &.border-r-2 {
+      border-right-width: calc(2 * var(--spacing));
+    }
+
+    &.border-r-4 {
+      border-right-width: calc(4 * var(--spacing));
+    }
+
+    &.border-x {
+      border-left-width: calc(1 * var(--spacing));
+      border-right-width: calc(1 * var(--spacing));
+    }
+
+    &.border-y {
+      border-top-width: calc(1 * var(--spacing));
+      border-bottom-width: calc(1 * var(--spacing));
+    }
+
+    /* Rounded corners using spacing */
+    &.rounded {
+      border-radius: calc(1 * var(--spacing));
+    }
+
+    &.rounded-sm {
+      border-radius: calc(0.5 * var(--spacing));
+    }
+
+    &.rounded-md {
+      border-radius: calc(1.5 * var(--spacing));
+    }
+
+    &.rounded-lg {
+      border-radius: calc(2 * var(--spacing));
+    }
+
+    &.rounded-xl {
+      border-radius: calc(3 * var(--spacing));
+    }
+
+    &.rounded-2xl {
+      border-radius: calc(4 * var(--spacing));
+    }
+
+    &.rounded-3xl {
+      border-radius: calc(6 * var(--spacing));
+    }
+  }
+}
+
+/*
+ * The wobble, the float and the button snap are all decorative. None of them
+ * were gated before; they are now.
+ */
+@media (prefers-reduced-motion: reduce) {
+
+  /* The sky checks this media query itself and stops its render loop. */
+  .animate-mc-wobble,
+  .animate-mc-float {
+    animation: none;
+  }
+
+  .pixel-btn {
+    transition: none;
+  }
+
+  .pixel-btn:hover,
+  .pixel-btn:active {
+    transform: none;
+  }
+}

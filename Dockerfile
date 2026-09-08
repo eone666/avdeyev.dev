@@ -1,51 +1,47 @@
-    # Base stage for dependencies
-    FROM node:20-alpine AS base
+# Install dependencies only when needed
+FROM oven/bun:1-alpine AS deps
+WORKDIR /app
+COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile
 
-    # Install dependencies only when needed
-    FROM base AS deps
-    RUN apk add --no-cache libc6-compat
-    WORKDIR /app
+# Build the client bundle, the SSR server bundle, and the CV PDF
+FROM oven/bun:1-alpine AS builder
+WORKDIR /app
 
-    # Copy package files
-    COPY package.json package-lock.json* ./
-    RUN npm ci
+# Chromium is here to print the CV, and only here: the runner stage below
+# copies dist/ and nothing else, so none of this reaches the final image.
+# Alpine's package is used rather than Puppeteer's bundled browser, which
+# would add a few hundred megabytes to node_modules and does not run on musl.
+RUN apk add --no-cache \
+  chromium \
+  nss \
+  freetype \
+  harfbuzz \
+  ttf-freefont \
+  ca-certificates
 
-    # Rebuild the source code only when needed
-    FROM base AS builder
-    WORKDIR /app
-    COPY --from=deps /app/node_modules ./node_modules
-    COPY . .
+COPY --from=deps /app/node_modules ./node_modules
+COPY . .
 
-    # Disable telemetry during build
-    ENV NEXT_TELEMETRY_DISABLED 1
+RUN bun run build
+# The page is the single source of the layout; dist/ is where it gets served
+# from, public/ keeps the local dev server in step.
+RUN bun run cv:pdf dist/cv.pdf public/cv.pdf
 
-    RUN npm run build
+# Runtime. The SSR bundle inlines its dependencies, so no node_modules here.
+FROM oven/bun:1-alpine AS runner
+WORKDIR /app
 
-    # Production image, copy all the files and run next
-    FROM base AS runner
-    WORKDIR /app
+ENV NODE_ENV=production
+# Bun's entry exports the app rather than calling serve(), so the port comes
+# from the environment. 3000 is Bun's default; naming it keeps it overridable.
+ENV PORT=3000
 
-    ENV NODE_ENV production
-    ENV NEXT_TELEMETRY_DISABLED 1
+# The image already ships an unprivileged `bun` user.
+COPY --from=builder --chown=bun:bun /app/dist ./dist
 
-    RUN addgroup --system --gid 1001 nodejs
-    RUN adduser --system --uid 1001 nextjs
+USER bun
 
-    COPY --from=builder /app/public ./public
+EXPOSE 3000
 
-    # Set the correct permission for prerender cache
-    RUN mkdir .next
-    RUN chown nextjs:nodejs .next
-
-    # Automatically leverage output traces to reduce image size
-    COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
-    COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
-
-    USER nextjs
-
-    EXPOSE 3000
-
-    ENV PORT 3000
-    ENV HOSTNAME "0.0.0.0"
-
-    CMD ["node", "server.js"]
+CMD ["bun", "./dist/index.js"]

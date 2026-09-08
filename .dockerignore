@@ -1,0 +1,6 @@
+node_modules
+dist
+.hono
+.git
+.DS_Store
+*.log
