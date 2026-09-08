@@ -18,10 +18,6 @@ export const RiCodeLine = makeIcon(
   '0 0 24 24',
   "m23 12l-7.071 7.071l-1.414-1.414L20.172 12l-5.657-5.657l1.414-1.414zM3.828 12l5.657 5.657l-1.414 1.414L1 12l7.071-7.071l1.414 1.414z"
 )
-export const RiDownload2Line = makeIcon(
-  '0 0 24 24',
-  "M13 10h5l-6 6l-6-6h5V3h2zm-9 9h16v-7h2v8a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1v-8h2z"
-)
 export const RiExternalLinkLine = makeIcon(
   '0 0 24 24',
   "M10 6v2H5v11h11v-5h2v6a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1zm11-3v8h-2V6.413l-7.793 7.794l-1.414-1.414L17.585 5H13V3z"

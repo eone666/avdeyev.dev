@@ -1,42 +1,29 @@
 import { createRoute } from 'honox/factory'
 import { CVContent } from '@/components/cv/content'
-import { DownloadButton } from '@/components/cv/download-button'
-import { ButtonLink } from '@/components/ui/button'
-import { RiArrowLeftLine } from '@/components/icons'
-import ScalableBlock from '@/islands/scalable-block'
-
-const CV_SCALE_ID = 'cv-scale'
 
 /**
- * The CV as a page. Nothing links here any more — the card links straight to
- * the generated PDF — but this is the source `npm run cv:pdf` prints from, so
- * the layout and the PDF can never drift apart.
+ * The CV as a page. It exists only to be printed to PDF — the card links to
+ * the PDF, and this is what it is printed from, so the layout and the file
+ * cannot drift apart.
+ *
+ * Which is why it is not served to the public: a deployed copy would be a
+ * second, unlinked version of the CV for search engines to find. It answers in
+ * dev, and to the printer, which sets CV_PRINT on the server it starts. The
+ * deployed container sets neither, so this 404s like any other unknown path.
+ *
+ * Nothing here is for a screen. The back link, the download button and the
+ * block that scaled the page down to fit a phone were all dead the moment a
+ * reader stopped being able to reach this.
  */
-export default createRoute((c) =>
-  c.render(
-    <div class="bg-muted/30">
-      <div class="p-3 border-b border-primary flex justify-between items-center gap-4 print:hidden">
-        <ButtonLink variant="link" href="/">
-          <RiArrowLeftLine /> Home
-        </ButtonLink>
-        <DownloadButton />
-      </div>
+export default createRoute((c) => {
+  if (!import.meta.env.DEV && process.env.CV_PRINT !== '1') {
+    return c.notFound()
+  }
 
-      {/* Sized and un-hidden by the ScalableBlock island below. */}
-      <noscript>
-        <style>{`#${CV_SCALE_ID} { opacity: 1 !important }`}</style>
-      </noscript>
-      <div id={CV_SCALE_ID} class="cv-scale">
-        <main class="py-8 print:p-0 flex">
-          <CVContent />
-        </main>
-      </div>
-      <ScalableBlock target={`#${CV_SCALE_ID}`} />
-    </div>,
-    {
-      title: 'Ivan Avdeyev | CV',
-      description: "Ivan Avdeyev's CV.",
-      viewport: 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no'
-    }
+  return c.render(
+    <main class="flex">
+      <CVContent />
+    </main>,
+    { title: 'Ivan Avdeyev | CV' }
   )
-)
+})

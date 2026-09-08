@@ -8,7 +8,6 @@ const ICONS = [
   'award-line',
   'briefcase-2-line',
   'code-line',
-  'download-2-line',
   'external-link-line',
   'facebook-line',
   'file-text-line',
