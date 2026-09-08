@@ -2,21 +2,30 @@ import { sortLocation, type Location } from '@/lib/utils'
 
 export type WorkXPItemProps = {
     position: string;
-    company: string;
-    location: Location;
+    /** Absent for entries that are not a job, such as a career break. */
+    company?: string;
+    location?: Location;
     startDate: string;
     endDate: string;
-    highlights: string[];
+    highlights?: string[];
 }
 
-export function WorkXPItem({ position, company, location, startDate, endDate, highlights }: WorkXPItemProps) {
+export function WorkXPItem({
+    position,
+    company,
+    location,
+    startDate,
+    endDate,
+    highlights = []
+}: WorkXPItemProps) {
     const locationArray = Object.values(sortLocation(location ?? {}))
+    const subtitle = [company, locationArray.join(', ')].filter(Boolean).join(' · ')
 
     return <div class="border-l-2 border-black pl-6 pr-4 py-4 bg-white">
         <div class="flex items-start justify-between mb-2 flex-wrap gap-2">
             <div>
                 <h3 class="text-lg font-bold text-black">{position}</h3>
-                <p class="text-sm text-gray-700 font-medium">{company}{!!locationArray.length && ` · ${locationArray.join(', ')}`}</p>
+                {!!subtitle && <p class="text-sm text-gray-700 font-medium">{subtitle}</p>}
             </div>
             <span class="text-sm font-semibold text-black border border-black px-3 py-1 whitespace-nowrap">
                 {startDate}–{endDate}

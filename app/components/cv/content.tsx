@@ -15,7 +15,7 @@ export function CVContent() {
         <Header name="Ivan Avdeyev" email="contact@avdeyev.dev" label="Frontend Developer" url="https://avdeyev.dev" location={{ city: "Almaty", countryCode: "KZ" }} />
 
         <Summary>
-          Frontend Developer with 6+ years of experience, skilled in creating responsive, user-friendly web applications using modern frameworks and technologies, ensuring clean, maintainable, and well-structured code.
+          Frontend developer, mostly React and Next.js. Most of the work has been rebuilding what outgrew its first design: a legacy JavaScript codebase migrated to TypeScript, a shared component library, complex data visualizations.
         </Summary>
 
         <WorkXPContainer>
@@ -28,6 +28,9 @@ export function CVContent() {
               "Rebuilt the company website to improve performance and SEO metrics.",
               "Built a scalable and reusable UI component library."
             ]} />
+          {/* Naming the gap beats leaving a reader to guess at it. Swap the
+              label if it was freelance, study or a relocation. */}
+          <WorkXPItem position="Career break" startDate="Aug 2023" endDate="Feb 2024" />
           <WorkXPItem position="Frontend Developer" company="Tile.Expert Ltd" startDate="Jul 2022" endDate="Aug 2023" location={{
             label: "Remote"
           }}
@@ -36,7 +39,7 @@ export function CVContent() {
               "Built reusable, well-documented UI components using Storybook.",
               "Contributed to project architecture and core infrastructure decisions."
             ]} />
-          <WorkXPItem position="Frontend Developer" company="LCC Rating" startDate="Sep 2020" endDate="Jul 2022" location={{
+          <WorkXPItem position="Frontend Developer" company="LLC Rating" startDate="Sep 2020" endDate="Jul 2022" location={{
             city: "Oskemen",
             countryCode: "KZ"
           }}
@@ -55,7 +58,7 @@ export function CVContent() {
       <PageFrame>
 
         <section>
-          <WorkXPItem position="HTML Coder" company="LCC Megagroup IT" startDate="Apr 2019" endDate="May 2020" location={{
+          <WorkXPItem position="HTML Coder" company="LLC Megagroup IT" startDate="Apr 2019" endDate="May 2020" location={{
             city: "Oskemen",
             countryCode: "KZ"
           }}
