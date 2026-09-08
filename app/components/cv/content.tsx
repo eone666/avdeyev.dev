@@ -28,9 +28,6 @@ export function CVContent() {
               "Rebuilt the company website to improve performance and SEO metrics.",
               "Built a scalable and reusable UI component library."
             ]} />
-          {/* Naming the gap beats leaving a reader to guess at it. Swap the
-              label if it was freelance, study or a relocation. */}
-          <WorkXPItem position="Career break" startDate="Aug 2023" endDate="Feb 2024" />
           <WorkXPItem position="Frontend Developer" company="Tile.Expert Ltd" startDate="Jul 2022" endDate="Aug 2023" location={{
             label: "Remote"
           }}
