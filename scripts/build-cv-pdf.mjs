@@ -1,7 +1,7 @@
 /**
  * Prints the /cv route to PDF, so the PDF and the page can never drift apart.
  *
- * Usage: node scripts/build-cv-pdf.mjs [out...]   (default: public/cv.pdf)
+ * Usage: bun scripts/build-cv-pdf.mjs [out...] [--dev] [--watch]
  *
  * Takes several outputs because the Docker build needs the file in `dist/`,
  * where it is served from, as well as in `public/`.
@@ -12,20 +12,42 @@
  * Chromium comes from apk, in the builder stage only.
  */
 import { spawn } from 'node:child_process'
-import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import {
+    existsSync, mkdtempSync, readFileSync, rmSync, statSync, watch, writeFileSync
+} from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
-const ORIGIN = 'http://localhost:3000'
-const TARGET = `${ORIGIN}/cv`
+const args = process.argv.slice(2)
 
-const OUTPUTS = process.argv.slice(2)
+/**
+ * --dev prints from the Vite dev server instead of a production build, so the
+ * CV can be iterated on without rebuilding between every change.
+ * --watch keeps going and reprints whenever the CV's source changes.
+ */
+const DEV = args.includes('--dev')
+const WATCH = args.includes('--watch')
+
+/**
+ * Its own port, so this never collides with a server already running and never
+ * ends up printing a 404 from one that was started without CV_PRINT.
+ */
+const PRINT_PORT = 4319
+let TARGET = DEV ? 'http://localhost:5173/cv' : `http://localhost:${PRINT_PORT}/cv`
+
+const OUTPUTS = args.filter((arg) => !arg.startsWith('--'))
 if (OUTPUTS.length === 0) OUTPUTS.push('public/cv.pdf')
+
+/** Everything that can change how the CV prints. */
+const WATCHED = ['app/components/cv', 'app/routes/cv.tsx', 'app/style.css']
+
+/** The CV is laid out as two fixed A4 frames; anything else is a mistake. */
+const PAGES = 2
 
 /** A4 in inches, which is what printToPDF speaks. */
 const PAPER = { width: 8.27, height: 11.69 }
 
-/** Wide enough that the ScalableBlock island leaves the page unscaled. */
+/** The CV is 210mm wide; print in a viewport that never makes it reflow. */
 const VIEWPORT = { width: 1400, height: 1200 }
 
 const BROWSERS = [
@@ -89,18 +111,31 @@ const onExit = (fn) => cleanups.push(fn)
 try {
     // The server, unless one is already up on the port.
     if (!(await alive(TARGET))) {
-        if (!existsSync('dist/index.js')) {
-            throw new Error('dist/index.js is missing — run `bun run build` first')
+        if (DEV) {
+            // Started alongside the dev server, so give it time to come up
+            // rather than failing the moment it is not there yet.
+            await waitFor(
+                () => alive(TARGET),
+                `${TARGET} to answer — is \`bun run dev\` running?`
+            )
+        } else {
+            if (!existsSync('dist/index.js')) {
+                throw new Error('dist/index.js is missing — run `bun run build` first')
+            }
+
+            // execPath, not 'node': the Docker image has only Bun. CV_PRINT is
+            // what opens the /cv route, which is otherwise not served at all.
+            const server = spawn(process.execPath, ['dist/index.js'], {
+                stdio: 'ignore',
+                env: { ...process.env, PORT: String(PRINT_PORT), CV_PRINT: '1' }
+            })
+            onExit(() => server.kill())
+
+            await waitFor(() => alive(TARGET), `${TARGET} to answer`)
+            console.log(`started the built server on :${PRINT_PORT}`)
         }
-
-        // execPath, not 'node': the Docker image has only Bun.
-        const server = spawn(process.execPath, ['dist/index.js'], { stdio: 'ignore' })
-        onExit(() => server.kill())
-
-        await waitFor(() => alive(TARGET), `${TARGET} to answer`)
-        console.log('started the built server')
     } else {
-        console.log('reusing the server already on :3000')
+        console.log(`reusing the server already answering ${TARGET}`)
     }
 
     // The browser, headless, on a throwaway profile.
@@ -175,52 +210,84 @@ try {
         mobile: false
     })
     await send('Page.enable')
-    await send('Page.navigate', { url: TARGET })
 
-    // Wait for the fonts rather than sleeping on a guess. Printing before they
-    // land silently swaps in a fallback face and embeds fewer glyphs, which
-    // shows up as a PDF that is quietly both wrong and smaller.
-    await waitFor(
-        async () => {
-            const { result } = await send('Runtime.evaluate', {
-                expression: `document.readyState === 'complete'
-                    && document.fonts.status === 'loaded'
-                    && document.fonts.size > 0`,
-                returnByValue: true
-            })
+    const print = async () => {
+        const started = performance.now()
+        await send('Page.navigate', { url: TARGET })
 
-            return result.value === true
-        },
-        'the page and its fonts to be ready'
-    )
+        // Wait for the fonts rather than sleeping on a guess. Printing before
+        // they land silently swaps in a fallback face and embeds fewer glyphs,
+        // which shows up as a PDF that is quietly both wrong and smaller.
+        await waitFor(
+            async () => {
+                const { result } = await send('Runtime.evaluate', {
+                    expression: `document.readyState === 'complete'
+                        && document.fonts.status === 'loaded'
+                        && document.fonts.size > 0`,
+                    returnByValue: true
+                })
 
-    // One more frame so the island's layout pass has been applied.
-    await sleep(250)
-
-    const { data } = await send('Page.printToPDF', {
-        printBackground: true,
-        paperWidth: PAPER.width,
-        paperHeight: PAPER.height,
-        marginTop: 0,
-        marginBottom: 0,
-        marginLeft: 0,
-        marginRight: 0,
-        scale: 1
-    })
-
-    const pdf = Buffer.from(data, 'base64')
-    for (const output of OUTPUTS) writeFileSync(output, pdf)
-
-    const pages = (pdf.toString('latin1').match(/\/Type\s*\/Page[^s]/g) ?? []).length
-    console.log(
-        `wrote ${OUTPUTS.join(', ')} — ${(pdf.length / 1024).toFixed(0)} kB, ${pages} pages`
-    )
-
-    if (pages !== 2) {
-        console.warn(
-            `expected 2 pages; the CV layout or the print rules have drifted`
+                return result.value === true
+            },
+            'the page and its fonts to be ready'
         )
-        process.exitCode = 1
+
+        const { data } = await send('Page.printToPDF', {
+            printBackground: true,
+            paperWidth: PAPER.width,
+            paperHeight: PAPER.height,
+            marginTop: 0,
+            marginBottom: 0,
+            marginLeft: 0,
+            marginRight: 0,
+            scale: 1
+        })
+
+        const pdf = Buffer.from(data, 'base64')
+        for (const output of OUTPUTS) writeFileSync(output, pdf)
+
+        const pages = (pdf.toString('latin1').match(/\/Type\s*\/Page[^s]/g) ?? []).length
+        console.log(
+            `wrote ${OUTPUTS.join(', ')} — ${(pdf.length / 1024).toFixed(0)} kB,` +
+            ` ${pages} pages, ${Math.round(performance.now() - started)} ms`
+        )
+
+        return pages
+    }
+
+    const pages = await print()
+
+    if (pages !== PAGES) {
+        console.warn(`expected ${PAGES} pages; the CV layout or the print rules have drifted`)
+        // In watch mode this is feedback, not a build failure.
+        if (!WATCH) process.exitCode = 1
+    }
+
+    if (WATCH) {
+        console.log(`watching ${WATCHED.join(', ')} — ctrl-c to stop`)
+
+        let pending
+        const reprint = () => {
+            clearTimeout(pending)
+            // Debounced: an editor save can fire several events, and Vite needs
+            // a moment to serve the new page.
+            pending = setTimeout(
+                () => print().catch((error) => console.error(error.message)),
+                150
+            )
+        }
+
+        for (const path of WATCHED) {
+            // recursive only for directories; on a file it is rejected outright
+            // by some platforms.
+            watch(path, { recursive: statSync(path).isDirectory() }, reprint)
+        }
+
+        await new Promise((resolve) => {
+            process.once('SIGINT', resolve)
+            process.once('SIGTERM', resolve)
+        })
+        console.log('\nstopped')
     }
 } finally {
     for (const cleanup of cleanups.reverse()) {

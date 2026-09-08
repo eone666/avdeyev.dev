@@ -28,7 +28,11 @@ export default defineConfig({
     // is Bun's to choose: 3000 by default, or $PORT.
     build({
       staticRoot: './dist',
-      external: ['three']
+      external: ['three'],
+      // The CV PDF is printed after this build, so it is not on disk when the
+      // plugin scans public/ and dist/ to decide what to serve. Without naming
+      // it here the route would not exist and /cv.pdf would 404 in production.
+      staticPaths: ['/cv.pdf']
     })
   ]
 })

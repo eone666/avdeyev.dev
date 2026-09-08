@@ -4,14 +4,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "bun scripts/dev.mjs",
+    "dev:site": "vite",
     "build": "vite build --mode client && vite build",
     "start": "bun ./dist/index.js",
     "lint": "eslint .",
     "test": "bun test",
     "typecheck": "tsc --noEmit",
     "icons": "bun scripts/generate-icons.mjs",
-    "cv:pdf": "bun scripts/build-cv-pdf.mjs"
+    "cv:pdf": "bun scripts/build-cv-pdf.mjs",
+    "cv:pdf:dev": "bun scripts/build-cv-pdf.mjs --dev --watch"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",

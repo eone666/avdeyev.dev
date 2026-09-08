@@ -32,3 +32,6 @@ lerna-debug.log*
 
 # misc
 .DS_Store
+
+# Printed from /cv during the build — see scripts/build-cv-pdf.mjs
+public/cv.pdf
