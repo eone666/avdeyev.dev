@@ -16,7 +16,7 @@ bun run dev        # http://localhost:5173
 
 | Script              | What it does                                                   |
 | ------------------- | -------------------------------------------------------------- |
-| `bun run dev`       | Vite dev server with HMR                                       |
+| `bun run dev`       | Vite dev server, plus the CV printer in watch mode             |
 | `bun run build`     | Client bundle, then the SSR bundle, both into `dist/`          |
 | `bun run start`     | Runs the built server (`dist/index.js`) on port 3000           |
 | `bun run lint`      | ESLint (`typescript-eslint`)                                   |
@@ -24,6 +24,7 @@ bun run dev        # http://localhost:5173
 | `bun run typecheck` | `tsc --noEmit`                                                 |
 | `bun run icons`     | Regenerates `app/components/icons.tsx` from `@iconify-json/ri` |
 | `bun run cv:pdf`    | Prints the `/cv` route to `public/cv.pdf` (see below)          |
+| `bun run dev:site`  | The dev server on its own, without the printer                 |
 
 ## Layout
 
@@ -42,20 +43,14 @@ scripts/
 
 ### Islands
 
-Everything renders on the server. Only three components ship JS:
+Everything renders on the server. Only two components ship JS:
 
 - `islands/cloud-sky.tsx` — the WebGL scene behind the home and error pages.
   It imports three.js dynamically and only after checking the viewport, so
   narrow screens and Save-Data never fetch that 128 kB at all; what is left is
   the canvas' CSS background.
-
-
 - `islands/social-share.tsx` — feature-detects `navigator.share`, falls back to
   per-network share links.
-- `islands/scalable-block.tsx` — scales the fixed-width (210mm) CV down to fit
-  narrow viewports. It takes a **selector**, not `children`: an island with
-  children makes HonoX serialize the whole subtree a second time into a
-  `<template>` for hydration, and the CV subtree is two full A4 pages of markup.
 
 ### Icons
 
@@ -65,25 +60,26 @@ array in that script and run `bun run icons`.
 
 ### The CV
 
-The card links straight to `cv.pdf`, which opens in a new tab. That PDF is
-printed from the `/cv` route, so the layout has exactly one source.
+The card links to `cv.pdf`, which opens in a new tab. That PDF is printed from
+the `/cv` route, so the layout has exactly one source. Nothing is committed:
+`public/cv.pdf` is gitignored, and the Docker build prints its own copy with
+`apk add chromium` in the builder stage, which the runtime image never sees.
 
-The Docker build does it on its own — `apk add chromium` in the builder stage,
-which the runtime image never sees. Locally:
+`/cv` itself is not served. A deployed copy would be a second, unlinked version
+of the CV for search engines to find, so the route answers only in dev and to
+the printer, which sets `CV_PRINT` on the server it starts. Nothing on that page
+is for a screen either — it is a print stylesheet with a URL.
 
-```bash
-bun run build
-bun run cv:pdf     # writes public/cv.pdf
-```
+`bun run dev` prints it once and then reprints on every change to
+`app/components/cv/`, `app/routes/cv.tsx` or `app/style.css`, in about 400 ms.
+Reload the tab yourself.
 
-`/cv` still serves the HTML. Nothing links to it, but it is what gets printed,
-so edit `app/components/cv/` and re-run.
-
-The script drives an already-installed Chromium over the DevTools protocol
+The printer drives an already-installed Chromium over the DevTools protocol
 (set `CHROME_PATH` if it cannot find one) rather than pulling in Puppeteer,
 which would put a few hundred megabytes of browser in `node_modules` and does
-not run on musl anyway. It fails the build if the result is not exactly two
-pages, so a layout that quietly overflows cannot ship.
+not run on musl anyway. It waits for the fonts rather than sleeping, so its
+output is byte-identical between runs, and it fails the build if the result is
+not exactly two pages.
 
 ## Deployment
 
