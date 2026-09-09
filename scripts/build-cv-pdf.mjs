@@ -17,6 +17,7 @@ import {
 } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
+import { createSerialQueue } from './serial-queue.mjs'
 
 const args = process.argv.slice(2)
 
@@ -247,6 +248,10 @@ try {
         for (const output of OUTPUTS) writeFileSync(output, pdf)
 
         const pages = (pdf.toString('latin1').match(/\/Type\s*\/Page[^s]/g) ?? []).length
+        if (pages !== PAGES) {
+            console.warn(`expected ${PAGES} pages; the CV layout or the print rules have drifted`)
+            if (!WATCH) process.exitCode = 1
+        }
         console.log(
             `wrote ${OUTPUTS.join(', ')} — ${(pdf.length / 1024).toFixed(0)} kB,` +
             ` ${pages} pages, ${Math.round(performance.now() - started)} ms`
@@ -255,38 +260,36 @@ try {
         return pages
     }
 
-    const pages = await print()
-
-    if (pages !== PAGES) {
-        console.warn(`expected ${PAGES} pages; the CV layout or the print rules have drifted`)
-        // In watch mode this is feedback, not a build failure.
-        if (!WATCH) process.exitCode = 1
-    }
+    await print()
 
     if (WATCH) {
         console.log(`watching ${WATCHED.join(', ')} — ctrl-c to stop`)
 
         let pending
+        const queue = createSerialQueue(print, (error) => console.error(error.message))
         const reprint = () => {
             clearTimeout(pending)
             // Debounced: an editor save can fire several events, and Vite needs
             // a moment to serve the new page.
             pending = setTimeout(
-                () => print().catch((error) => console.error(error.message)),
+                () => queue.request(),
                 150
             )
         }
 
-        for (const path of WATCHED) {
+        const watchers = WATCHED.map((path) => {
             // recursive only for directories; on a file it is rejected outright
             // by some platforms.
-            watch(path, { recursive: statSync(path).isDirectory() }, reprint)
-        }
+            return watch(path, { recursive: statSync(path).isDirectory() }, reprint)
+        })
 
         await new Promise((resolve) => {
             process.once('SIGINT', resolve)
             process.once('SIGTERM', resolve)
         })
+        for (const watcher of watchers) watcher.close()
+        clearTimeout(pending)
+        await queue.close()
         console.log('\nstopped')
     }
 } finally {

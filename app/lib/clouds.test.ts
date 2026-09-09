@@ -1,5 +1,5 @@
 import { expect, test, describe } from 'bun:test'
-import { buildWireframe, cloudWind, generateCloudField } from './clouds'
+import { buildCloudChunks, buildSolid, buildWireframe, cloudWind, generateCloudField } from './clouds'
 
 const opts = { seed: 1, cols: 40, rows: 12, count: 5 }
 
@@ -102,4 +102,26 @@ describe('diagonal cloud drift', () => {
             }
         }
     })
+})
+
+test('chunking preserves every triangle and line without adding internal edges', () => {
+    const field = generateCloudField({ ...opts, wrapZ: true })
+    const options = { cell: 4, thickness: 3 }
+    const chunks = buildCloudChunks(field, options, 3)
+    const primitives = (positions: number[], stride: number) => {
+        const result = []
+        for (let offset = 0; offset < positions.length; offset += stride) {
+            result.push(positions.slice(offset, offset + stride).join(','))
+        }
+        return result.sort()
+    }
+    for (const [key, original, stride] of [
+        ['solid', buildSolid(field, options), 9],
+        ['wireframe', buildWireframe(field, options), 6]
+    ] as const) {
+        const reconstructed = chunks.flatMap((chunk, index) =>
+            chunk[key].map((value, axis) => axis % 3 === 2 ? value + index * 12 : value))
+        expect(primitives(reconstructed, stride)).toEqual(primitives(original, stride))
+    }
+    expect(() => buildCloudChunks(field, options, 5)).toThrow()
 })

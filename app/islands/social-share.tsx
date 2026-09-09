@@ -16,16 +16,20 @@ interface SocialShareProps {
     class?: string
 }
 
-export default function SocialShare({ title = "Check this out!", text = "", class: className = "" }: SocialShareProps) {
+export default function SocialShare({ url, title = "Check this out!", text = "", class: className = "" }: SocialShareProps) {
     const [isWebShareSupported, setIsWebShareSupported] = useState(false)
     const [showFallback, setShowFallback] = useState(false)
 
-    const [urlToShare, setUrlToShare] = useState("")
+    const [urlToShare, setUrlToShare] = useState(url ?? "")
 
     useEffect(() => {
-        setUrlToShare(window.location.href)
-        setIsWebShareSupported(typeof navigator.share === 'function' ? navigator.canShare() : false)
-    }, [])
+        const shareUrl = url ?? window.location.href
+        setUrlToShare(shareUrl)
+        setIsWebShareSupported(
+            typeof navigator.share === 'function' &&
+            (typeof navigator.canShare !== 'function' || navigator.canShare({ title, text, url: shareUrl }))
+        )
+    }, [url, title, text])
 
     const handleNativeShare = async () => {
         try {

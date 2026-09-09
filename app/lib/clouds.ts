@@ -206,3 +206,29 @@ export function cloudWind(seed: number, speed: number) {
     const angle = (rnd() * 2 - 1) * Math.PI / 6
     return { x: direction * Math.cos(angle) * speed, z: Math.sin(angle) * speed }
 }
+
+/** Partition existing primitives without introducing faces or struts at cuts. */
+export function buildCloudChunks(field: CloudField, options: WireframeOptions, chunkRows: number) {
+    if (!Number.isInteger(chunkRows) || chunkRows <= 0 || field.rows % chunkRows !== 0) {
+        throw new Error('Cloud chunk rows must divide the field depth')
+    }
+    const depth = chunkRows * options.cell
+    const chunks = Array.from({ length: field.rows / chunkRows }, () => ({
+        solid: [] as number[], wireframe: [] as number[]
+    }))
+    const partition = (positions: number[], vertices: number, key: 'solid' | 'wireframe') => {
+        const stride = vertices * 3
+        for (let offset = 0; offset < positions.length; offset += stride) {
+            let z = 0
+            for (let vertex = 0; vertex < vertices; vertex++) z += positions[offset + vertex * 3 + 2]
+            const index = Math.min(chunks.length - 1, Math.floor(z / vertices / depth))
+            for (let vertex = 0; vertex < vertices; vertex++) {
+                const start = offset + vertex * 3
+                chunks[index][key].push(positions[start], positions[start + 1], positions[start + 2] - index * depth)
+            }
+        }
+    }
+    partition(buildSolid(field, options), 3, 'solid')
+    partition(buildWireframe(field, options), 2, 'wireframe')
+    return chunks
+}
