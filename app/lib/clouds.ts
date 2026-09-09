@@ -6,6 +6,8 @@ export type CloudFieldOptions = {
     cols: number;
     /** Field depth in cells. */
     rows: number;
+    /** Repeat seamlessly in depth as well, for diagonal drift. */
+    wrapZ?: boolean;
     /** How many cloud blobs to scatter. */
     count: number;
     /** How many one-to-two cell specks to scatter between the blobs. */
@@ -49,11 +51,12 @@ export function generateCloudField({
     rows,
     count,
     specks = 0,
-    taper = 1
+    taper = 1,
+    wrapZ = false
 }: CloudFieldOptions): CloudField {
     const rnd = mulberry32(seed)
     const filled = new Set<number>()
-    const at = (x: number, z: number) => mod(x, cols) + z * cols
+    const at = (x: number, z: number) => mod(x, cols) + (wrapZ ? mod(z, rows) : z) * cols
     const taperedZ = () =>
         Math.min(rows - 1, Math.floor(rows * (1 - rnd() ** taper)))
 
@@ -69,7 +72,7 @@ export function generateCloudField({
             const oz = Math.floor(rnd() * 5) - 2
 
             for (let z = cz + oz; z < cz + oz + d; z++) {
-                if (z < 0 || z >= rows) continue
+                if (!wrapZ && (z < 0 || z >= rows)) continue
                 for (let x = cx + ox; x < cx + ox + w; x++) {
                     filled.add(at(x, z))
                 }
@@ -85,7 +88,7 @@ export function generateCloudField({
         const w = 1 + Math.floor(rnd() * 2)
         const d = 1 + Math.floor(rnd() * 2)
 
-        for (let sz = z; sz < z + d && sz < rows; sz++) {
+        for (let sz = z; sz < z + d && (wrapZ || sz < rows); sz++) {
             for (let sx = x; sx < x + w; sx++) {
                 filled.add(at(sx, sz))
             }
@@ -93,7 +96,7 @@ export function generateCloudField({
     }
 
     const segments = traceOutline(
-        (x, z) => z >= 0 && z < rows && filled.has(at(x, z)),
+        (x, z) => (wrapZ || (z >= 0 && z < rows)) && filled.has(at(x, z)),
         cols,
         rows
     )
@@ -194,4 +197,12 @@ export function buildSolid(field: CloudField, { cell, thickness }: WireframeOpti
     }
 
     return positions
+}
+
+/** A steady horizontal wind, with a small angle towards or away from the viewer. */
+export function cloudWind(seed: number, speed: number) {
+    const rnd = mulberry32(seed ^ 0x57494e44)
+    const direction = rnd() < 0.5 ? -1 : 1
+    const angle = (rnd() * 2 - 1) * Math.PI / 6
+    return { x: direction * Math.cos(angle) * speed, z: Math.sin(angle) * speed }
 }

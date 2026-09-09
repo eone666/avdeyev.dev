@@ -1,5 +1,5 @@
 import { expect, test, describe } from 'bun:test'
-import { buildWireframe, generateCloudField } from './clouds'
+import { buildWireframe, cloudWind, generateCloudField } from './clouds'
 
 const opts = { seed: 1, cols: 40, rows: 12, count: 5 }
 
@@ -73,5 +73,33 @@ describe('wireframe', () => {
         const xs = (list: number[]) => list.filter((_, i) => i % 3 === 0)
 
         expect(Math.max(...xs(wider))).toBe(Math.max(...xs(positions)) * 2)
+    })
+})
+
+describe('diagonal cloud drift', () => {
+    test('keeps speed constant and varies direction within 30 degrees', () => {
+        const winds = Array.from({ length: 100 }, (_, seed) => cloudWind(seed, 1.3))
+        expect(cloudWind(42, 1.3)).toEqual(cloudWind(42, 1.3))
+        for (const wind of winds) {
+            expect(Math.hypot(wind.x, wind.z)).toBeCloseTo(1.3, 10)
+            expect(Math.abs(Math.atan(wind.z / wind.x))).toBeLessThanOrEqual(Math.PI / 6)
+        }
+        expect(winds.some(({ x }) => x < 0)).toBe(true)
+        expect(winds.some(({ x }) => x > 0)).toBe(true)
+        expect(winds.some(({ z }) => z < 0)).toBe(true)
+        expect(winds.some(({ z }) => z > 0)).toBe(true)
+    })
+
+    test('depth tile joins have outlines only where occupancy changes', () => {
+        for (let seed = 0; seed < 20; seed++) {
+            const field = generateCloudField({ ...opts, seed, wrapZ: true, specks: 40 })
+            const filled = (x: number, z: number) =>
+                field.runs.some((run) => run.z === z && x >= run.x1 && x < run.x2)
+            for (let x = 0; x < field.cols; x++) {
+                const edges = field.segments.filter(({ x1, x2, z1, z2 }) =>
+                    z1 === z2 && (z1 === 0 || z1 === field.rows) && x >= x1 && x < x2)
+                expect(edges.length).toBe(Number(filled(x, 0) !== filled(x, field.rows - 1)))
+            }
+        }
     })
 })

@@ -12,7 +12,8 @@
  * competition with the card.
  */
 import { useEffect, useRef } from 'hono/jsx'
-import { buildSolid, buildWireframe, generateCloudField } from '@/lib/clouds'
+import { buildSolid, buildWireframe, cloudWind, generateCloudField } from '@/lib/clouds'
+import { mod } from '@/lib/voxel'
 import { buildTerrainSolid, buildTerrainWireframe, generateTerrain } from '@/lib/terrain'
 
 export type CloudSkyProps = {
@@ -26,15 +27,18 @@ export type CloudSkyProps = {
  * It sits high above the camera on purpose. Close to the camera the blocks
  * turn into huge planks and stop reading as cloud; far above, they stay small
  * and the layer keeps to the top of the frame, leaving the lower half to the
- * ground. The mild taper thins the far edge so it has no visible cut.
+ * ground. The layer extends far enough for perspective to carry it to the
+ * horizon; its last stretch fades out before the geometry ends.
  */
-const FIELD = { cols: 96, rows: 110, count: 95, specks: 150, taper: 1.35 }
+const FIELD = { cols: 96, rows: 660, count: 570, specks: 900, wrapZ: true }
 const CELL = 4
 const THICKNESS = 3
 const TILE = FIELD.cols * CELL
+const DEPTH = FIELD.rows * CELL
 
-/** Copies laid end to end, so the drift never runs out of clouds. */
-const COPIES = 5
+/** Fade only the distant clouds, independently of the nearby ground fog. */
+const CLOUD_FADE_START = 1200
+const CLOUD_FADE_END = 2400
 
 /** How far in front of the camera the slab still extends. */
 const OVERHEAD = 80
@@ -245,7 +249,7 @@ function mountSky(canvas: HTMLCanvasElement, THREE: Three, seed: number) {
     const fog = new THREE.Fog(0x000000, 100, 430)
     scene.fog = fog
 
-    const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 900)
+    const camera = new THREE.PerspectiveCamera(60, 1, 0.1, 3000)
     camera.position.set(CAMERA_X, CAMERA_Y, CAMERA_Z)
     camera.rotation.x = PITCH
 
@@ -296,15 +300,34 @@ function mountSky(canvas: HTMLCanvasElement, THREE: Three, seed: number) {
         polygonOffsetUnits: 1
     })
 
+    const cloudBodyMaterial = bodyMaterial.clone()
+    cloudBodyMaterial.fog = true
+
+    // Fade both outlines and bodies: invisible distant clouds must stop
+    // masking the sky too. Ground keeps its original, much shorter fog.
+    for (const target of [material, cloudBodyMaterial]) {
+        target.onBeforeCompile = (shader) => {
+            shader.fragmentShader = shader.fragmentShader.replace(
+                '#include <fog_fragment>',
+                `#ifdef USE_FOG
+                    gl_FragColor.a *= 1.0 - smoothstep(
+                        ${CLOUD_FADE_START.toFixed(1)},
+                        ${CLOUD_FADE_END.toFixed(1)}, vFogDepth);
+                #endif`
+            )
+        }
+    }
+
+    const wind = cloudWind(seed, SPEED)
     const drift = new THREE.Group()
-    for (let i = 0; i < COPIES; i++) {
+    const addCloudTile = (index: number, row: number) => {
         const tile = new THREE.Group()
-        tile.add(new THREE.Mesh(solidGeometry, bodyMaterial))
+        tile.add(new THREE.Mesh(solidGeometry, cloudBodyMaterial))
         tile.add(new THREE.LineSegments(geometry, material))
         tile.position.set(
-            (i - Math.floor(COPIES / 2)) * TILE - TILE / 2,
+            index * TILE - TILE / 2,
             0,
-            OVERHEAD - FIELD.rows * CELL
+            OVERHEAD - DEPTH + row * DEPTH
         )
         drift.add(tile)
     }
@@ -492,6 +515,20 @@ function mountSky(canvas: HTMLCanvasElement, THREE: Three, seed: number) {
         const height = window.innerHeight
         camera.aspect = width / height
         camera.updateProjectionMatrix()
+
+        // Cover the far frustum, including one tile of drift on either axis.
+        // A fixed number of copies leaves the horizon empty on wide screens.
+        const halfWidth = camera.far * Math.tan(radians(camera.fov / 2)) * camera.aspect
+        const radius = Math.ceil(halfWidth / TILE) + 1
+        const depthRadius = Math.ceil(camera.far / DEPTH)
+        const copies = (radius * 2 + 1) * (depthRadius + 2)
+        if (drift.children.length !== copies) {
+            drift.clear()
+            for (let row = -depthRadius; row <= 1; row++) {
+                for (let index = -radius; index <= radius; index++) addCloudTile(index, row)
+            }
+        }
+
         renderer.setSize(width, height, false)
     }
     resize()
@@ -505,7 +542,8 @@ function mountSky(canvas: HTMLCanvasElement, THREE: Three, seed: number) {
         const delta = Math.min((now - last) / 1000, 0.1)
         last = now
 
-        drift.position.x = (drift.position.x + SPEED * delta) % TILE
+        drift.position.x = mod(drift.position.x + wind.x * delta, TILE)
+        drift.position.z = mod(drift.position.z + wind.z * delta, DEPTH)
         renderer.render(scene, camera)
         frame = requestAnimationFrame(tick)
     }
@@ -546,6 +584,7 @@ function mountSky(canvas: HTMLCanvasElement, THREE: Three, seed: number) {
         material.dispose()
         solidGeometry.dispose()
         bodyMaterial.dispose()
+        cloudBodyMaterial.dispose()
         groundGeometry.dispose()
         groundSolid.dispose()
         groundMaterial.dispose()
