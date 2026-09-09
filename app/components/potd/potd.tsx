@@ -1,8 +1,8 @@
 import { MinecraftText } from '@/components/minecraft-text'
 import { potds } from './potd-data'
-import { getPhraseOfTheDay } from './potd-fn'
+import { getRandomPhrase } from './potd-fn'
 
 export function POTD() {
-    const dailyText = getPhraseOfTheDay(new Date(), potds)
-    return <MinecraftText text={dailyText} />
+    const randomText = getRandomPhrase(potds)
+    return <MinecraftText text={randomText} />
 }
