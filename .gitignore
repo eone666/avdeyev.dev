@@ -33,5 +33,5 @@ lerna-debug.log*
 # misc
 .DS_Store
 
-# Printed from /cv during the build — see scripts/build-cv-pdf.mjs
+# Generated from cv/document.tsx by `bun run build:cv`
 public/cv.pdf

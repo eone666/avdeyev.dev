@@ -16,15 +16,16 @@ bun run dev        # http://localhost:5173
 
 | Script              | What it does                                                   |
 | ------------------- | -------------------------------------------------------------- |
-| `bun run dev`       | Vite dev server, plus the CV printer in watch mode             |
-| `bun run build`     | Client bundle, then the SSR bundle, both into `dist/`          |
+| `bun run dev`       | Vite dev server plus Forme's live CV preview                   |
+| `bun run dev:site`  | Vite site server on `http://localhost:5173`                    |
+| `bun run dev:cv`    | Forme CV preview on `http://localhost:4242`                    |
+| `bun run build`     | Builds the site and CV into `dist/`                            |
+| `bun run build:site` | Builds the client and SSR bundles into `dist/`                |
+| `bun run build:cv`  | Renders the CV into `public/cv.pdf` with the Forme CLI         |
 | `bun run start`     | Runs the built server (`dist/index.js`) on port 3000           |
 | `bun run lint`      | ESLint (`typescript-eslint`)                                   |
-| `bun test`          | Bun's test runner                                            |
+| `bun test`          | Bun's test runner                                               |
 | `bun run typecheck` | `tsc --noEmit`                                                 |
-| `bun run icons`     | Regenerates `app/components/icons.tsx` from `@iconify-json/ri` |
-| `bun run cv:pdf`    | Prints the `/cv` route to `public/cv.pdf` (see below)          |
-| `bun run dev:site`  | The dev server on its own, without the printer                 |
 
 ## Layout
 
@@ -33,12 +34,12 @@ app/
   routes/          file-based routes; _renderer.tsx is the document shell
   islands/         the only client-side JS (see below)
   components/      server-rendered components
-    icons.tsx      GENERATED — edit scripts/generate-icons.mjs instead
   lib/
   client.ts        island hydration entry
   style.css        Tailwind entry, theme tokens, self-hosted fonts
 public/            static assets, copied to dist/ on build
 scripts/
+cv/                  standalone Forme source for `cv.pdf`
 ```
 
 ### Islands
@@ -54,32 +55,29 @@ Everything renders on the server. Only two components ship JS:
 
 ### Icons
 
-`app/components/icons.tsx` is generated from `@iconify-json/ri` (Remix Icon) by
-`scripts/generate-icons.mjs`. To add an icon, append its name to the `ICONS`
-array in that script and run `bun run icons`.
+Use `<Icon name="mail-line" />` from `app/components/icon.tsx` on the site
+and `<PdfIcon name="mail-line" />` from `cv/icon.tsx` in the CV.
+Browse names at https://icon-sets.iconify.design/ri/; omit the `ri:` prefix.
+The Remix Icon catalogue is bundled locally and literal names are included in the build.
+
+Use literal names (including in arrays and objects), rather than constructing
+names at runtime. Invalid names fail with an explicit error.
 
 ### The CV
 
-The card links to `cv.pdf`, which opens in a new tab. That PDF is printed from
-the `/cv` route, so the layout has exactly one source. Nothing is committed:
-`public/cv.pdf` is gitignored, and the Docker build prints its own copy with
-`apk add chromium` in the builder stage, which the runtime image never sees.
+The card links to `/cv.pdf`, which opens in a new tab. Its standalone source is
+`cv/document.tsx`, outside the web application. Forme renders that template
+directly to PDF through its page-native WASM engine, so no browser, application
+route or running server is involved.
 
-`/cv` itself is not served. A deployed copy would be a second, unlinked version
-of the CV for search engines to find, so the route answers only in dev and to
-the printer, which sets `CV_PRINT` on the server it starts. Nothing on that page
-is for a screen either — it is a print stylesheet with a URL.
+`public/cv.pdf` is gitignored. Run `bun run build:cv` to create it with the
+Forme CLI. The full `bun run build` renders the CV first, then builds the site;
+Vite copies the PDF from `public/` into `dist/`. The Vite configuration reserves
+`/cv.pdf` as a static production path.
 
-`bun run dev` prints it once and then reprints on every change to
-`app/components/cv/`, `app/routes/cv.tsx` or `app/style.css`, in about 400 ms.
-Reload the tab yourself.
-
-The printer drives an already-installed Chromium over the DevTools protocol
-(set `CHROME_PATH` if it cannot find one) rather than pulling in Puppeteer,
-which would put a few hundred megabytes of browser in `node_modules` and does
-not run on musl anyway. It waits for the fonts rather than sleeping, so its
-output is byte-identical between runs, and it fails the build if the result is
-not exactly two pages.
+Use `bun run dev:cv` for Forme's live preview and layout inspector on
+`http://localhost:4242`. The regular `bun run dev` starts that preview alongside
+the Vite site server.
 
 ## Deployment
 

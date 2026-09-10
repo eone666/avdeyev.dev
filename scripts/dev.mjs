@@ -1,7 +1,6 @@
 /**
- * Runs the dev server and the CV printer side by side, so `bun run dev` is the
- * only command needed: edit the CV, and public/cv.pdf is rewritten. The tab is
- * yours to reload.
+ * Runs the site and Forme's live CV preview side by side, so `bun run dev` is
+ * the only command needed while working on either one.
  *
  * A tiny supervisor rather than `vite & …` in a script, because that leaves the
  * dev server orphaned when the terminal is interrupted.
@@ -19,14 +18,15 @@ const stop = (code = 0) => {
     process.exit(code)
 }
 
-const start = (label, command, args) => {
-    const child = spawn(command, args, { stdio: 'inherit' })
+const start = (label) => {
+    const child = spawn(process.execPath, ['run', label], { stdio: 'inherit' })
     children.push(child)
 
     child.on('exit', (code, signal) => {
-        if (stopping || signal) return
+        if (stopping) return
 
-        console.error(`\n${label} exited with code ${code}`)
+        const reason = signal ? `signal ${signal}` : `code ${code}`
+        console.error(`\n${label} exited with ${reason}`)
         stop(code ?? 1)
     })
 
@@ -39,5 +39,17 @@ const start = (label, command, args) => {
 process.on('SIGINT', () => stop())
 process.on('SIGTERM', () => stop())
 
-start('vite', 'node_modules/.bin/vite', [])
-start('cv:pdf', process.execPath, ['scripts/build-cv-pdf.mjs', '--dev', '--watch'])
+// public/cv.pdf is ignored, so a fresh checkout needs an initial render before
+// the Vite server can serve the card's /cv.pdf link. Forme's preview then runs
+// alongside the site for live CV work.
+const initialCv = spawn(process.execPath, ['run', 'build:cv'], { stdio: 'inherit' })
+children.push(initialCv)
+const initialCvCode = await new Promise((resolve) => {
+    initialCv.once('error', () => resolve(1))
+    initialCv.once('exit', (code) => resolve(code ?? 1))
+})
+children.splice(children.indexOf(initialCv), 1)
+if (initialCvCode !== 0) stop(initialCvCode)
+
+start('dev:site')
+start('dev:cv')

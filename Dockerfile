@@ -8,25 +8,10 @@ RUN bun install --frozen-lockfile
 FROM oven/bun:1-alpine AS builder
 WORKDIR /app
 
-# Chromium is here to print the CV, and only here: the runner stage below
-# copies dist/ and nothing else, so none of this reaches the final image.
-# Alpine's package is used rather than Puppeteer's bundled browser, which
-# would add a few hundred megabytes to node_modules and does not run on musl.
-RUN apk add --no-cache \
-  chromium \
-  nss \
-  freetype \
-  harfbuzz \
-  ttf-freefont \
-  ca-certificates
-
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 RUN bun run build
-# The page is the single source of the layout; dist/ is where it gets served
-# from, public/ keeps the local dev server in step.
-RUN bun run cv:pdf dist/cv.pdf public/cv.pdf
 
 # Runtime. The SSR bundle inlines its dependencies, so no node_modules here.
 FROM oven/bun:1-alpine AS runner
