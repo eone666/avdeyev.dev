@@ -4,8 +4,11 @@ import { PdfIcon } from './icon'
 import type { IconName } from '../shared/icons'
 import {
   Document,
+  Cell,
   Page as PdfPage,
   QrCode,
+  Row,
+  Table,
   Text,
   View,
   type Style,
@@ -53,6 +56,7 @@ function Header() {
   const url = 'https://avdeyev.dev'
   const location = 'Almaty, KZ'
   const contactStyle: Style = { flexDirection: 'row', alignItems: 'center', gap: 6 }
+  const contactIconStyle: Style = { position: 'relative', top: 1.5, width: 12, height: 12, alignItems: 'center', justifyContent: 'center' }
 
   return (
     <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', gap: 18, paddingBottom: 12 }}>
@@ -61,19 +65,19 @@ function Header() {
         <Text style={{ fontSize: 15, color: GRAY, fontWeight: 500, marginBottom: 18 }}>Frontend Developer</Text>
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', columnGap: 18, rowGap: 9 }}>
           <View style={contactStyle} href="mailto:contact@avdeyev.dev">
-            <View style={{ width: 12, height: 12, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={contactIconStyle}>
               <PdfIcon name="mail-line" size={12} />
             </View>
             <Text style={{ fontSize: 10 }}>contact@avdeyev.dev</Text>
           </View>
           <View style={contactStyle} href={url}>
-            <View style={{ width: 12, height: 12, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={contactIconStyle}>
               <PdfIcon name="link" size={12} />
             </View>
             <Text style={{ fontSize: 10 }}>avdeyev.dev</Text>
           </View>
           <View style={contactStyle} href={`https://www.google.com/maps/search/?api=1&query=${location}`}>
-            <View style={{ width: 12, height: 12, alignItems: 'center', justifyContent: 'center' }}>
+            <View style={contactIconStyle}>
               <PdfIcon name="map-pin-line" size={12} />
             </View>
             <Text style={{ fontSize: 10 }}>{location}</Text>
@@ -139,7 +143,7 @@ function WorkExperience({ items, title = false }: { items: WorkItem[]; title?: b
                 <Text style={{ fontSize: 13.5, fontWeight: 700 }}>{item.position}</Text>
                 <Text style={{ fontSize: 10, color: GRAY, fontWeight: 500 }}>{item.company} · {locationText(item.location)}</Text>
               </View>
-              <View wrap={false} style={{ border: `0.75 solid ${BLACK}`, paddingHorizontal: 9, paddingVertical: 3 }}>
+              <View wrap={false} style={{ height: 22, border: `0.75 solid ${BLACK}`, paddingHorizontal: 9, alignItems: 'center', justifyContent: 'center' }}>
                 <Text style={{ fontSize: 10, fontWeight: 600 }}>{item.startDate}–{item.endDate}</Text>
               </View>
             </View>
@@ -194,17 +198,23 @@ function SelectedProjects() {
   return (
     <View wrap={false}>
       <SectionTitle icon="apps-line">Selected Projects</SectionTitle>
-      <View style={{ gap: 4 }}>
+      <Table
+        columns={[{ width: { fraction: 0.26 } }, { width: { fraction: 0.74 } }]}
+        style={{ width: '100%' }}
+      >
         {projects.map((project) => (
-          <View key={project.name} wrap={false} style={{ flexDirection: 'row', gap: 12 }}>
-            <Text style={{ fontSize: 10 }}>•</Text>
-            <View href={project.url} style={{ width: 119, flexShrink: 0 }}>
-              <Text style={{ fontSize: 10, fontWeight: 700 }}>{project.name}</Text>
-            </View>
-            <Text style={{ fontSize: 10, flexGrow: 1 }}>{project.description}</Text>
-          </View>
+          <Row key={project.name}>
+            <Cell style={{ paddingHorizontal: 8, paddingVertical: 3 }}>
+              <Text href={project.url} style={{ color: BLACK, fontSize: 10, fontWeight: 700 }}>
+                {project.name}
+              </Text>
+            </Cell>
+            <Cell style={{ paddingHorizontal: 8, paddingVertical: 3 }}>
+              <Text style={{ fontSize: 10 }}>{project.description}</Text>
+            </Cell>
+          </Row>
         ))}
-      </View>
+      </Table>
     </View>
   )
 }
@@ -247,7 +257,7 @@ export default (
               <Text style={{ fontSize: 13.5, fontWeight: 700 }}>1305000 - Information Systems</Text>
               <Text style={{ fontSize: 10, color: GRAY, fontWeight: 500 }}>Eastern Technical and Humanities College · Oskemen, KZ</Text>
             </View>
-            <View wrap={false} style={{ border: `0.75 solid ${BLACK}`, paddingHorizontal: 9, paddingVertical: 3 }}>
+            <View wrap={false} style={{ height: 22, border: `0.75 solid ${BLACK}`, paddingHorizontal: 9, alignItems: 'center', justifyContent: 'center' }}>
               <Text style={{ fontSize: 10, fontWeight: 600 }}>2016–2020</Text>
             </View>
           </View>
