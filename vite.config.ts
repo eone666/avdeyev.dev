@@ -4,6 +4,7 @@ import adapter from '@hono/vite-dev-server/bun'
 import tailwindcss from '@tailwindcss/vite'
 import honox from 'honox/vite'
 import { defineConfig } from 'vite'
+import { iconSubset } from './scripts/icon-subset.mjs'
 
 export default defineConfig({
   resolve: {
@@ -12,6 +13,7 @@ export default defineConfig({
     }
   },
   plugins: [
+    iconSubset(),
     honox({
       devServer: { adapter },
       client: { input: ['/app/client.ts', '/app/style.css'] }
@@ -29,9 +31,7 @@ export default defineConfig({
     build({
       staticRoot: './dist',
       external: ['three'],
-      // The CV PDF is printed after this build, so it is not on disk when the
-      // plugin scans public/ and dist/ to decide what to serve. Without naming
-      // it here the route would not exist and /cv.pdf would 404 in production.
+      // Keep the site's CV download URL explicitly registered.
       staticPaths: ['/cv.pdf']
     })
   ]

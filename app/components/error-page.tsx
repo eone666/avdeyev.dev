@@ -1,7 +1,7 @@
 import { ButtonLink } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { MinecraftText } from '@/components/minecraft-text'
-import { RiArrowLeftLine } from '@/components/icons'
+import { Icon } from '@/components/icon'
 import CloudSky from '@/islands/cloud-sky'
 import { randomSeed } from '@/lib/voxel'
 
@@ -34,7 +34,7 @@ export function ErrorPage({ code, title, description }: ErrorPageProps) {
                         class="w-full h-14 group hover:bg-secondary/80 hover:border-primary/50 border border-transparent"
                         href="/"
                     >
-                        <RiArrowLeftLine class="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                        <Icon name="arrow-left-line" class="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
                         <span class="font-medium">Back to home</span>
                     </ButtonLink>
                 </div>

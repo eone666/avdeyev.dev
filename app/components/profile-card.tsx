@@ -1,14 +1,6 @@
 import { ButtonLink } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
-import {
-  RiGithubLine,
-  RiLinkedinLine,
-  RiTelegram2Line,
-  RiMailLine,
-  RiExternalLinkLine,
-  RiInstagramLine,
-  RiFileTextLine
-} from '@/components/icons'
+import { Icon } from '@/components/icon'
 import SocialShare from '@/islands/social-share'
 import { POTD } from '@/components/potd'
 
@@ -16,43 +8,43 @@ const links = [
   {
     title: "GitHub",
     url: "https://github.com/eone666",
-    icon: RiGithubLine,
+    icon: "github-line" as const,
     external: true
   },
   {
     title: "LinkedIn",
     url: "https://www.linkedin.com/in/eone666/",
-    icon: RiLinkedinLine,
+    icon: "linkedin-line" as const,
     external: true
   },
   {
     title: "CV",
     url: "/cv.pdf",
-    icon: RiFileTextLine,
+    icon: "file-text-line" as const,
     external: true
   },
   {
     title: "Telegram",
     url: "https://t.me/eone666",
-    icon: RiTelegram2Line,
+    icon: "telegram-2-line" as const,
     external: true
   },
   {
     title: "Telegram Channel",
     url: "https://t.me/avdeyev_dev",
-    icon: RiTelegram2Line,
+    icon: "telegram-2-line" as const,
     external: true
   },
   {
     title: "Instagram",
     url: "https://instagram.com/avdeyev.dev",
-    icon: RiInstagramLine,
+    icon: "instagram-line" as const,
     external: true
   },
   {
     title: "Email Me",
     url: "mailto:contact@avdeyev.dev",
-    icon: RiMailLine,
+    icon: "mail-line" as const,
   },
 ]
 
@@ -87,7 +79,6 @@ export function ProfileCard() {
         {/* Main Links */}
         <div class="w-full space-y-3">
           {links.map((link, index) => {
-            const Icon = link.icon
             return (
               <ButtonLink
                 key={index}
@@ -98,10 +89,10 @@ export function ProfileCard() {
                 rel="noopener noreferrer"
               >
                 <div class="flex items-center gap-3 overflow-hidden">
-                  <Icon class="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
+                  <Icon name={link.icon} class="h-5 w-5 text-muted-foreground group-hover:text-primary transition-colors" />
                   <span class="font-medium  overflow-hidden overflow-ellipsis whitespace-nowrap">{link.title}</span>
                 </div>
-                {link.external && <RiExternalLinkLine class="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-primary transition-all" />}
+                {link.external && <Icon name="external-link-line" class="h-4 w-4 text-muted-foreground opacity-0 group-hover:opacity-100 group-hover:text-primary transition-all" />}
               </ButtonLink>
             )
           })}

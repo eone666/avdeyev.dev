@@ -1,4 +1,7 @@
+import { getIcon, type IconName } from '../../shared/icons'
+
 export type IconProps = {
+  name: IconName
   class?: string
   id?: string
   role?: string
@@ -7,27 +10,18 @@ export type IconProps = {
 }
 
 /**
- * Builds an SVG icon component. Sized in `em` and painted with `currentColor`
- * so a `class` on the call site controls both, the same way react-icons
- * behaved.
- *
- * The path is a real element, not injected markup. `raw()` and
- * `dangerouslySetInnerHTML` both render fine on the server but blow up in
- * hono/jsx/dom, so any icon used inside an island has to be built this way.
+ * Remix Icon for the site. Browse https://icon-sets.iconify.design/ri/.
+ * Use the icon name without the `ri:` prefix.
+ * @example <Icon name="settings-3-line" class="h-5 w-5" />
  */
-export function makeIcon(viewBox: string, d: string) {
-  return (props: IconProps) => (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox={viewBox}
-      width="1em"
-      height="1em"
-      fill="currentColor"
-      aria-hidden="true"
-      focusable="false"
-      {...props}
-    >
-      <path d={d} />
+export function Icon({ name, ...props }: IconProps) {
+  const { body, viewBox } = getIcon(name)
+  const paths = [...body.matchAll(/<path\b([^>]*)\/>/g)].map((match) => match[1])
+  if (paths.length !== 1) throw new Error(`Remix icon "${name}" must contain one path.`)
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox={viewBox} width="1em" height="1em"
+      fill="currentColor" aria-hidden={props['aria-label'] ? undefined : 'true'} focusable="false" {...props}>
+      <path {...Object.fromEntries([...paths[0].matchAll(/([\w-]+)="([^"]*)"/g)].map((m) => [m[1], m[2]]))} />
     </svg>
   )
 }

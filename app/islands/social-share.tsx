@@ -1,13 +1,6 @@
 import { useState, useEffect } from 'hono/jsx'
 import { Button, ButtonLink } from '@/components/ui/button'
-import {
-    RiShareLine,
-    RiTwitterXLine,
-    RiLinkedinLine,
-    RiRedditLine,
-    RiFacebookLine,
-    RiTelegram2Line
-} from '@/components/icons'
+import { Icon } from '@/components/icon'
 
 interface SocialShareProps {
     url?: string
@@ -57,7 +50,7 @@ export default function SocialShare({ url, title = "Check this out!", text = "",
     if (isWebShareSupported && !showFallback) {
         return (
             <Button onClick={handleNativeShare} variant="outline" size="sm" class={className}>
-                <RiShareLine class="h-4 w-4 mr-2" />
+                <Icon name="share-line" class="h-4 w-4 mr-2" />
                 Share
             </Button>
         )
@@ -69,23 +62,23 @@ export default function SocialShare({ url, title = "Check this out!", text = "",
 
             <div class="flex gap-2 justify-center align-center flex-wrap">
                 <ButtonLink variant="outline" size="icon" class="h-8 w-8 bg-transparent" href={socialLinks.twitter} target="_blank" rel="noopener noreferrer" aria-label="Share on X (Twitter)">
-                    <RiTwitterXLine class="h-4 w-4" />
+                    <Icon name="twitter-x-line" class="h-4 w-4" />
                 </ButtonLink>
 
                 <ButtonLink variant="outline" size="icon" class="h-8 w-8 bg-transparent" href={socialLinks.facebook} target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook">
-                    <RiFacebookLine class="h-4 w-4" />
+                    <Icon name="facebook-line" class="h-4 w-4" />
                 </ButtonLink>
 
                 <ButtonLink variant="outline" size="icon" class="h-8 w-8 bg-transparent" href={socialLinks.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Share on LinkedIn">
-                    <RiLinkedinLine class="h-4 w-4" />
+                    <Icon name="linkedin-line" class="h-4 w-4" />
                 </ButtonLink>
 
                 <ButtonLink variant="outline" size="icon" class="h-8 w-8 bg-transparent" href={socialLinks.reddit} target="_blank" rel="noopener noreferrer" aria-label="Share on Reddit">
-                    <RiRedditLine class="h-4 w-4" />
+                    <Icon name="reddit-line" class="h-4 w-4" />
                 </ButtonLink>
 
                 <ButtonLink variant="outline" size="icon" class="h-8 w-8 bg-transparent" href={socialLinks.telegram} target="_blank" rel="noopener noreferrer" aria-label="Share on Telegram">
-                    <RiTelegram2Line class="h-4 w-4" />
+                    <Icon name="telegram-2-line" class="h-4 w-4" />
                 </ButtonLink>
             </div>
         </div>
