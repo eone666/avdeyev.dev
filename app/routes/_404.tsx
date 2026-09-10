@@ -9,7 +9,11 @@ const handler: NotFoundHandler = (c) => {
       title="Page not found"
       description="This chunk hasn't generated yet."
     />,
-    { title: 'Ivan Avdeyev | Page not found' }
+    {
+      title: 'Ivan Avdeyev | Page not found',
+      description: 'The requested page could not be found.',
+      robots: 'noindex, nofollow'
+    }
   )
 }
 

@@ -17,7 +17,11 @@ const handler: ErrorHandler = (e, c) => {
       title="Internal server error"
       description="Task failed successfully."
     />,
-    { title: 'Ivan Avdeyev | Internal server error' }
+    {
+      title: 'Ivan Avdeyev | Internal server error',
+      description: 'The page is temporarily unavailable.',
+      robots: 'noindex, nofollow'
+    }
   )
 }
 

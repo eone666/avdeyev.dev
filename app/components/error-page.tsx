@@ -2,7 +2,7 @@ import { ButtonLink } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { MinecraftText } from '@/components/minecraft-text'
 import { Icon } from '@/components/icon'
-import CloudSky from '@/islands/cloud-sky'
+import { VoxelBackground } from '@/components/voxel-background'
 import { randomSeed } from '@/lib/voxel'
 
 export type ErrorPageProps = {
@@ -16,7 +16,7 @@ export function ErrorPage({ code, title, description }: ErrorPageProps) {
         // Same shell as the home page: no bg-background, so the fixed sky
         // behind it shows through.
         <main class="pixel-dither relative min-h-dvh flex items-center justify-center p-4">
-            <CloudSky seed={randomSeed()} />
+            <VoxelBackground seed={randomSeed()} />
 
             <Card class="w-full max-w-md p-8 bg-card border-border">
                 <div class="flex flex-col items-center gap-6 text-center">

@@ -32,26 +32,30 @@ bun run dev        # http://localhost:5173
 ```
 app/
   routes/          file-based routes; _renderer.tsx is the document shell
-  islands/         the only client-side JS (see below)
   components/      server-rendered components
   lib/
-  client.ts        island hydration entry
+  voxel-background-client.ts  conditional WebGL loader
   style.css        Tailwind entry, theme tokens, self-hosted fonts
 public/            static assets, copied to dist/ on build
 scripts/
+  build.mjs        production build orchestration
+  dev.mjs          local development orchestration
+  capture-*.mjs    visual asset generation
+  check-*.mjs      browser-level verification
+config/             build plugins and generated-entry helpers
 cv/                  standalone Forme source for `cv.pdf`
 ```
 
-### Islands
+### Client-side code
 
-Everything renders on the server. Only two components ship JS:
+Everything renders on the server. Only the optional background ships JS:
 
-- `islands/cloud-sky.tsx` — the WebGL scene behind the home and error pages.
+- `voxel-background-client.ts` — a tiny loader for the WebGL scene behind the home and error pages.
   It imports three.js dynamically and only after checking the viewport, so
   narrow screens and Save-Data never fetch that 128 kB at all; what is left is
   the canvas' CSS background.
-- `islands/social-share.tsx` — feature-detects `navigator.share`, falls back to
-  per-network share links.
+  The scene runtime is requested during browser idle time; mobile, Save-Data,
+  reduced-motion and hidden tabs do not request it. Sharing links need no JS.
 
 ### Icons
 

@@ -1,8 +1,9 @@
 import { readFileSync, readdirSync } from 'node:fs'
 import { join } from 'node:path'
+import type { Plugin } from 'vite'
 
 /** Keep literal Remix names used by the app; dev retains the full catalogue. */
-export function iconSubset() {
+export function iconSubset(): Plugin {
   return {
     name: 'remix-icon-subset',
     enforce: 'pre',
@@ -10,8 +11,8 @@ export function iconSubset() {
     load(id) {
       if (!id.replaceAll('\\', '/').endsWith('/@iconify-json/ri/icons.json')) return
       const set = JSON.parse(readFileSync(id, 'utf8'))
-      const names = new Set()
-      const scan = (directory) => {
+      const names = new Set<string>()
+      const scan = (directory: string) => {
         for (const entry of readdirSync(directory, { withFileTypes: true })) {
           const path = join(directory, entry.name)
           if (entry.isDirectory()) scan(path)

@@ -1,7 +1,7 @@
 import { ButtonLink } from '@/components/ui/button'
 import { Card } from '@/components/ui/card'
 import { Icon } from '@/components/icon'
-import SocialShare from '@/islands/social-share'
+import { SocialShare } from '@/components/social-share'
 import { POTD } from '@/components/potd'
 
 const links = [
@@ -99,7 +99,7 @@ export function ProfileCard() {
         </div>
 
         <div class="flex gap-2 items-center">
-          <SocialShare title="Check out Ivan Avdeyev's link hub!" />
+          <SocialShare url="https://avdeyev.dev" title="Check out Ivan Avdeyev's link hub!" />
         </div>
       </div>
     </Card>

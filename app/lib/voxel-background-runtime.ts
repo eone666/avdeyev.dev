@@ -11,15 +11,9 @@
  * has turned the wireframe into solid masses and put the background in
  * competition with the card.
  */
-import { useEffect, useRef } from 'hono/jsx'
 import { createCloudLayer } from '@/lib/cloud-layer'
 import { createSun } from '@/lib/sky-sun'
 import { createTerrainLayer } from '@/lib/terrain-layer'
-
-export type CloudSkyProps = {
-    /** A fresh seed per page load. */
-    seed: number
-}
 
 /** Camera sits well below the slab and tilts up, putting the horizon low. */
 const CAMERA_X = 0
@@ -44,31 +38,6 @@ const lerp = (range: readonly [number, number], t: number) =>
 
 const LIME = 0xbef202
 
-/** Narrower than this and the scene is skipped entirely. */
-const MIN_WIDTH = 768
-
-/**
- * Whether this device gets the scene at all.
- *
- * Skipping means the dynamic import never runs, so three.js is not merely
- * unused but never fetched — no 128 kB over what is usually a phone's data
- * plan, no WebGL context, no render loop draining the battery. What is left is
- * the canvas' own CSS background: the same green horizon glow, held still.
- *
- * Decided once on mount. Re-checking on resize would mean a rotation could
- * trigger half a megabyte of download mid-visit.
- */
-function wantsScene() {
-    const connection = (navigator as Navigator & {
-        connection?: { saveData?: boolean }
-    }).connection
-
-    if (connection?.saveData) return false
-    if (window.matchMedia('(prefers-reduced-data: reduce)').matches) return false
-
-    return window.matchMedia(`(min-width: ${MIN_WIDTH}px)`).matches
-}
-
 /**
  * Resolves any CSS colour to a hex number by letting the browser paint it.
  * Works whatever notation the theme uses — oklch included, which three.js
@@ -92,7 +61,7 @@ function cssColor(value: string, fallback: number) {
 type Three = typeof import('@/lib/three-subset')
 
 /** Builds the scene and returns its teardown. */
-function mountSky(canvas: HTMLCanvasElement, THREE: Three, seed: number) {
+export function mountVoxelBackground(canvas: HTMLCanvasElement, THREE: Three, seed: number) {
     let renderer: InstanceType<Three['WebGLRenderer']>
     try {
         renderer = new THREE.WebGLRenderer({
@@ -163,8 +132,6 @@ function mountSky(canvas: HTMLCanvasElement, THREE: Three, seed: number) {
     }
     resize()
 
-    const stillPreferred = window.matchMedia('(prefers-reduced-motion: reduce)')
-
     let frame = 0
     let last = performance.now()
 
@@ -178,7 +145,7 @@ function mountSky(canvas: HTMLCanvasElement, THREE: Three, seed: number) {
     }
 
     const start = () => {
-        if (frame || stillPreferred.matches || document.hidden) return
+        if (frame || document.hidden) return
         last = performance.now()
         frame = requestAnimationFrame(tick)
     }
@@ -191,57 +158,22 @@ function mountSky(canvas: HTMLCanvasElement, THREE: Three, seed: number) {
 
     // A hidden tab should not burn frames.
     const onVisibility = () => (document.hidden ? stop() : start())
-    const onMotionChange = () => {
-        stop()
-        renderer.render(scene, camera)
-        start()
-    }
-
     renderer.render(scene, camera)
+    canvas.dataset.scene = 'live'
     start()
 
     window.addEventListener('resize', resize)
     document.addEventListener('visibilitychange', onVisibility)
-    stillPreferred.addEventListener('change', onMotionChange)
 
     return () => {
         stop()
         window.removeEventListener('resize', resize)
         document.removeEventListener('visibilitychange', onVisibility)
-        stillPreferred.removeEventListener('change', onMotionChange)
+        delete canvas.dataset.scene
         clouds.dispose()
         bodyMaterial.dispose()
         ground.dispose()
         sun.dispose()
         renderer.dispose()
     }
-}
-
-export default function CloudSky({ seed }: CloudSkyProps) {
-    const canvasRef = useRef<HTMLCanvasElement>(null)
-
-    useEffect(() => {
-        const canvas = canvasRef.current
-        if (!canvas || !wantsScene()) return
-
-        let teardown: (() => void) | undefined
-        let cancelled = false
-
-        // Dynamic, so three.js lands in its own client chunk and stays out of
-        // the SSR bundle — the server never runs this effect.
-        import('@/lib/three-subset').then((THREE) => {
-            if (cancelled) return
-            teardown = mountSky(canvas, THREE, seed)
-        }).catch((error) => {
-            // The decorative scene may fail to load; the CSS sky still works.
-            if (!cancelled) console.warn('Could not load the sky scene', error)
-        })
-
-        return () => {
-            cancelled = true
-            teardown?.()
-        }
-    }, [])
-
-    return <canvas ref={canvasRef} class="pixel-sky" aria-hidden="true" />
 }
