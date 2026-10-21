@@ -115,7 +115,7 @@ const work: WorkItem[] = [
     location: { city: 'Oskemen', countryCode: 'KZ' },
     highlights: [
       'Developed and maintained React-based web applications used in production.',
-      'Refactored a legacy JavaScript codebase to TypeScript, improving type safety and performance.',
+      'Migrated a legacy JavaScript codebase to TypeScript, improving type safety and maintainability.',
       'Used SQL for data collection, analysis, and preparation for frontend visualization.',
       'Implemented complex data visualizations, including charts, maps, and tables.',
     ],
@@ -182,17 +182,17 @@ function SelectedProjects() {
     {
       name: 'luci-theme-shadcnui',
       url: 'https://github.com/eone666/luci-theme-shadcnui',
-      description: 'A modern shadcn/ui-inspired theme for OpenWrt\'s LuCI interface. Light & dark modes, drop-in shadcn color themes.',
+      description: 'Built a shadcn/ui-inspired theme for OpenWrt\'s LuCI interface with light and dark modes and customizable colors.',
     },
     {
-      name: '4x3_keypad',
-      url: 'https://github.com/eone666/4x3_keypad',
-      description: 'A custom XIAO RP2040 macro pad, from PCB design to QMK and Vial firmware.',
+      name: 'avdeyev.dev',
+      url: 'https://avdeyev.dev',
+      description: 'Built a personal site with HonoX, TypeScript, and a custom Three.js voxel background.',
     },
     {
       name: 'mc-telegram-notifier',
       url: 'https://github.com/eone666/mc-telegram-notifier',
-      description: 'A Minecraft Telegram plugin published on Modrinth with 1K+ downloads.',
+      description: 'Built a Minecraft server plugin that sends player activity notifications to Telegram; 1K+ downloads on Modrinth.',
     },
   ]
   return (
@@ -239,7 +239,7 @@ export default (
         <View style={{ position: 'relative', top: -7 }}>
           <SectionTitle icon="user-3-line">Professional Summary</SectionTitle>
           <Text style={{ fontSize: 10, lineHeight: 1.625 }}>
-          Frontend developer who occasionally forgets where the frontend ends. I build interfaces with React and TypeScript, and enjoy digging into routers, firmware, backend tooling, and whatever makes an idea work. I care about clean architecture, good UX, developer experience, and understanding the abstraction underneath.
+          Frontend developer who occasionally forgets where the frontend ends. I build web and mobile interfaces across different stacks, and enjoy digging into hardware, firmware, backend tooling, and whatever makes an idea work. I care about clean architecture, good UX, developer experience, and understanding how things work under the hood.
           </Text>
         </View>
       </View>
@@ -268,10 +268,10 @@ export default (
       <View>
         <SectionTitle icon="tools-line">Technical Skills</SectionTitle>
         <View style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-          <SkillsBlock title="Languages" skills={['JavaScript', 'TypeScript', 'HTML', 'CSS', 'SQL', 'GraphQL', 'SCSS', 'PostCSS', 'Kotlin', 'Gleam', 'C', 'Java']} />
-          <SkillsBlock title="Frameworks & Libraries" skills={['React', 'Next.js', 'Astro', 'HonoX', 'Hono', 'Tailwind', 'Vue', 'Nuxt', 'React Query', 'Redux']} />
-          <SkillsBlock title="Tools & Platforms" skills={['Storybook', 'Git', 'Vitest', 'Playwright', 'Node.js', 'PostgreSQL', 'Docker', 'Vite']} />
-          <SkillsBlock title="Concepts" skills={['REST APIs', 'UX', 'CI/CD', 'Architecture', 'Software Design', 'SEO']} />
+          <SkillsBlock title="Languages" skills={['TypeScript', 'JavaScript', 'HTML', 'CSS', 'SQL']} />
+          <SkillsBlock title="Frontend" skills={['React', 'Next.js', 'Vue', 'Nuxt', 'Astro', 'Tailwind CSS', 'React Query', 'Redux']} />
+          <SkillsBlock title="Tools & Testing" skills={['Storybook', 'Git', 'Vite', 'Vitest', 'Playwright']} />
+          <SkillsBlock title="Backend & Platforms" skills={['Node.js', 'HonoX', 'PostgreSQL', 'Docker', 'REST APIs']} />
         </View>
       </View>
 
