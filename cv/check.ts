@@ -25,6 +25,10 @@ export async function checkCv(pdfBytes: Uint8Array, expectedProfile: string, exp
     const text = texts.join(' ')
     assert.ok(text.includes(profile.basics.name), 'Candidate name missing from text layer')
     assert.ok(text.includes(profile.basics.email), 'Email missing from text layer')
+    const github = profile.basics.profiles.find(item => item.network === 'GitHub')
+    assert.ok(github && texts[0].includes(github.username), 'GitHub username missing from first page')
+    assert.ok(links.includes(github.url), 'GitHub profile link missing from PDF')
+    assert.ok(links.includes('https://t.me/eone666'), 'Telegram contact link missing from PDF')
     for (const heading of ['Professional Summary', 'Work Experience', 'Education', 'Technical Skills', 'Selected Projects']) {
       assert.ok(text.includes(heading), `Missing heading: ${heading}`)
     }

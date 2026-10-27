@@ -1,5 +1,6 @@
 /** @jsxImportSource react */
 import { Svg } from '@formepdf/react'
+import svgpath from 'svgpath'
 import { getIcon, type IconName } from '../shared/icons'
 
 /**
@@ -9,5 +10,8 @@ import { getIcon, type IconName } from '../shared/icons'
  */
 export function PdfIcon({ name, size = 15, color = '#000000' }: { name: IconName; size?: number; color?: string }) {
   const { body, viewBox } = getIcon(name)
-  return <Svg width={size} height={size} viewBox={viewBox} content={body.replaceAll('currentColor', color)} />
+  // Normalize relative curves and arcs for Forme's SVG path renderer.
+  const content = body.replaceAll('currentColor', color).replace(/\bd="([^"]*)"/g,
+    (_, path: string) => `d="${svgpath(path).unarc().unshort().abs().toString()}"`)
+  return <Svg width={size} height={size} viewBox={viewBox} content={content} />
 }

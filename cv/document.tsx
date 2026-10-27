@@ -100,7 +100,6 @@ function SectionTitle({ icon, children }: { icon?: IconName; children: ReactNode
 
 function Header() {
   const url = 'https://avdeyev.dev'
-  const location = 'Almaty, KZ'
   const contactStyle: Style = { flexDirection: 'row', alignItems: 'center', gap: 6 }
   const contactIconStyle: Style = { position: 'relative', top: 1.5, width: 12, height: 12, alignItems: 'center', justifyContent: 'center' }
 
@@ -109,7 +108,7 @@ function Header() {
       <View style={{ flexGrow: 1, marginTop: -12 }}>
         <Text style={{ fontSize: 27, fontWeight: 700, marginBottom: 9 }}>Ivan Avdeyev</Text>
         <Text style={{ fontSize: 15, color: GRAY, fontWeight: 500, marginBottom: 18 }}>Frontend Developer</Text>
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', columnGap: 18, rowGap: 9 }}>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', columnGap: 14, rowGap: 9 }}>
           <View style={contactStyle} href="mailto:contact@avdeyev.dev">
             <View style={contactIconStyle}>
               <PdfIcon name="mail-line" size={12} />
@@ -122,11 +121,17 @@ function Header() {
             </View>
             <Text style={{ fontSize: 10 }}>avdeyev.dev</Text>
           </View>
-          <View style={contactStyle} href={`https://www.google.com/maps/search/?api=1&query=${location}`}>
+          <View style={contactStyle} href="https://github.com/eone666">
             <View style={contactIconStyle}>
-              <PdfIcon name="map-pin-line" size={12} />
+              <PdfIcon name="github-line" size={12} />
             </View>
-            <Text style={{ fontSize: 10 }}>{location}</Text>
+            <Text style={{ fontSize: 10 }}>eone666</Text>
+          </View>
+          <View style={contactStyle} href="https://t.me/eone666">
+            <View style={contactIconStyle}>
+              <PdfIcon name="telegram-2-line" size={12} />
+            </View>
+            <Text style={{ fontSize: 10 }}>eone666</Text>
           </View>
         </View>
       </View>
