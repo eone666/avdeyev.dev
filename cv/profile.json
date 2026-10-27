@@ -37,7 +37,7 @@
         "country": "Kazakhstan"
       },
       "highlights": [
-        "Updated React mobile screens and UI components, helped design APIs, and fixed bugs in an app with native Android/iOS shells.",
+        "Updated React screens and UI components in native Android/iOS shells, helped design APIs, fixed bugs, and wrote unit tests.",
         "Collaborated on the Nuxt 2-to-Astro website migration, improving performance and developer experience.",
         "Built most reusable page blocks with a designer, accelerating page assembly.",
         "Used Lighthouse to optimize JS, images, fonts, third-party scripts, layout stability, accessibility, and SEO."
@@ -89,10 +89,9 @@
       ],
       "testing": {
         "types": [
-          "unit",
-          "e2e"
+          "unit"
         ],
-        "summary": "Wrote primarily unit tests and occasional end-to-end tests."
+        "summary": "Wrote unit tests."
       }
     },
     {
@@ -103,8 +102,8 @@
       "location": null,
       "highlights": [
         "Helped migrate a tile retail website from PHP templates and jQuery to Next.js.",
-        "Implemented the header, complex tile-specific filters, and their localization.",
-        "Built reusable components from designer mockups and documented them in Storybook."
+        "Developed localized navigation and advanced product filtering for a tile retail platform.",
+        "Built and unit-tested components from designs; documented them in Storybook."
       ],
       "remote": true,
       "technologies": [
@@ -131,10 +130,9 @@
       ],
       "testing": {
         "types": [
-          "unit",
-          "e2e"
+          "unit"
         ],
-        "summary": "Wrote primarily unit tests and occasional end-to-end tests."
+        "summary": "Wrote unit tests."
       }
     },
     {
@@ -149,7 +147,7 @@
       },
       "highlights": [
         "Built React dashboards for a municipal administration with charts, maps, tables, and filters.",
-        "Migrated legacy JavaScript code to TypeScript to improve maintainability.",
+        "Migrated JS to TypeScript for maintainability; wrote unit and E2E tests.",
         "Created SQL tables, queries, and views; prepared data sources and calculations in Cube.js.",
         "Developed hospital COVID-19 tracking and employee timesheet interfaces, collaborating closely with a backend developer on the latter."
       ],
@@ -207,7 +205,7 @@
           "unit",
           "e2e"
         ],
-        "summary": "Wrote primarily unit tests and occasional end-to-end tests."
+        "summary": "Wrote unit and end-to-end tests."
       }
     },
     {
@@ -422,7 +420,8 @@
         "Lighthouse",
         "Unit testing",
         "End-to-end testing",
-        "Jest"
+        "Jest",
+        "Integration testing"
       ],
       "sources": [
         "https://github.com/eone666/eone666/blob/main/README.md",
@@ -434,7 +433,7 @@
         "#/work/2",
         "#/projectDetails/0"
       ],
-      "context": "Wrote mainly unit tests and occasional end-to-end tests at Raison, Tile.Expert, and Rating. Unit-testing tools used include Jest, Vitest, and React Testing Library; end-to-end tests used Playwright."
+      "context": "Wrote unit tests at Raison and Tile.Expert, and unit and end-to-end tests at Rating. Testing tools used across professional work include Jest, Vitest, React Testing Library, and Playwright."
     },
     {
       "name": "AI and coding tools",
@@ -483,6 +482,16 @@
         "#/projectDetails/0",
         "#/projectDetails/2",
         "#/projectDetails/5"
+      ]
+    },
+    {
+      "name": "Rendering and performance",
+      "keywords": [
+        "SSR",
+        "SSG",
+        "ISR",
+        "Web performance profiling",
+        "Media optimization"
       ]
     }
   ],

@@ -9,6 +9,13 @@ describe('CV document', () => {
 
     expect(layout.pages).toHaveLength(2)
     expect(pdf.byteLength).toBeGreaterThan(0)
+    const finalPage = layout.pages[layout.pages.length - 1]
+    const footer = finalPage.elements.find(element => element.nodeType === 'FixedFooter')
+    expect(footer).toBeDefined()
+    const bodyBottom = Math.max(...finalPage.elements
+      .filter(element => element.nodeType !== 'FixedFooter')
+      .map(element => element.y + element.height))
+    expect(footer!.y - bodyBottom).toBeGreaterThanOrEqual(12)
     await checkCv(pdf, profileJson, resumeJson)
   })
 })

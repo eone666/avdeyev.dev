@@ -65,7 +65,9 @@ const visibleSkills = [
       "Git",
       "Vite",
       "Vitest",
-      "Playwright"
+      "Playwright",
+      "CI/CD",
+      "Integration testing"
     ]
   },
   {
@@ -83,7 +85,7 @@ const visibleSkills = [
 const BLACK = '#000000'
 const GRAY = '#374151'
 const LIGHT_GRAY = '#d1d5db'
-const PAGE_GAP = 12
+const PAGE_GAP = 20
 
 function SectionTitle({ icon, children }: { icon?: IconName; children: ReactNode }) {
   return (
@@ -142,7 +144,7 @@ function Header() {
   )
 }
 
-const work: WorkItem[] = profile.work
+const work: WorkItem[] = profile.work.slice(0, 3)
 
 function WorkExperience({ items, title = false }: { items: WorkItem[]; title?: boolean }) {
   return (
@@ -245,7 +247,7 @@ export default (
         <View style={{ position: 'relative', top: -7 }}>
           <SectionTitle icon="user-3-line">Professional Summary</SectionTitle>
           <Text style={{ fontSize: 10, lineHeight: 1.625 }}>
-          Frontend developer working with React and TypeScript, with experience building web and mobile interfaces, reusable UI components, and data visualizations. My work includes Next.js migrations and component documentation with Storybook. I care about clean architecture, UX, and developer experience, and explore UI runtime internals, WebGL, and hardware through personal projects.
+          Frontend developer building web and mobile interfaces, reusable UI systems, and data-rich applications. I work across frameworks and learn the tools a project needs, with experience extending into APIs, data preparation, and performance optimization. I value maintainable code, thoughtful UX, and understanding how things work under the hood.
           </Text>
         </View>
       </View>
@@ -254,7 +256,6 @@ export default (
     </PdfPage>
 
     <PdfPage size="A4" margin={34} style={{ gap: PAGE_GAP, backgroundColor: '#ffffff' }}>
-      <WorkExperience items={work.slice(3)} />
       <View>
         <SectionTitle icon="graduation-cap-line">Education</SectionTitle>
         <View wrap={false} style={{ borderLeft: `1.5 solid ${BLACK}`, paddingLeft: 18, paddingRight: 12, paddingVertical: 15 }}>
@@ -275,6 +276,9 @@ export default (
         <SectionTitle icon="tools-line">Technical Skills</SectionTitle>
         <View style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
           {visibleSkills.map((group) => <SkillsBlock key={group.name} title={group.name} skills={group.keywords} />)}
+        </View>
+        <View style={{ marginTop: 8 }}>
+          <SkillsBlock title="Rendering & Performance" skills={['SSR', 'SSG', 'ISR', 'Web performance profiling', 'Media optimization']} />
         </View>
       </View>
 

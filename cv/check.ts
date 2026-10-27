@@ -33,7 +33,7 @@ export async function checkCv(pdfBytes: Uint8Array, expectedProfile: string, exp
       assert.ok(text.includes(heading), `Missing heading: ${heading}`)
     }
     let previousJob = -1
-    for (const job of profile.work) {
+    for (const job of profile.work.slice(0, 3)) {
       const company = text.indexOf(job.company)
       assert.ok(company > previousJob, `Work history reading order is incorrect: ${job.company}`)
       const date = `${workDateText(job.startDate)}–${workDateText(job.endDate)}`
