@@ -1,5 +1,6 @@
 import { jsxRenderer } from 'hono/jsx-renderer'
 import { Link } from 'honox/server'
+import { jsonForHtml, personJsonLd, PROFILE_URL, RESUME_URL } from '../../shared/resume'
 
 const DEFAULT_TITLE = 'Ivan Avdeyev | Frontend Developer'
 const DEFAULT_DESCRIPTION = 'Frontend developer Ivan Avdeyev — projects, professional profiles, contact details and CV.'
@@ -19,21 +20,7 @@ export default jsxRenderer(({ children, title, description, canonical, robots, v
   const pageTitle = title ?? DEFAULT_TITLE
   const pageDescription = description ?? DEFAULT_DESCRIPTION
   const pageUrl = canonical ?? SITE_URL
-  const person = {
-    '@context': 'https://schema.org',
-    '@type': 'Person',
-    name: 'Ivan Avdeyev',
-    url: SITE_URL,
-    image: SOCIAL_IMAGE,
-    jobTitle: 'Frontend Developer',
-    email: 'mailto:contact@avdeyev.dev',
-    sameAs: [
-      'https://github.com/eone666',
-      'https://www.linkedin.com/in/eone666/',
-      'https://t.me/eone666',
-      'https://instagram.com/avdeyev.dev'
-    ]
-  }
+  const person = personJsonLd()
 
   return (
     <html lang="en">
@@ -64,7 +51,9 @@ export default jsxRenderer(({ children, title, description, canonical, robots, v
         <meta name="twitter:image" content={SOCIAL_IMAGE} />
         <meta name="twitter:image:alt" content="Avdeyev.dev logo" />
 
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(person) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonForHtml(person) }} />
+        <link rel="alternate" type="application/json" title="Extended professional profile" href={PROFILE_URL} />
+        <link rel="alternate" type="application/json" title="JSON Resume" href={RESUME_URL} />
         <link rel="icon" href="/favicon.ico" sizes="48x48" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="icon" href="/icon-96.png" type="image/png" sizes="96x96" />

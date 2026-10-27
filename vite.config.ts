@@ -36,7 +36,7 @@ export default defineConfig({
       staticRoot: './dist',
       external: ['three'],
       entryContentBeforeHooks: [serveStaticWithHeaders],
-      staticPaths: ['/cv.pdf']
+      staticPaths: ['/cv.pdf', '/profile.json', '/resume.json']
     })
   ]
 })

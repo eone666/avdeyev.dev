@@ -2,9 +2,13 @@
 import type { ReactNode } from 'react'
 import { PdfIcon } from './icon'
 import profile from './profile.json'
+import { locationText, workDateText } from './format'
+import { standardFonts } from '@formepdf/fonts-standard'
+import { PROFILE_URL } from '../shared/resume'
 import type { IconName } from '../shared/icons'
 import {
   Document,
+  Fixed,
   Cell,
   Page as PdfPage,
   QrCode,
@@ -18,15 +22,15 @@ import {
 type Location = {
   city?: string
   countryCode?: string
-  label?: string
 }
 
 type WorkItem = {
   position: string
   company: string
   startDate: string
-  endDate: string
-  location: Location
+  endDate: string | null
+  location: Location | null
+  remote?: boolean
   highlights: string[]
 }
 
@@ -94,11 +98,6 @@ function SectionTitle({ icon, children }: { icon?: IconName; children: ReactNode
   )
 }
 
-function locationText(location: Location) {
-  if (location.label) return location.label
-  return [location.city, location.countryCode].filter(Boolean).join(', ')
-}
-
 function Header() {
   const url = 'https://avdeyev.dev'
   const location = 'Almaty, KZ'
@@ -144,16 +143,16 @@ function WorkExperience({ items, title = false }: { items: WorkItem[]; title?: b
   return (
     <View style={title ? { marginTop: 4 } : undefined}>
       {title && <SectionTitle icon="briefcase-2-line">Work Experience</SectionTitle>}
-      <View style={{ gap: 12 }}>
+      <View style={{ gap: 10 }}>
         {items.map((item) => (
-          <View key={`${item.company}-${item.startDate}`} wrap={false} style={{ borderLeft: `1.5 solid ${BLACK}`, paddingLeft: 18, paddingRight: 12, paddingTop: 8, paddingBottom: 16 }}>
+          <View key={`${item.company}-${item.startDate}`} wrap={false} style={{ borderLeft: `1.5 solid ${BLACK}`, paddingLeft: 18, paddingRight: 12, paddingTop: 8, paddingBottom: 12 }}>
             <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', gap: 6, marginBottom: 6 }}>
               <View style={{ flexGrow: 1 }}>
                 <Text style={{ fontSize: 13.5, fontWeight: 700 }}>{item.position}</Text>
-                <Text style={{ fontSize: 10, color: GRAY, fontWeight: 500 }}>{item.company} · {locationText(item.location)}</Text>
+                <Text style={{ fontSize: 10, color: GRAY, fontWeight: 500 }}>{item.company} · {locationText(item.location, item.remote)}</Text>
               </View>
               <View wrap={false} style={{ height: 22, border: `0.75 solid ${BLACK}`, paddingHorizontal: 9, alignItems: 'center', justifyContent: 'center' }}>
-                <Text style={{ fontSize: 10, fontWeight: 600 }}>{item.startDate}–{item.endDate}</Text>
+                <Text style={{ fontSize: 10, fontWeight: 600 }}>{workDateText(item.startDate)}–{workDateText(item.endDate)}</Text>
               </View>
             </View>
             <View style={{ gap: 6 }}>
@@ -213,18 +212,25 @@ function SelectedProjects() {
 }
 
 function PageNumber({ children }: { children: ReactNode }) {
-  return <Text style={{ position: 'absolute', bottom: 0, left: 0, right: 0, fontSize: 9, textAlign: 'center' }}>{children}</Text>
+  return <Fixed position="footer" style={{ fontFamily: 'Liberation Mono' }}>
+    <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+      <Text href={PROFILE_URL} style={{ fontSize: 7 }}>avdeyev.dev/profile.json</Text>
+      <Text style={{ fontSize: 9 }}>{children}</Text>
+    </View>
+  </Fixed>
 }
 
 export default (
   <Document
     title="Ivan Avdeyev | CV"
     author="Ivan Avdeyev"
-    subject="Frontend Developer CV"
+    subject={`${profile.basics.summary} Extended profile v${profile.profileVersion}: ${PROFILE_URL}. Skills: ${profile.skills.flatMap(group => group.keywords).join(', ')}.`}
     creator="Forme"
     lang="en"
     tagged
-    style={{ fontFamily: 'Courier', fontSize: 10, color: BLACK }}
+    pdfa="3u"
+    fonts={standardFonts()}
+    style={{ fontFamily: 'Liberation Mono', fontSize: 10, color: BLACK }}
   >
     <PdfPage size="A4" margin={34} style={{ gap: 10, backgroundColor: '#ffffff' }}>
       <Header />
@@ -232,7 +238,7 @@ export default (
         <View style={{ position: 'relative', top: -7 }}>
           <SectionTitle icon="user-3-line">Professional Summary</SectionTitle>
           <Text style={{ fontSize: 10, lineHeight: 1.625 }}>
-          Frontend developer who occasionally forgets where the frontend ends. I build web and mobile interfaces across different stacks, and enjoy digging into hardware, firmware, backend tooling, and whatever makes an idea work. I care about clean architecture, good UX, developer experience, and understanding how things work under the hood.
+          Frontend developer working with React and TypeScript, with experience building web and mobile interfaces, reusable UI components, and data visualizations. My work includes Next.js migrations and component documentation with Storybook. I care about clean architecture, UX, and developer experience, and explore UI runtime internals, WebGL, and hardware through personal projects.
           </Text>
         </View>
       </View>

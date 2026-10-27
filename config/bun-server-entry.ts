@@ -29,7 +29,7 @@ ${appName}.use('*', async (context, next) => {
   if (path.startsWith('/static/')) {
     context.header('Cache-Control', 'public, max-age=31536000, immutable')
   } else if (/\\.(?:png|ico|svg|webp|pdf)$/.test(path)) {
-    context.header('Cache-Control', 'public, max-age=86400, stale-while-revalidate=604800')
+    context.header('Cache-Control', 'public, max-age=86400')
   } else if (path === '/robots.txt' || path === '/sitemap.xml') {
     context.header('Cache-Control', 'public, max-age=3600')
   }

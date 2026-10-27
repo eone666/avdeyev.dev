@@ -1,6 +1,6 @@
 {
-  "profileVersion": 1,
-  "reviewedAt": "2026-10-27",
+  "profileVersion": 3,
+  "reviewedAt": "2026-10-28",
   "basics": {
     "name": "Ivan Avdeyev",
     "label": "Frontend Developer",
@@ -8,7 +8,8 @@
     "url": "https://avdeyev.dev",
     "location": {
       "city": "Almaty",
-      "countryCode": "KZ"
+      "countryCode": "KZ",
+      "country": "Kazakhstan"
     },
     "profiles": [
       {
@@ -22,67 +23,236 @@
         "url": "https://www.linkedin.com/in/eone666/"
       }
     ],
-    "summary": "Frontend developer building web and mobile interfaces, reusable UI components, and developer tooling. Professional experience includes React applications, Next.js migrations, TypeScript adoption, Storybook component documentation, and data visualization. Personal projects explore reactive UI runtimes, OpenWrt theming, WebGL, and self-hosting."
+    "summary": "Frontend developer building React and TypeScript interfaces for web and mobile applications. Experience includes a Nuxt 2-to-Astro website migration, reusable page components built with designers, Lighthouse-driven optimization, Next.js migration work, localized product filters, and Storybook components. Developed municipal analytics dashboards and prepared data with SQL and Cube.js. Personal projects explore signal-based UI runtimes, Three.js graphics, OpenWrt theming, and embedded firmware."
   },
   "work": [
     {
       "position": "Frontend Developer",
       "company": "Raison Securities Ltd",
-      "startDate": "Feb 2024",
-      "endDate": "Present",
+      "startDate": "2024-02",
+      "endDate": null,
       "location": {
         "city": "Almaty",
-        "countryCode": "KZ"
+        "countryCode": "KZ",
+        "country": "Kazakhstan"
       },
       "highlights": [
-        "Maintained mobile app features, improving reliability and user experience.",
-        "Rebuilt the company website to improve performance and SEO metrics.",
-        "Built a scalable and reusable UI component library."
-      ]
+        "Updated React mobile screens and UI components, helped design APIs, and fixed bugs in an app with native Android/iOS shells.",
+        "Collaborated on the Nuxt 2-to-Astro website migration, improving performance and developer experience.",
+        "Built most reusable page blocks with a designer, accelerating page assembly.",
+        "Used Lighthouse to optimize JS, images, fonts, third-party scripts, layout stability, accessibility, and SEO."
+      ],
+      "technologies": [
+        "React",
+        "Redux",
+        "TanStack Query",
+        "Jotai",
+        "Nuxt 2",
+        "Astro",
+        "Lighthouse"
+      ],
+      "projects": [
+        {
+          "name": "Company website migration and page components",
+          "summary": "Team migration from Nuxt 2 to Astro with reusable building blocks for website pages.",
+          "role": "Frontend developer; implemented most page-building blocks and most Lighthouse-related optimization work.",
+          "technologies": [
+            "Astro",
+            "Lighthouse"
+          ],
+          "highlights": [
+            "Developed reusable page blocks in close collaboration with a designer.",
+            "Worked with the team to migrate the website from Nuxt 2 to Astro.",
+            "Optimized JavaScript loading, images, fonts, third-party scripts, layout stability, accessibility, and SEO using Lighthouse audits."
+          ],
+          "outcomes": [
+            "The reusable blocks accelerated page assembly and development.",
+            "The migration and optimization work improved performance and developer experience."
+          ]
+        },
+        {
+          "name": "Mobile application",
+          "summary": "React application delivered through native Android and iOS shells.",
+          "role": "Frontend developer contributing screen updates, UI components, API design, and bug fixes.",
+          "technologies": [
+            "React",
+            "Redux",
+            "TanStack Query",
+            "Jotai"
+          ],
+          "highlights": [
+            "Updated screen designs and contributed reusable UI components.",
+            "Participated in API endpoint design with the team.",
+            "Investigated and fixed application bugs and errors."
+          ]
+        }
+      ],
+      "testing": {
+        "types": [
+          "unit",
+          "e2e"
+        ],
+        "summary": "Wrote primarily unit tests and occasional end-to-end tests."
+      }
     },
     {
       "position": "Frontend Developer",
       "company": "Tile.Expert Ltd",
-      "startDate": "Jul 2022",
-      "endDate": "Aug 2023",
-      "location": {
-        "label": "Remote"
-      },
+      "startDate": "2022-07",
+      "endDate": "2023-08",
+      "location": null,
       "highlights": [
-        "Rebuilt legacy functionality from scratch using Next.js, delivering more maintainable and performant solutions.",
-        "Built reusable, well-documented UI components using Storybook.",
-        "Contributed to project architecture and core infrastructure decisions."
-      ]
+        "Helped migrate a tile retail website from PHP templates and jQuery to Next.js.",
+        "Implemented the header, complex tile-specific filters, and their localization.",
+        "Built reusable components from designer mockups and documented them in Storybook."
+      ],
+      "remote": true,
+      "technologies": [
+        "Next.js",
+        "React",
+        "Storybook"
+      ],
+      "projects": [
+        {
+          "name": "Tile retail website migration",
+          "summary": "Team migration from legacy PHP templates and jQuery to a Next.js frontend.",
+          "role": "Frontend developer implementing the header, tile-specific filters, localization, and UI components.",
+          "technologies": [
+            "Next.js",
+            "React",
+            "Storybook"
+          ],
+          "highlights": [
+            "Implemented the site header and complex tile-specific filtering interfaces.",
+            "Added localization for the header and filtering interfaces.",
+            "Built reusable components from designer-provided mockups and documented them in Storybook."
+          ]
+        }
+      ],
+      "testing": {
+        "types": [
+          "unit",
+          "e2e"
+        ],
+        "summary": "Wrote primarily unit tests and occasional end-to-end tests."
+      }
     },
     {
       "position": "Frontend Developer",
       "company": "LLC Rating",
-      "startDate": "Sep 2020",
-      "endDate": "Jul 2022",
+      "startDate": "2020-09",
+      "endDate": "2022-07",
       "location": {
         "city": "Oskemen",
-        "countryCode": "KZ"
+        "countryCode": "KZ",
+        "country": "Kazakhstan"
       },
       "highlights": [
-        "Developed and maintained React-based web applications used in production.",
-        "Migrated a legacy JavaScript codebase to TypeScript, improving type safety and maintainability.",
-        "Used SQL for data collection, analysis, and preparation for frontend visualization.",
-        "Implemented complex data visualizations, including charts, maps, and tables."
-      ]
+        "Built React dashboards for a municipal administration with charts, maps, tables, and filters.",
+        "Migrated legacy JavaScript code to TypeScript to improve maintainability.",
+        "Created SQL tables, queries, and views; prepared data sources and calculations in Cube.js.",
+        "Developed hospital COVID-19 tracking and employee timesheet interfaces, collaborating closely with a backend developer on the latter."
+      ],
+      "technologies": [
+        "React",
+        "JavaScript",
+        "TypeScript",
+        "SQL",
+        "Cube.js"
+      ],
+      "projects": [
+        {
+          "name": "Municipal analytics application",
+          "summary": "Analytics application for a municipal administration (akimat).",
+          "role": "Frontend developer; also prepared data sources and calculations through SQL and Cube.js.",
+          "technologies": [
+            "React",
+            "JavaScript",
+            "TypeScript",
+            "SQL",
+            "Cube.js"
+          ],
+          "highlights": [
+            "Built charts, maps, tables, filters, and configuration interfaces.",
+            "Applied trigonometry to angle calculations for map functionality.",
+            "Wrote SQL queries, created database tables, and combined data through database views.",
+            "Implemented Cube.js data sources and calculations and visualized the results in the frontend."
+          ]
+        },
+        {
+          "name": "Hospital COVID-19 patient tracking",
+          "summary": "Application for hospitals to track COVID-19 patients.",
+          "role": "Frontend developer.",
+          "technologies": [],
+          "highlights": [
+            "Developed patient-tracking interfaces."
+          ]
+        },
+        {
+          "name": "Field employee time tracking",
+          "summary": "Calendar-style timesheets for field employees, including technicians, with hours, fuel expenses, leave, and salary calculations.",
+          "role": "Frontend developer in a two-person team with a backend developer.",
+          "technologies": [],
+          "highlights": [
+            "Built calendar-style employee timesheets showing working hours, expenses, leave, and payroll information.",
+            "Collaborated directly with the backend developer on the system."
+          ]
+        }
+      ],
+      "details": [
+        "Migrated existing JavaScript code to TypeScript to improve maintainability and day-to-day developer experience."
+      ],
+      "testing": {
+        "types": [
+          "unit",
+          "e2e"
+        ],
+        "summary": "Wrote primarily unit tests and occasional end-to-end tests."
+      }
     },
     {
       "position": "Markup Developer",
       "company": "LLC Megagroup IT",
-      "startDate": "Apr 2019",
-      "endDate": "May 2020",
+      "startDate": "2019-04",
+      "endDate": "2020-05",
       "location": {
         "city": "Oskemen",
-        "countryCode": "KZ"
+        "countryCode": "KZ",
+        "country": "Kazakhstan"
       },
       "highlights": [
-        "Created responsive, cross-browser, and semantic layouts for client websites.",
-        "Integrated frontend layouts with CMS platforms and template engines.",
-        "Integrated third-party scripts, widgets, and analytics to enhance functionality and track user behavior."
+        "Built responsive websites with Smarty templates for a proprietary PHP CMS.",
+        "Implemented jQuery interactions for IE9-compatible sites and Vue widgets for modern browsers.",
+        "Integrated feedback widgets, advertising, analytics, and social sharing."
+      ],
+      "technologies": [
+        "HTML",
+        "CSS",
+        "JavaScript",
+        "Smarty",
+        "jQuery",
+        "Vue"
+      ],
+      "projects": [
+        {
+          "name": "Client websites and interactive widgets",
+          "summary": "Client websites integrated with Smarty templates in a proprietary PHP-based CMS.",
+          "role": "Markup developer implementing layouts, interactions, and third-party integrations.",
+          "technologies": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "Smarty",
+            "jQuery",
+            "Vue"
+          ],
+          "highlights": [
+            "Built responsive website layouts and integrated them into CMS templates.",
+            "Implemented jQuery interactions with Internet Explorer 9 compatibility where required.",
+            "Developed Vue widgets for projects without legacy-browser requirements.",
+            "Integrated feedback widgets, advertising banners, analytics, and social sharing services."
+          ]
+        }
       ]
     }
   ],
@@ -97,6 +267,15 @@
       ],
       "sources": [
         "https://avdeyev.dev/cv.pdf"
+      ],
+      "experienceRefs": [
+        "#/work/2",
+        "#/work/3",
+        "#/projectDetails/0",
+        "#/projectDetails/1",
+        "#/projectDetails/2",
+        "#/projectDetails/5",
+        "#/projectDetails/6"
       ]
     },
     {
@@ -107,25 +286,38 @@
         "Vue",
         "Nuxt",
         "Astro",
-        "HonoX"
+        "HonoX",
+        "jQuery"
       ],
       "context": "Self-reported in the public GitHub profile.",
       "sources": [
         "https://github.com/eone666/eone666/blob/main/README.md"
+      ],
+      "experienceRefs": [
+        "#/work/0",
+        "#/work/1",
+        "#/work/2",
+        "#/work/3",
+        "#/projectDetails/2",
+        "#/projectDetails/6"
       ]
     },
     {
       "name": "State and data",
       "keywords": [
         "Redux",
-        "Redux-Saga",
+        "redux-saga",
         "Zustand",
         "Jotai",
-        "React Query"
+        "TanStack Query"
       ],
       "context": "Self-reported in the public GitHub profile.",
       "sources": [
         "https://github.com/eone666/eone666/blob/main/README.md"
+      ],
+      "experienceRefs": [
+        "#/work/0",
+        "#/projectDetails/6"
       ]
     },
     {
@@ -133,13 +325,19 @@
       "keywords": [
         "Tailwind CSS",
         "PostCSS",
-        "Styled Components",
+        "styled-components",
         "shadcn/ui",
-        "Radix UI"
+        "Radix UI",
+        "Smarty"
       ],
       "context": "Self-reported in the public GitHub profile.",
       "sources": [
         "https://github.com/eone666/eone666/blob/main/README.md"
+      ],
+      "experienceRefs": [
+        "#/work/3",
+        "#/projectDetails/2",
+        "#/projectDetails/6"
       ]
     },
     {
@@ -147,13 +345,16 @@
       "keywords": [
         "React Hook Form",
         "Zod",
-        "Arktype",
+        "ArkType",
         "Formik",
         "Yup"
       ],
       "context": "Self-reported in the public GitHub profile.",
       "sources": [
         "https://github.com/eone666/eone666/blob/main/README.md"
+      ],
+      "experienceRefs": [
+        "#/projectDetails/6"
       ]
     },
     {
@@ -163,11 +364,15 @@
         "Express",
         "Node.js",
         "Cloudflare Workers",
-        "REST APIs"
+        "REST APIs",
+        "Cube.js"
       ],
       "sources": [
         "https://github.com/eone666/eone666/blob/main/README.md",
         "https://avdeyev.dev/cv.pdf"
+      ],
+      "experienceRefs": [
+        "#/work/2"
       ]
     },
     {
@@ -181,6 +386,9 @@
       "context": "Self-reported in the public GitHub profile.",
       "sources": [
         "https://github.com/eone666/eone666/blob/main/README.md"
+      ],
+      "experienceRefs": [
+        "#/work/2"
       ]
     },
     {
@@ -194,22 +402,39 @@
       "sources": [
         "https://github.com/eone666/eone666/blob/main/README.md",
         "https://avdeyev.dev/cv.pdf"
+      ],
+      "experienceRefs": [
+        "#/projectDetails/1",
+        "#/projectDetails/2",
+        "#/projectDetails/5",
+        "#/projectDetails/6"
       ]
     },
     {
       "name": "Testing and tooling",
       "keywords": [
         "Playwright",
-        "Testing Library",
+        "React Testing Library",
         "ESLint",
         "Prettier",
         "Storybook",
-        "Vitest"
+        "Vitest",
+        "Lighthouse",
+        "Unit testing",
+        "End-to-end testing",
+        "Jest"
       ],
       "sources": [
         "https://github.com/eone666/eone666/blob/main/README.md",
         "https://avdeyev.dev/cv.pdf"
-      ]
+      ],
+      "experienceRefs": [
+        "#/work/0",
+        "#/work/1",
+        "#/work/2",
+        "#/projectDetails/0"
+      ],
+      "context": "Wrote mainly unit tests and occasional end-to-end tests at Raison, Tile.Expert, and Rating. Unit-testing tools used include Jest, Vitest, and React Testing Library; end-to-end tests used Playwright."
     },
     {
       "name": "AI and coding tools",
@@ -235,6 +460,29 @@
       "context": "Occasional use, as described in the public GitHub profile.",
       "sources": [
         "https://github.com/eone666/eone666/blob/main/README.md"
+      ],
+      "experienceRefs": [
+        "#/projectDetails/3",
+        "#/projectDetails/4"
+      ]
+    },
+    {
+      "name": "Graphics and UI runtimes",
+      "keywords": [
+        "Three.js",
+        "WebGL",
+        "Signals",
+        "DOM",
+        "JSX"
+      ],
+      "sources": [
+        "https://avdeyev.dev",
+        "https://github.com/eone666/treegger"
+      ],
+      "experienceRefs": [
+        "#/projectDetails/0",
+        "#/projectDetails/2",
+        "#/projectDetails/5"
       ]
     }
   ],
@@ -251,21 +499,29 @@
       ],
       "location": {
         "city": "Oskemen",
-        "countryCode": "KZ"
+        "countryCode": "KZ",
+        "country": "Kazakhstan"
       }
     }
   ],
   "languages": [
     {
       "language": "Russian",
-      "fluency": "Native"
+      "fluency": "Native",
+      "code": "ru"
     },
     {
       "language": "English",
-      "fluency": "Intermediate"
+      "fluency": "Intermediate",
+      "code": "en"
     }
   ],
   "selectedProjects": [
+    {
+      "name": "Treegger",
+      "url": "https://github.com/eone666/treegger",
+      "description": "Designed a TypeScript UI runtime with signals, direct DOM updates, keyed lists, and scoped effects. Supports HTML templates and JSX without a framework-specific compiler."
+    },
     {
       "name": "luci-theme-shadcnui",
       "url": "https://github.com/eone666/luci-theme-shadcnui",
@@ -275,18 +531,13 @@
       "name": "avdeyev.dev",
       "url": "https://avdeyev.dev",
       "description": "Built a personal site with TypeScript and a custom Three.js voxel background."
-    },
-    {
-      "name": "Treegger",
-      "url": "https://github.com/eone666/treegger",
-      "description": "Designed a TypeScript UI runtime with fine-grained signal reactivity and direct DOM updates. Implemented scoped effect cleanup, keyed list reconciliation, and HTML/JSX rendering without a framework-specific compiler."
     }
   ],
   "projectDetails": [
     {
       "name": "Treegger",
       "url": "https://github.com/eone666/treegger",
-      "status": "Experimental proof of concept; not published to npm at review time.",
+      "status": "Experimental proof of concept.",
       "summary": "Small TypeScript reactive DOM library with HTML templates and a standard automatic JSX runtime, no runtime dependencies, and no virtual DOM.",
       "highlights": [
         "Tracks signal dependencies at runtime and updates individual DOM bindings through effects.",
@@ -346,7 +597,7 @@
         "Server-renders the site with HonoX and Bun; uses TypeScript, Vite, and Tailwind CSS.",
         "Loads the optional WebGL background dynamically, accounting for viewport size, Save-Data, reduced motion, and page visibility.",
         "Generates a tagged PDF CV from a standalone Forme document.",
-        "Uses Docker hosting; the site is not deployed on Cloudflare Workers."
+        "Hosts the Bun application in Docker."
       ],
       "technologies": [
         "TypeScript",
@@ -379,7 +630,7 @@
       "status": "Public repository is archived; main contains the Java implementation and dev contains a Kotlin preview.",
       "developmentBranch": {
         "url": "https://github.com/eone666/mc-telegram-notifier/tree/dev",
-        "status": "Kotlin preview branch; these features are documented from source, not asserted to be in the published release.",
+        "status": "Kotlin preview branch.",
         "highlights": [
           "Implements Telegram polling and coroutine-based player-list message updates using kt-telegram-bot and MCCoroutine.",
           "Adds a setup flow linking an in-game command sender to a Telegram chat through a generated confirmation code.",
@@ -403,10 +654,10 @@
       ],
       "adoption": {
         "platform": "Modrinth",
-        "downloads": "1,000+",
         "observedDisplay": "1.1K downloads",
         "checkedAt": "2026-10-27",
-        "url": "https://modrinth.com/plugin/telegram-notifier"
+        "url": "https://modrinth.com/plugin/telegram-notifier",
+        "downloadsLowerBound": 1000
       }
     },
     {
@@ -438,7 +689,7 @@
     {
       "name": "YAFF",
       "url": "https://github.com/eone666/yaff",
-      "status": "Small educational React-inspired implementation; not a production framework.",
+      "status": "Small educational React-inspired implementation.",
       "summary": "TypeScript experiment implementing element creation, function components, fragments, and recursive DOM rendering.",
       "highlights": [
         "Separates element creation and DOM rendering into yaff and yaff-dom workspace packages.",
@@ -462,7 +713,7 @@
     {
       "name": "interview-assignments",
       "url": "https://github.com/eone666/interview-assignments",
-      "status": "Portfolio of frontend take-home assignments; not commercial deployments.",
+      "status": "Portfolio of frontend take-home assignments.",
       "summary": "Five standalone assignment implementations demonstrating React application development, forms, state management, data visualization, and responsive layouts.",
       "highlights": [
         "Keeps original briefs alongside implementations and project-specific run instructions.",
@@ -482,7 +733,7 @@
             "React",
             "TypeScript",
             "Redux Toolkit",
-            "Redux-Saga",
+            "redux-saga",
             "React Hook Form",
             "Zod",
             "Radix UI",
@@ -528,9 +779,6 @@
             "Bootstrap",
             "Formik",
             "Yup"
-          ],
-          "limitations": [
-            "Depends on the original company test API; lists remain empty when it is unavailable."
           ]
         },
         {
@@ -548,7 +796,7 @@
         "TypeScript",
         "JavaScript",
         "Redux Toolkit",
-        "Redux-Saga",
+        "redux-saga",
         "React Hook Form",
         "Zod",
         "Formik",
@@ -566,5 +814,27 @@
         "https://github.com/eone666/interview-assignments/blob/main/rating-test/README.md"
       ]
     }
-  ]
+  ],
+  "technologyAliases": {
+    "TanStack Query": [
+      "React Query"
+    ],
+    "redux-saga": [
+      "Redux-Saga"
+    ],
+    "styled-components": [
+      "Styled Components"
+    ],
+    "ArkType": [
+      "Arktype"
+    ],
+    "Nuxt": [
+      "Nuxt.js",
+      "Nuxt 2"
+    ],
+    "React Testing Library": [
+      "Testing Library",
+      "RTL"
+    ]
+  }
 }
