@@ -21,7 +21,7 @@ bun run dev        # http://localhost:5173
 | `bun run dev:cv`    | Forme CV preview on `http://localhost:4242`                    |
 | `bun run build`     | Builds the site and CV into `dist/`                            |
 | `bun run build:site` | Builds the client and SSR bundles into `dist/`                |
-| `bun run build:cv`  | Renders the CV into `public/cv.pdf` with the Forme CLI         |
+| `bun run build:cv`  | Renders the CV and embeds profile JSON and PDF metadata       |
 | `bun run start`     | Runs the built server (`dist/index.js`) on port 3000           |
 | `bun run lint`      | ESLint (`typescript-eslint`)                                   |
 | `bun test`          | Bun's test runner                                               |
@@ -78,6 +78,30 @@ route or running server is involved.
 Forme CLI. The full `bun run build` renders the CV first, then builds the site;
 Vite copies the PDF from `public/` into `dist/`. The Vite configuration reserves
 `/cv.pdf` as a static production path.
+
+`cv/profile.json` holds the public profile: employment, skills, selected projects,
+education, languages, and extended project descriptions with source references.
+The visible CV reads employment and selected projects from that file. Its compact
+skill list is maintained independently in `cv/document.tsx` as `visibleSkills`.
+`skills` contains the complete merged CV and public GitHub profile stack with sources;
+`projectDetails` includes additional public projects, assignment examples, and
+branch-specific implementation details. These sections enrich only the attachment
+and metadata, keeping the visible CV compact. Keep release and development-branch
+features distinct and include review dates for time-sensitive adoption figures.
+Keep the remaining header, summary, education, and language text in
+`cv/document.tsx` consistent when updating those details.
+
+After Forme renders the document, `scripts/enrich-cv.mjs` adds PDF title, author,
+subject, and skill keywords, and embeds the same JSON as `profile.json` with MIME
+type `application/json`. It adds no visible page content. The attachment remains
+accessible through PDF readers that support attachments; it is public information.
+The Forme live preview shows the page layout; the enriched PDF is produced by
+`bun run build:cv`. The build uses local profile data and makes no GitHub requests.
+
+Metadata and attachments provide supplementary context for software that reads
+them. Do not rely on an ATS extracting them; essential qualifications belong in
+the visible document too. Review factual claims and source references when
+editing the profile, and update `reviewedAt` after a new review.
 
 Use `bun run dev:cv` for Forme's live preview and layout inspector on
 `http://localhost:4242`. The regular `bun run dev` starts that preview alongside

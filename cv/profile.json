@@ -1,0 +1,570 @@
+{
+  "profileVersion": 1,
+  "reviewedAt": "2026-10-27",
+  "basics": {
+    "name": "Ivan Avdeyev",
+    "label": "Frontend Developer",
+    "email": "contact@avdeyev.dev",
+    "url": "https://avdeyev.dev",
+    "location": {
+      "city": "Almaty",
+      "countryCode": "KZ"
+    },
+    "profiles": [
+      {
+        "network": "GitHub",
+        "username": "eone666",
+        "url": "https://github.com/eone666"
+      },
+      {
+        "network": "LinkedIn",
+        "username": "eone666",
+        "url": "https://www.linkedin.com/in/eone666/"
+      }
+    ],
+    "summary": "Frontend developer building web and mobile interfaces, reusable UI components, and developer tooling. Professional experience includes React applications, Next.js migrations, TypeScript adoption, Storybook component documentation, and data visualization. Personal projects explore reactive UI runtimes, OpenWrt theming, WebGL, and self-hosting."
+  },
+  "work": [
+    {
+      "position": "Frontend Developer",
+      "company": "Raison Securities Ltd",
+      "startDate": "Feb 2024",
+      "endDate": "Present",
+      "location": {
+        "city": "Almaty",
+        "countryCode": "KZ"
+      },
+      "highlights": [
+        "Maintained mobile app features, improving reliability and user experience.",
+        "Rebuilt the company website to improve performance and SEO metrics.",
+        "Built a scalable and reusable UI component library."
+      ]
+    },
+    {
+      "position": "Frontend Developer",
+      "company": "Tile.Expert Ltd",
+      "startDate": "Jul 2022",
+      "endDate": "Aug 2023",
+      "location": {
+        "label": "Remote"
+      },
+      "highlights": [
+        "Rebuilt legacy functionality from scratch using Next.js, delivering more maintainable and performant solutions.",
+        "Built reusable, well-documented UI components using Storybook.",
+        "Contributed to project architecture and core infrastructure decisions."
+      ]
+    },
+    {
+      "position": "Frontend Developer",
+      "company": "LLC Rating",
+      "startDate": "Sep 2020",
+      "endDate": "Jul 2022",
+      "location": {
+        "city": "Oskemen",
+        "countryCode": "KZ"
+      },
+      "highlights": [
+        "Developed and maintained React-based web applications used in production.",
+        "Migrated a legacy JavaScript codebase to TypeScript, improving type safety and maintainability.",
+        "Used SQL for data collection, analysis, and preparation for frontend visualization.",
+        "Implemented complex data visualizations, including charts, maps, and tables."
+      ]
+    },
+    {
+      "position": "Markup Developer",
+      "company": "LLC Megagroup IT",
+      "startDate": "Apr 2019",
+      "endDate": "May 2020",
+      "location": {
+        "city": "Oskemen",
+        "countryCode": "KZ"
+      },
+      "highlights": [
+        "Created responsive, cross-browser, and semantic layouts for client websites.",
+        "Integrated frontend layouts with CMS platforms and template engines.",
+        "Integrated third-party scripts, widgets, and analytics to enhance functionality and track user behavior."
+      ]
+    }
+  ],
+  "skills": [
+    {
+      "name": "Languages",
+      "keywords": [
+        "TypeScript",
+        "JavaScript",
+        "HTML",
+        "CSS"
+      ],
+      "sources": [
+        "https://avdeyev.dev/cv.pdf"
+      ]
+    },
+    {
+      "name": "Frontend frameworks",
+      "keywords": [
+        "React",
+        "Next.js",
+        "Vue",
+        "Nuxt",
+        "Astro",
+        "HonoX"
+      ],
+      "context": "Self-reported in the public GitHub profile.",
+      "sources": [
+        "https://github.com/eone666/eone666/blob/main/README.md"
+      ]
+    },
+    {
+      "name": "State and data",
+      "keywords": [
+        "Redux",
+        "Redux-Saga",
+        "Zustand",
+        "Jotai",
+        "React Query"
+      ],
+      "context": "Self-reported in the public GitHub profile.",
+      "sources": [
+        "https://github.com/eone666/eone666/blob/main/README.md"
+      ]
+    },
+    {
+      "name": "Styling and components",
+      "keywords": [
+        "Tailwind CSS",
+        "PostCSS",
+        "Styled Components",
+        "shadcn/ui",
+        "Radix UI"
+      ],
+      "context": "Self-reported in the public GitHub profile.",
+      "sources": [
+        "https://github.com/eone666/eone666/blob/main/README.md"
+      ]
+    },
+    {
+      "name": "Forms and validation",
+      "keywords": [
+        "React Hook Form",
+        "Zod",
+        "Arktype",
+        "Formik",
+        "Yup"
+      ],
+      "context": "Self-reported in the public GitHub profile.",
+      "sources": [
+        "https://github.com/eone666/eone666/blob/main/README.md"
+      ]
+    },
+    {
+      "name": "Backend",
+      "keywords": [
+        "Hono",
+        "Express",
+        "Node.js",
+        "Cloudflare Workers",
+        "REST APIs"
+      ],
+      "sources": [
+        "https://github.com/eone666/eone666/blob/main/README.md",
+        "https://avdeyev.dev/cv.pdf"
+      ]
+    },
+    {
+      "name": "Databases",
+      "keywords": [
+        "SQL",
+        "PostgreSQL",
+        "SQLite",
+        "MongoDB"
+      ],
+      "context": "Self-reported in the public GitHub profile.",
+      "sources": [
+        "https://github.com/eone666/eone666/blob/main/README.md"
+      ]
+    },
+    {
+      "name": "Build and DevOps",
+      "keywords": [
+        "Vite",
+        "Docker",
+        "CI/CD",
+        "Git"
+      ],
+      "sources": [
+        "https://github.com/eone666/eone666/blob/main/README.md",
+        "https://avdeyev.dev/cv.pdf"
+      ]
+    },
+    {
+      "name": "Testing and tooling",
+      "keywords": [
+        "Playwright",
+        "Testing Library",
+        "ESLint",
+        "Prettier",
+        "Storybook",
+        "Vitest"
+      ],
+      "sources": [
+        "https://github.com/eone666/eone666/blob/main/README.md",
+        "https://avdeyev.dev/cv.pdf"
+      ]
+    },
+    {
+      "name": "AI and coding tools",
+      "keywords": [
+        "Claude",
+        "Codex",
+        "MCP"
+      ],
+      "context": "Self-reported in the public GitHub profile.",
+      "sources": [
+        "https://github.com/eone666/eone666/blob/main/README.md"
+      ]
+    },
+    {
+      "name": "Additional languages and embedded development",
+      "keywords": [
+        "Kotlin",
+        "Gleam",
+        "C",
+        "Java",
+        "QMK"
+      ],
+      "context": "Occasional use, as described in the public GitHub profile.",
+      "sources": [
+        "https://github.com/eone666/eone666/blob/main/README.md"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Eastern Technical and Humanities College",
+      "area": "1305000 - Information Systems",
+      "studyType": "Vocational",
+      "startDate": "2016",
+      "endDate": "2020",
+      "qualifications": [
+        "1305023 - Software Technician",
+        "1305011 - Designer"
+      ],
+      "location": {
+        "city": "Oskemen",
+        "countryCode": "KZ"
+      }
+    }
+  ],
+  "languages": [
+    {
+      "language": "Russian",
+      "fluency": "Native"
+    },
+    {
+      "language": "English",
+      "fluency": "Intermediate"
+    }
+  ],
+  "selectedProjects": [
+    {
+      "name": "luci-theme-shadcnui",
+      "url": "https://github.com/eone666/luci-theme-shadcnui",
+      "description": "Built a shadcn/ui-inspired theme for OpenWrt's LuCI interface with light and dark modes and customizable colors."
+    },
+    {
+      "name": "avdeyev.dev",
+      "url": "https://avdeyev.dev",
+      "description": "Built a personal site with TypeScript and a custom Three.js voxel background."
+    },
+    {
+      "name": "Treegger",
+      "url": "https://github.com/eone666/treegger",
+      "description": "Designed a TypeScript UI runtime with fine-grained signal reactivity and direct DOM updates. Implemented scoped effect cleanup, keyed list reconciliation, and HTML/JSX rendering without a framework-specific compiler."
+    }
+  ],
+  "projectDetails": [
+    {
+      "name": "Treegger",
+      "url": "https://github.com/eone666/treegger",
+      "status": "Experimental proof of concept; not published to npm at review time.",
+      "summary": "Small TypeScript reactive DOM library with HTML templates and a standard automatic JSX runtime, no runtime dependencies, and no virtual DOM.",
+      "highlights": [
+        "Tracks signal dependencies at runtime and updates individual DOM bindings through effects.",
+        "Uses nested ownership scopes to dispose child scopes, effects, subscriptions, and cleanup callbacks.",
+        "Batches and deduplicates effect jobs through a microtask scheduler.",
+        "Provides lazy cached derived values with dependency version checks and configurable result equality.",
+        "Implements proxy-based stores with property and membership tracking.",
+        "Reconciles keyed lists while preserving DOM node identity for reordered rows.",
+        "Supports HTML and SVG, refs, error boundaries, and detached branches that retain DOM state.",
+        "Includes behavioral and type tests, CI checks, documentation, and packaged ESM/browser builds."
+      ],
+      "technologies": [
+        "TypeScript",
+        "Signals",
+        "DOM",
+        "JSX",
+        "Vitest",
+        "GitHub Actions"
+      ],
+      "limitations": [
+        "No SSR or hydration.",
+        "JSX requires a standard syntax transform."
+      ],
+      "authorship": "Project ideas and design decisions by the author; code written with help from Codex, as disclosed in the README.",
+      "sources": [
+        "https://github.com/eone666/treegger",
+        "https://github.com/eone666/treegger/tree/master/src",
+        "https://github.com/eone666/treegger/tree/master/test"
+      ]
+    },
+    {
+      "name": "luci-theme-shadcnui",
+      "url": "https://github.com/eone666/luci-theme-shadcnui",
+      "summary": "Independent shadcn/ui-inspired theme for the OpenWrt LuCI web interface.",
+      "highlights": [
+        "Provides light, dark, and system color modes, responsive navigation, and horizontally scrollable tables.",
+        "Accepts official shadcn theme globals.css palettes through CSS custom properties, including radius settings.",
+        "Styles existing LuCI markup without replacing its workflows or using React components.",
+        "Includes an OpenWrt SDK Docker packaging workflow, a container test bench, and upstream CSS selector coverage checks."
+      ],
+      "technologies": [
+        "CSS",
+        "JavaScript",
+        "OpenWrt",
+        "LuCI",
+        "Docker"
+      ],
+      "sources": [
+        "https://github.com/eone666/luci-theme-shadcnui/blob/main/README.md"
+      ]
+    },
+    {
+      "name": "avdeyev.dev",
+      "url": "https://avdeyev.dev",
+      "summary": "Personal website, link hub, and generated PDF CV with a procedural Three.js voxel background.",
+      "highlights": [
+        "Server-renders the site with HonoX and Bun; uses TypeScript, Vite, and Tailwind CSS.",
+        "Loads the optional WebGL background dynamically, accounting for viewport size, Save-Data, reduced motion, and page visibility.",
+        "Generates a tagged PDF CV from a standalone Forme document.",
+        "Uses Docker hosting; the site is not deployed on Cloudflare Workers."
+      ],
+      "technologies": [
+        "TypeScript",
+        "HonoX",
+        "Bun",
+        "Vite",
+        "Tailwind CSS",
+        "Three.js",
+        "Docker",
+        "Forme"
+      ],
+      "sources": [
+        "https://avdeyev.dev"
+      ]
+    },
+    {
+      "name": "mc-telegram-notifier",
+      "url": "https://github.com/eone666/mc-telegram-notifier",
+      "summary": "Minecraft server plugin integrating PaperMC with Telegram; published on Modrinth with 1,000+ downloads.",
+      "highlights": [
+        "Sends configurable player join and quit notifications to Telegram chats.",
+        "Maintains a pinned online-player list by editing the existing Telegram message.",
+        "Provides configurable message prefixes and YAML-based configuration."
+      ],
+      "sources": [
+        "https://github.com/eone666/mc-telegram-notifier/blob/main/README.md",
+        "https://github.com/eone666/mc-telegram-notifier/tree/dev",
+        "https://modrinth.com/plugin/telegram-notifier"
+      ],
+      "status": "Public repository is archived; main contains the Java implementation and dev contains a Kotlin preview.",
+      "developmentBranch": {
+        "url": "https://github.com/eone666/mc-telegram-notifier/tree/dev",
+        "status": "Kotlin preview branch; these features are documented from source, not asserted to be in the published release.",
+        "highlights": [
+          "Implements Telegram polling and coroutine-based player-list message updates using kt-telegram-bot and MCCoroutine.",
+          "Adds a setup flow linking an in-game command sender to a Telegram chat through a generated confirmation code.",
+          "Provides configuration and reset commands, silent notifications, and configurable player-list headers and footers.",
+          "Builds a shaded plugin JAR using Gradle Shadow and a Java 17 toolchain."
+        ],
+        "sources": [
+          "https://github.com/eone666/mc-telegram-notifier/blob/dev/build.gradle",
+          "https://github.com/eone666/mc-telegram-notifier/blob/dev/src/main/kotlin/io/github/eone666/telegramnotifier/telegram/Bot.kt",
+          "https://github.com/eone666/mc-telegram-notifier/blob/dev/src/main/kotlin/io/github/eone666/telegramnotifier/features/PlayerList.kt"
+        ]
+      },
+      "technologies": [
+        "Java",
+        "Kotlin",
+        "PaperMC",
+        "Telegram Bot API",
+        "Kotlin Coroutines",
+        "MCCoroutine",
+        "Gradle"
+      ],
+      "adoption": {
+        "platform": "Modrinth",
+        "downloads": "1,000+",
+        "observedDisplay": "1.1K downloads",
+        "checkedAt": "2026-10-27",
+        "url": "https://modrinth.com/plugin/telegram-notifier"
+      }
+    },
+    {
+      "name": "4x3_keypad",
+      "url": "https://github.com/eone666/4x3_keypad",
+      "status": "Hardware and firmware project with manufacturing files, enclosure models, source code, and prebuilt UF2 firmware.",
+      "summary": "Custom 12-key USB macro pad built around the Seeed Studio XIAO RP2040, covering PCB design, enclosure design, and QMK/Vial firmware.",
+      "highlights": [
+        "Provides a 3-by-4 switch matrix, QMK keymaps, and Vial runtime remapping for keys and macros.",
+        "Implements 12 custom USB joystick button keycodes with press and release handlers in C.",
+        "Includes PCB Gerbers, bill of materials, pick-and-place data, and an editable EasyEDA Pro project.",
+        "Includes an editable FreeCAD enclosure and STEP models, assembly instructions, and firmware build and flashing documentation."
+      ],
+      "technologies": [
+        "C",
+        "RP2040",
+        "QMK",
+        "Vial",
+        "USB HID",
+        "PCB Design",
+        "EasyEDA Pro",
+        "FreeCAD"
+      ],
+      "sources": [
+        "https://github.com/eone666/4x3_keypad/blob/main/README.md",
+        "https://github.com/eone666/4x3_keypad/blob/main/firmware/src/keymaps/vial/keymap.c"
+      ]
+    },
+    {
+      "name": "YAFF",
+      "url": "https://github.com/eone666/yaff",
+      "status": "Small educational React-inspired implementation; not a production framework.",
+      "summary": "TypeScript experiment implementing element creation, function components, fragments, and recursive DOM rendering.",
+      "highlights": [
+        "Separates element creation and DOM rendering into yaff and yaff-dom workspace packages.",
+        "Represents elements as objects with props and children and evaluates function components during element creation.",
+        "Renders nested children, text nodes, fragments, and element properties through native DOM operations.",
+        "Includes a TSX demonstration application and Vite build setup."
+      ],
+      "technologies": [
+        "TypeScript",
+        "TSX",
+        "DOM",
+        "pnpm Workspaces",
+        "Vite"
+      ],
+      "sources": [
+        "https://github.com/eone666/yaff/blob/main/README.md",
+        "https://github.com/eone666/yaff/blob/main/packages/yaff/src/index.ts",
+        "https://github.com/eone666/yaff/blob/main/packages/yaff-dom/src/index.ts"
+      ]
+    },
+    {
+      "name": "interview-assignments",
+      "url": "https://github.com/eone666/interview-assignments",
+      "status": "Portfolio of frontend take-home assignments; not commercial deployments.",
+      "summary": "Five standalone assignment implementations demonstrating React application development, forms, state management, data visualization, and responsive layouts.",
+      "highlights": [
+        "Keeps original briefs alongside implementations and project-specific run instructions.",
+        "Covers admin panels, report registries, dashboards, authentication UI, and React rendering exercises."
+      ],
+      "subprojects": [
+        {
+          "name": "alinakz-test",
+          "url": "https://github.com/eone666/interview-assignments/tree/main/alinakz-test",
+          "summary": "Request-management SPA with a responsive dashboard, four Recharts charts, validated request forms, and paginated request tables.",
+          "highlights": [
+            "Uses Redux Toolkit and redux-saga for application state and side effects, with axios requests to a local json-server mock API.",
+            "Implements React Hook Form and Zod validation across text, numeric, currency, masked phone, select, date, checkbox, and radio fields.",
+            "Implements delete confirmation, pagination, and record renumbering in a 10-column table."
+          ],
+          "technologies": [
+            "React",
+            "TypeScript",
+            "Redux Toolkit",
+            "Redux-Saga",
+            "React Hook Form",
+            "Zod",
+            "Radix UI",
+            "Tailwind CSS",
+            "Recharts",
+            "axios",
+            "Vite"
+          ]
+        },
+        {
+          "name": "raison-test",
+          "url": "https://github.com/eone666/interview-assignments/tree/main/raison-test",
+          "summary": "Responsive layout implementation from a mockup and a separate two-step React login flow with a local Express mock server.",
+          "technologies": [
+            "HTML",
+            "CSS",
+            "React",
+            "TypeScript",
+            "Tailwind CSS",
+            "Vite",
+            "Express"
+          ]
+        },
+        {
+          "name": "invoice-test",
+          "url": "https://github.com/eone666/interview-assignments/tree/main/invoice-test",
+          "summary": "Admin-panel exercise with GitHub user lookup, client-side route guards, buyer filtering and detail views, and terminal management persisted in localStorage.",
+          "technologies": [
+            "React",
+            "React Router",
+            "Formik",
+            "Yup",
+            "SCSS",
+            "Vite"
+          ]
+        },
+        {
+          "name": "rating-test",
+          "url": "https://github.com/eone666/interview-assignments/tree/main/rating-test",
+          "summary": "Construction-site report registry with filtering and a three-step form, nested remarks, confirmation, and validation.",
+          "technologies": [
+            "React",
+            "Bootstrap",
+            "Formik",
+            "Yup"
+          ],
+          "limitations": [
+            "Depends on the original company test API; lists remain empty when it is unavailable."
+          ]
+        },
+        {
+          "name": "welcome_to_TE",
+          "url": "https://github.com/eone666/interview-assignments/tree/main/welcome_to_TE",
+          "summary": "Five small React exercises on reactivity and render optimization.",
+          "technologies": [
+            "React",
+            "JavaScript"
+          ]
+        }
+      ],
+      "technologies": [
+        "React",
+        "TypeScript",
+        "JavaScript",
+        "Redux Toolkit",
+        "Redux-Saga",
+        "React Hook Form",
+        "Zod",
+        "Formik",
+        "Yup",
+        "Recharts",
+        "Tailwind CSS",
+        "Radix UI",
+        "Vite"
+      ],
+      "sources": [
+        "https://github.com/eone666/interview-assignments/blob/main/README.md",
+        "https://github.com/eone666/interview-assignments/blob/main/alinakz-test/README.md",
+        "https://github.com/eone666/interview-assignments/blob/main/raison-test/README.md",
+        "https://github.com/eone666/interview-assignments/blob/main/invoice-test/README.md",
+        "https://github.com/eone666/interview-assignments/blob/main/rating-test/README.md"
+      ]
+    }
+  ]
+}

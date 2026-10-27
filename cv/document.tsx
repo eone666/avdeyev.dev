@@ -1,6 +1,7 @@
 /** @jsxImportSource react */
 import type { ReactNode } from 'react'
 import { PdfIcon } from './icon'
+import profile from './profile.json'
 import type { IconName } from '../shared/icons'
 import {
   Document,
@@ -28,6 +29,52 @@ type WorkItem = {
   location: Location
   highlights: string[]
 }
+
+const visibleSkills = [
+  {
+    "name": "Languages",
+    "keywords": [
+      "TypeScript",
+      "JavaScript",
+      "HTML",
+      "CSS",
+      "SQL"
+    ]
+  },
+  {
+    "name": "Frontend",
+    "keywords": [
+      "React",
+      "Next.js",
+      "Vue",
+      "Nuxt",
+      "Astro",
+      "Tailwind CSS",
+      "React Query",
+      "Redux"
+    ]
+  },
+  {
+    "name": "Tools & Testing",
+    "keywords": [
+      "Storybook",
+      "Git",
+      "Vite",
+      "Vitest",
+      "Playwright"
+    ]
+  },
+  {
+    "name": "Backend & Platforms",
+    "keywords": [
+      "Node.js",
+      "Cloudflare Workers",
+      "PostgreSQL",
+      "Docker",
+      "REST APIs"
+    ]
+  }
+]
 
 const BLACK = '#000000'
 const GRAY = '#374151'
@@ -91,45 +138,7 @@ function Header() {
   )
 }
 
-const work: WorkItem[] = [
-  {
-    position: 'Frontend Developer', company: 'Raison Securities Ltd', startDate: 'Feb 2024', endDate: 'Present',
-    location: { city: 'Almaty', countryCode: 'KZ' },
-    highlights: [
-      'Maintained mobile app features, improving reliability and user experience.',
-      'Rebuilt the company website to improve performance and SEO metrics.',
-      'Built a scalable and reusable UI component library.',
-    ],
-  },
-  {
-    position: 'Frontend Developer', company: 'Tile.Expert Ltd', startDate: 'Jul 2022', endDate: 'Aug 2023',
-    location: { label: 'Remote' },
-    highlights: [
-      'Rebuilt legacy functionality from scratch using Next.js, delivering more maintainable and performant solutions.',
-      'Built reusable, well-documented UI components using Storybook.',
-      'Contributed to project architecture and core infrastructure decisions.',
-    ],
-  },
-  {
-    position: 'Frontend Developer', company: 'LLC Rating', startDate: 'Sep 2020', endDate: 'Jul 2022',
-    location: { city: 'Oskemen', countryCode: 'KZ' },
-    highlights: [
-      'Developed and maintained React-based web applications used in production.',
-      'Migrated a legacy JavaScript codebase to TypeScript, improving type safety and maintainability.',
-      'Used SQL for data collection, analysis, and preparation for frontend visualization.',
-      'Implemented complex data visualizations, including charts, maps, and tables.',
-    ],
-  },
-  {
-    position: 'Markup Developer', company: 'LLC Megagroup IT', startDate: 'Apr 2019', endDate: 'May 2020',
-    location: { city: 'Oskemen', countryCode: 'KZ' },
-    highlights: [
-      'Created responsive, cross-browser, and semantic layouts for client websites.',
-      'Integrated frontend layouts with CMS platforms and template engines.',
-      'Integrated third-party scripts, widgets, and analytics to enhance functionality and track user behavior.',
-    ],
-  },
-]
+const work: WorkItem[] = profile.work
 
 function WorkExperience({ items, title = false }: { items: WorkItem[]; title?: boolean }) {
   return (
@@ -178,23 +187,7 @@ function SkillsBlock({ title, skills }: { title: string; skills: string[] }) {
 }
 
 function SelectedProjects() {
-  const projects = [
-    {
-      name: 'luci-theme-shadcnui',
-      url: 'https://github.com/eone666/luci-theme-shadcnui',
-      description: 'Built a shadcn/ui-inspired theme for OpenWrt\'s LuCI interface with light and dark modes and customizable colors.',
-    },
-    {
-      name: 'avdeyev.dev',
-      url: 'https://avdeyev.dev',
-      description: 'Built a personal site with HonoX, TypeScript, and a custom Three.js voxel background.',
-    },
-    {
-      name: 'mc-telegram-notifier',
-      url: 'https://github.com/eone666/mc-telegram-notifier',
-      description: 'Built a Minecraft server plugin that sends player activity notifications to Telegram; 1K+ downloads on Modrinth.',
-    },
-  ]
+  const projects = profile.selectedProjects
   return (
     <View wrap={false}>
       <SectionTitle icon="apps-line">Selected Projects</SectionTitle>
@@ -268,10 +261,7 @@ export default (
       <View>
         <SectionTitle icon="tools-line">Technical Skills</SectionTitle>
         <View style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-          <SkillsBlock title="Languages" skills={['TypeScript', 'JavaScript', 'HTML', 'CSS', 'SQL']} />
-          <SkillsBlock title="Frontend" skills={['React', 'Next.js', 'Vue', 'Nuxt', 'Astro', 'Tailwind CSS', 'React Query', 'Redux']} />
-          <SkillsBlock title="Tools & Testing" skills={['Storybook', 'Git', 'Vite', 'Vitest', 'Playwright']} />
-          <SkillsBlock title="Backend & Platforms" skills={['Node.js', 'HonoX', 'PostgreSQL', 'Docker', 'REST APIs']} />
+          {visibleSkills.map((group) => <SkillsBlock key={group.name} title={group.name} skills={group.keywords} />)}
         </View>
       </View>
 
