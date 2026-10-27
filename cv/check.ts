@@ -16,7 +16,9 @@ export async function checkCv(pdfBytes: Uint8Array, expectedProfile: string, exp
       const page = await pdf.getPage(i)
       const content = await page.getTextContent()
       texts.push(content.items.map(item => 'str' in item ? item.str : '').join(' ').replace(/\s+/g, ' '))
-      for (const annotation of await page.getAnnotations()) {
+      const annotations = await page.getAnnotations()
+      assert.equal(annotations.some(item => item.url === PROFILE_URL), i === pdf.numPages, 'Profile link must appear only on the final page')
+      for (const annotation of annotations) {
         if (annotation.url) links.push(annotation.url)
       }
     }

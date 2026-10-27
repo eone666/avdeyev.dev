@@ -211,10 +211,12 @@ function SelectedProjects() {
   )
 }
 
-function PageNumber({ children }: { children: ReactNode }) {
+function PageNumber({ children, profileLink = false }: { children: ReactNode; profileLink?: boolean }) {
   return <Fixed position="footer" style={{ fontFamily: 'Liberation Mono' }}>
     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-      <Text href={PROFILE_URL} style={{ fontSize: 7 }}>avdeyev.dev/profile.json</Text>
+      <View style={{ flexGrow: 1 }}>
+        {profileLink && <Text href={PROFILE_URL} style={{ fontSize: 7 }}>Machine-readable profile: avdeyev.dev/profile.json</Text>}
+      </View>
       <Text style={{ fontSize: 9 }}>{children}</Text>
     </View>
   </Fixed>
@@ -280,7 +282,7 @@ export default (
           <Text style={{ fontSize: 10 }}>English – Intermediate</Text>
         </View>
       </View>
-      <PageNumber>2</PageNumber>
+      <PageNumber profileLink>2</PageNumber>
     </PdfPage>
   </Document>
 )
