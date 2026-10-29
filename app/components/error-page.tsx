@@ -1,3 +1,4 @@
+import { NavigationCursor } from './navigation-cursor'
 import { asciiWordmark } from '@/lib/terminal'
 
 export type ErrorPageProps = { code: string; title: string; description: string }
@@ -9,7 +10,7 @@ export function ErrorPage({ code, title, description }: ErrorPageProps) {
       <pre class="wordmark" aria-hidden="true">{asciiWordmark(code)}</pre>
       <h1>{code}: {title}</h1>
       <p>{description}</p>
-      <a class="back-home" href="/">← Back to home</a>
+      <a class="back-home nav-choice" href="/"><NavigationCursor />Back to home</a>
     </main>
   )
 }

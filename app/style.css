@@ -229,16 +229,14 @@ kbd {
   margin-right: 4px
 }
 .project {
-  display: block;
+  display: grid;
+  grid-template-columns: 18px minmax(0,1fr);
+  gap: 8px;
   border-bottom: 1px solid var(--border);
-  padding: 16px 0
-}
-.project:first-child {
-  padding-top: 0
+  padding: 16px 8px
 }
 .project:last-child {
-  border: 0;
-  padding-bottom: 0
+  border: 0
 }
 .project strong {
   font-weight: 500;
@@ -261,18 +259,6 @@ kbd {
 .about-head {
   font-size: 16px;
   font-weight: 500
-}
-.token-list {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 18px 0
-}
-.token-list span {
-  font-size: 10px;
-  border: 1px solid var(--border);
-  padding: 3px 7px;
-  color: var(--primary)
 }
 @media(min-width:1500px) {
   .screen {
@@ -548,3 +534,17 @@ main > .identity, main > .menu { flex-shrink: 0; }
 :root[data-input=pointer] .menu-row:active .menu-label { color: var(--primary) }
 :root[data-input=pointer] .project:active { outline: 1px solid var(--primary); outline-offset: 4px }
 :root[data-input=pointer] .project:active strong { text-decoration: underline }
+
+.project > .cursor { padding-top: 1px; align-self: start }
+.back-home { display: inline-flex; align-items: center; gap: 8px }
+:root:not([data-input=pointer]) .nav-choice:focus-visible > .cursor { visibility: visible }
+:root[data-input=pointer] .nav-choice:active > .cursor { visibility: visible }
+@media(hover:hover) {
+  :root[data-input=pointer] .nav-choice:hover > .cursor { visibility: visible }
+}
+.skill-badges { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 24px 0 }
+.skill-badges li { background: var(--primary); color: #000; padding: 5px 10px; font-size: 12px; line-height: 1.5 }
+@media(max-width:680px),(hover:none) and (pointer:coarse) {
+  :root[data-input=keyboard] .menu-row { grid-template-columns: 13px 1fr auto 15px }
+  :root[data-input=keyboard] .menu-row .cursor { display: block }
+}

@@ -11,7 +11,7 @@ test('the server-rendered page contains usable links and tab content without Jav
     expect(markup).toContain(link.label)
   }
   for (const project of terminalProjects) expect(markup).toContain(project.url)
-  expect(markup.match(/class="menu-row"/g)).toHaveLength(7)
+  expect(markup.match(/class="menu-row nav-choice"/g)).toHaveLength(7)
   expect(markup).toContain('data-section="about"')
   expect(markup).toContain('data-section="projects"')
   expect(markup).toContain('id="name"')

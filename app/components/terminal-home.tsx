@@ -1,3 +1,4 @@
+import { NavigationCursor } from './navigation-cursor'
 import { NoJsPage } from './no-js-page'
 import { asciiWordmark } from '@/lib/terminal'
 import { personalLinks, terminalProjects as projects } from '../../shared/site'
@@ -33,14 +34,14 @@ export function TerminalHome() {
           <section id="section-links" role="tabpanel" aria-labelledby="tab-links" data-section="links" tabindex={-1}>
         <nav class="menu" id="menu" aria-label="Personal links">
           {personalLinks.map((link, index) => <a
-            class="menu-row"
+            class="menu-row nav-choice"
             href={link.url}
             target={link.url.startsWith('mailto:') ? undefined : '_blank'}
             rel="noopener noreferrer"
             data-description={link.description}
             data-selected={index === 0 ? 'true' : 'false'}
           >
-            <span class="cursor" aria-hidden="true">›</span>
+            <NavigationCursor />
             <span class="menu-label">{link.label}</span>
             <span class="menu-detail">{link.detail}</span>
             <span class="link-target" aria-hidden="true">{link.url.startsWith('mailto:') ? '✉' : '↗'}</span>
@@ -49,17 +50,20 @@ export function TerminalHome() {
         </nav>
           </section>
           <section id="section-projects" role="tabpanel" aria-labelledby="tab-projects" data-section="projects" tabindex={-1} hidden>
-            {projects.map(project => <a class="project" href={project.url} target="_blank" rel="noopener noreferrer">
-              <strong>{project.name}<span class="project-actions"><span aria-hidden="true">↗</span></span></strong>
-              <p>{project.description}</p><small>{project.stack}</small>
+            {projects.map(project => <a class="project nav-choice" href={project.url} target="_blank" rel="noopener noreferrer">
+              <NavigationCursor />
+              <div class="project-content"><strong>{project.name}<span class="project-actions"><span aria-hidden="true">↗</span></span></strong>
+              <p>{project.description}</p><small>{project.stack}</small></div>
             </a>)}
           </section>
           <section id="section-about" role="tabpanel" aria-labelledby="tab-about" data-section="about" tabindex={-1} hidden>
             <h2 class="about-head">Hello, I’m Ivan.</h2>
             <p class="about-copy">Frontend developer building web and mobile interfaces, reusable UI systems, and data-rich applications. I work across frameworks and learn the tools a project needs.</p>
             <p class="about-copy">I value maintainable code, thoughtful UX, and understanding how things work under the hood. Sometimes that means UI runtimes. Sometimes it means router firmware or a custom keyboard.</p>
-            <div class="token-list">{['React', 'TypeScript', 'Redux', 'Next.js', 'Astro', 'TanStack Query', 'Unit & E2E testing', 'Web performance'].map(skill => <span>{skill}</span>)}</div>
-            <a class="project" href="/cv.pdf" target="_blank" rel="noopener noreferrer"><strong>Read the full CV <span class="project-actions"><span aria-hidden="true">↗</span></span></strong></a>
+            <ul class="skill-badges" aria-label="Skills">
+              {['React', 'TypeScript', 'Redux', 'Next.js', 'Astro', 'TanStack Query', 'Unit & E2E testing', 'Web performance'].map(skill => <li>{skill}</li>)}
+            </ul>
+            <a class="project nav-choice" href="/cv.pdf" target="_blank" rel="noopener noreferrer"><NavigationCursor /><div class="project-content"><strong>Read the full CV <span class="project-actions"><span aria-hidden="true">↗</span></span></strong></div></a>
           </section>
         </div>
   
