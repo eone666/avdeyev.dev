@@ -145,4 +145,4 @@ only the production bundle and generated public files enter the runtime image.
 
 This repository is also included as the `links/` submodule in
 `eone666/homelab-docker`. Use that repository's `./deploy.sh` to update the
-homelab checkout, fetch this site's latest `main`, and rebuild the site.
+homelab checkout, fetch this site's latest `main`, and deploy the full Compose stack.
