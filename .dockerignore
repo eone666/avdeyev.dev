@@ -4,3 +4,6 @@ dist
 .git
 .DS_Store
 *.log
+
+# Temporary build-time renderer
+.render/

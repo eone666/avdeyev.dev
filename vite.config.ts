@@ -1,9 +1,7 @@
 import { fileURLToPath } from 'node:url'
-import build from '@hono/vite-build/bun'
 import adapter from '@hono/vite-dev-server/bun'
 import honox from 'honox/vite'
 import { defineConfig } from 'vite'
-import { serveStaticWithHeaders } from './config/bun-server-entry.js'
 import { clientBuild } from './config/client-build.js'
 
 const clientEntries = [
@@ -18,7 +16,8 @@ const honoPlugins = honox({
   return !(plugin && typeof plugin === 'object' && 'name' in plugin && plugin.name === 'honox-vite-client')
 })
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
+  appType: 'mpa',
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./app', import.meta.url))
@@ -26,11 +25,15 @@ export default defineConfig({
   },
   plugins: [
     ...honoPlugins,
-    clientBuild(clientEntries),
-    build({
-      staticRoot: './dist',
-      entryContentBeforeHooks: [serveStaticWithHeaders],
-      staticPaths: ['/cv.pdf', '/resume.json']
-    })
-  ]
-})
+    clientBuild(clientEntries)
+  ],
+  ...(mode !== 'client' ? {
+    ssr: { noExternal: true },
+    build: {
+      outDir: '.render',
+      emptyOutDir: true,
+      ssr: 'app/server.ts',
+      rollupOptions: { output: { entryFileNames: 'app.js' } }
+    }
+  } : {})
+}))

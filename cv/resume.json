@@ -446,11 +446,11 @@
       "url": "https://avdeyev.dev",
       "description": "Personal website and link hub with a terminal-style interface, ASCII typography, keyboard navigation, responsive touch controls, and a generated PDF CV.",
       "highlights": [
-        "Server-renders the interface and project content with HonoX and Bun, using TypeScript and plain CSS.",
+        "Pre-renders the interface and project content at build time with HonoX and Bun, using TypeScript and plain CSS.",
         "Implements accessible tabbed sections, arrow-key navigation, shortcuts, and a touch-specific mobile layout.",
         "Uses text-based ASCII artwork and self-hosted Geist Mono with the original lime-green brand palette.",
         "Generates a tagged PDF/A-3u CV and attaches a schema-validated JSON Resume with extended experience and project details.",
-        "Hosts the Bun application in Docker.",
+        "Serves static HTML and assets from a minimal Static Web Server Docker image; keeps JavaScript frameworks and build tools out of the runtime image.",
         "Previously built a procedural Three.js voxel background for an earlier version of the site.",
         "Source: https://avdeyev.dev",
         "CV summary: Built a terminal-style personal site with ASCII art, keyboard navigation, and responsive touch controls."
@@ -678,6 +678,6 @@
   "meta": {
     "canonical": "https://avdeyev.dev/resume.json",
     "version": "3.0.0",
-    "lastModified": "2026-10-29"
+    "lastModified": "2026-10-30"
   }
 }

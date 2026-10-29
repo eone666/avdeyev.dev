@@ -1,7 +1,7 @@
 export function NoJsPage() {
   return <main class="screen no-js-screen">
     <div class="no-js-content">
-      <p class="no-js-path">~/home/eone666</p>
+      <p class="no-js-path">root@avdeyev.dev:~ #</p>
       <p class="no-js-status">[ JavaScript disabled ]</p>
       <h1>The terminal is offline.</h1>
       <p>This interactive site needs JavaScript. You can still find me here:</p>

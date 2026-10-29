@@ -36,3 +36,6 @@ lerna-debug.log*
 # Generated from cv/document.tsx by `bun run build:cv`
 public/cv.pdf
 public/resume.json
+
+# Temporary build-time renderer
+.render/

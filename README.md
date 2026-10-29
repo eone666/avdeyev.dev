@@ -3,7 +3,7 @@
 Terminal-style personal link hub and CV at [avdeyev.dev](https://avdeyev.dev).
 
 Built with HonoX (Hono + Vite), TypeScript, plain CSS, and Bun. The site uses
-server-rendered HTML with a small client module for interactions. React is used
+HTML rendered at build time, with a small client module for interactions. React is used
 only by the standalone Forme PDF template.
 
 ## Getting started
@@ -21,9 +21,9 @@ bun run dev        # website at http://localhost:5173, CV preview at :4242
 | `bun run dev:site` | Website development server |
 | `bun run dev:cv` | Forme layout preview |
 | `bun run build` | Generate PDF/JSON, then build the website |
-| `bun run build:site` | Build client assets and SSR server |
+| `bun run build:site` | Build client assets and export static HTML |
 | `bun run build:cv` | Render PDF with attached JSON Resume |
-| `bun run start` | Serve `dist/index.js` on port 3000 |
+| `bun run start` | Preview the static `dist/` directory on port 3000 |
 | `bun run typecheck` | TypeScript checks |
 | `bun run lint` | ESLint checks |
 | `bun test` | Site and CV tests |
@@ -59,7 +59,7 @@ app/         routes, terminal components, client interactions, CSS
 shared/      public link data, JSON-LD, resume helpers, CV icon catalogue
 cv/          JSON Resume source, PDF presentation, rendering and extraction tests
 public/      brand icons, robots/sitemap, generated PDF and resume JSON
-config/      Vite client build and Bun static-serving helpers
+config/      Vite client build and Static Web Server configuration
 scripts/     development and production build orchestration
 ```
 
@@ -113,7 +113,7 @@ verapdf --flavour 3u --format text public/cv.pdf
 ```
 
 The production build runs the CV build before Vite copies the PDF and JSON into
-`dist/`; both routes are reserved for static serving. The site exposes Schema.org
+`dist/`; both files are served directly. The site exposes Schema.org
 `Person` JSON-LD and an alternate link to `/resume.json`. Generated public files
 are gitignored. A deployment is required before updated files are publicly served.
 
@@ -122,27 +122,38 @@ The preview shows layout; `bun run build:cv` creates the distributable PDF with
 its attachment. `bun test` covers the generated PDF, complete resume schema,
 presentation consistency, JSON-LD serialization, and site logic.
 
-## Deployment
-
-Docker, behind the compose file in the repo root (`8000:3000`):
-
-```bash
-docker compose up -d --build
-```
-
-The SSR bundle inlines its dependencies, so the runtime image carries `dist/`
-and nothing else — no `node_modules`.
-
-## Docker
+## Production and Docker
 
 ```sh
 docker compose up -d --build
 ```
 
-The standalone Compose file serves the site at `http://localhost:8000`.
-The multi-stage image generates `cv.pdf` and `resume.json` during the build;
-only the production bundle and generated public files enter the runtime image.
+The site is available at `http://localhost:8000` (container port 3000).
+The builder installs development dependencies, generates `cv.pdf` and
+`resume.json`, bundles the client, and renders `index.html`, `404.html`, and
+`50x.html`. The temporary Hono renderer and Vite manifest are removed after export.
+
+The final scratch image uses Static Web Server 2.44.1 as user `65532:65532`.
+It contains only the server binary, `config/static-web-server.toml`, and static
+files from `dist/`. Bun, Hono/HonoX, React, PDF tooling, source files, and
+`node_modules` stay in the builder. HTTPS is handled by the existing proxy.
+
+`config/static-web-server.toml` defines the real 404 response, compression,
+security headers, cache lifetimes, and cross-origin access to the OG PNG.
+Unknown paths return the custom 404 with status 404; there is no SPA fallback.
+HTML and JSON are revalidated, hashed client assets are cached for one year,
+and images/PDF are cached for one day.
+
+`bun run start` provides a local Vite preview of the exported files. The regular
+`bun run dev:site` command still uses HonoX for development.
 
 This repository is also included as the `avdeyev.dev/` submodule in
 `eone666/homelab-docker`. Use that repository's `./up.sh` to update the
 homelab checkout, fetch this site's latest `main`, and deploy the full Compose stack.
+
+## Social preview
+
+`public/og-tui.png` is the 1200×630 Open Graph / large Twitter card image.
+Its editable SVG source is `assets/og-card.svg`, including the self-hosted
+Geist Mono font. Export the SVG at its native size to replace the PNG.
+The image response allows cross-origin embedding and CORS reads explicitly.

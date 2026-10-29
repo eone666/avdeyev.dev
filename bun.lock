@@ -15,7 +15,6 @@
         "@formepdf/core": "^0.21.0",
         "@formepdf/fonts-standard": "0.21.0",
         "@formepdf/react": "^0.21.0",
-        "@hono/vite-build": "^1.11.1",
         "@hono/vite-dev-server": "^0.26.1",
         "@iconify-json/ri": "^1.2.10",
         "@types/bun": "latest",
@@ -144,8 +143,6 @@
     "@formepdf/shared": ["@formepdf/shared@0.21.0", "", { "dependencies": { "parse5": "^7.2.1" } }, "sha512-uzTXypZoYDlR6vhZ0wiYsquZkz+3R6SokRLMsaeFATmNymtydzvNqExOnvnV48vl1MaulBW154y/A9j2JnpieA=="],
 
     "@hono/node-server": ["@hono/node-server@1.19.17", "", { "peerDependencies": { "hono": "^4" } }, "sha512-dSneS5qhiauZWGDCeK4o695Xd9nUNjviSZCMQrj10eetr8Uln1ucn6bbphOM6UynAMMtNIzZNSpL9vnASJwrPQ=="],
-
-    "@hono/vite-build": ["@hono/vite-build@1.11.1", "", { "peerDependencies": { "hono": "*" } }, "sha512-EQJmFL7G+71MXZQ/mmywNl4qW6DSyjTdC30cq7mlDS451a1/jE86old0M2DCWzNGCO50sv7CzQDYkz4L5dq5VQ=="],
 
     "@hono/vite-dev-server": ["@hono/vite-dev-server@0.26.1", "", { "dependencies": { "@hono/node-server": "^1.19.11", "minimatch": "^9.0.3" }, "peerDependencies": { "hono": "*", "miniflare": "*", "wrangler": "*" }, "optionalPeers": ["miniflare", "wrangler"] }, "sha512-OlcWoXjNogKiJhVwV/ftMK87UcsJmIBfmImSdI4e8to/ZdwNHrW9ddKw2OGHjXI5/uS2RaZr+2y+l8T9VFbCmw=="],
 

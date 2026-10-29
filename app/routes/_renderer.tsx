@@ -6,7 +6,7 @@ const DEFAULT_TITLE = 'Ivan Avdeyev | Frontend Developer'
 const DEFAULT_DESCRIPTION = 'Frontend developer Ivan Avdeyev — projects, professional profiles, contact details and CV.'
 const DEFAULT_VIEWPORT = 'width=device-width, initial-scale=1'
 const SITE_URL = 'https://avdeyev.dev'
-const SOCIAL_IMAGE = `${SITE_URL}/logo.webp`
+const SOCIAL_IMAGE = `${SITE_URL}/og-tui.png`
 const manifestFiles = import.meta.glob<{ default: Record<string, { file: string }> }>(
   '/dist/.vite/manifest.json',
   { eager: true }
@@ -39,17 +39,19 @@ export default jsxRenderer(({ children, title, description, canonical, robots, v
         <meta property="og:description" content={pageDescription} />
         <meta property="og:url" content={pageUrl} />
         <meta property="og:image" content={SOCIAL_IMAGE} />
-        <meta property="og:image:width" content="640" />
-        <meta property="og:image:height" content="640" />
-        <meta property="og:image:alt" content="Avdeyev.dev logo" />
+        <meta property="og:image:secure_url" content={SOCIAL_IMAGE} />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Ivan Avdeyev — Frontend Developer. Terminal-style portfolio at avdeyev.dev." />
         <meta property="profile:first_name" content="Ivan" />
         <meta property="profile:last_name" content="Avdeyev" />
 
-        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={pageTitle} />
         <meta name="twitter:description" content={pageDescription} />
         <meta name="twitter:image" content={SOCIAL_IMAGE} />
-        <meta name="twitter:image:alt" content="Avdeyev.dev logo" />
+        <meta name="twitter:image:alt" content="Ivan Avdeyev — Frontend Developer. Terminal-style portfolio at avdeyev.dev." />
 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonForHtml(person) }} />
         <link rel="alternate" type="application/json" title="JSON Resume" href={RESUME_URL} />

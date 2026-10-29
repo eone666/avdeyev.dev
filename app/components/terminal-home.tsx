@@ -15,7 +15,7 @@ export function TerminalHome() {
     <div class="screen">
       <main>
         <section class="identity" aria-labelledby="name">
-          <div class="eyebrow"><span>~/home/eone666</span><span>personal space on the internet</span></div>
+          <div class="eyebrow"><span>root@avdeyev.dev:~ #</span><span>personal space on the internet</span></div>
           <h1 id="name" class="sr-only">Ivan Avdeyev</h1>
           <pre id="wordmark" class="wordmark" aria-hidden="true">{asciiWordmark('AVDEYEV.DEV')}</pre>
           <div class="identity-label"><span>IVAN AVDEYEV</span><span class="divider">/</span><span>FRONTEND DEVELOPER</span></div>
