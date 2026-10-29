@@ -536,7 +536,9 @@ main > .identity, main > .menu { flex-shrink: 0; }
 :root[data-input=pointer] .project:active strong { text-decoration: underline }
 
 .project > .cursor { padding-top: 1px; align-self: start }
-.back-home { display: inline-flex; align-items: center; gap: 8px }
+.back-home { position: relative; display: inline-flex; align-items: center; justify-content: center; padding-inline: 32px }
+.back-home > .cursor { position: absolute; left: 12px; top: 50%; transform: translateY(-50%) }
+.back-home:hover > .cursor { color: var(--bg) }
 :root:not([data-input=pointer]) .nav-choice:focus-visible > .cursor { visibility: visible }
 :root[data-input=pointer] .nav-choice:active > .cursor { visibility: visible }
 @media(hover:hover) {

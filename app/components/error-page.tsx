@@ -10,7 +10,7 @@ export function ErrorPage({ code, title, description }: ErrorPageProps) {
       <pre class="wordmark" aria-hidden="true">{asciiWordmark(code)}</pre>
       <h1>{code}: {title}</h1>
       <p>{description}</p>
-      <a class="back-home nav-choice" href="/"><NavigationCursor />Back to home</a>
+      <a class="back-home nav-choice" href="/"><NavigationCursor /><span class="back-home-label">Back to home</span></a>
     </main>
   )
 }
