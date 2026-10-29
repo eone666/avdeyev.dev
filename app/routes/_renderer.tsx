@@ -54,17 +54,13 @@ export default jsxRenderer(({ children, title, description, canonical, robots, v
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonForHtml(person) }} />
         <link rel="alternate" type="application/json" title="JSON Resume" href={RESUME_URL} />
         <link rel="icon" href="/favicon.ico" sizes="48x48" />
-        <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="icon" href="/icon-96.png" type="image/png" sizes="96x96" />
+        <link id="site-favicon" rel="icon" href="/icon.svg" type="image/svg+xml" sizes="any" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180" />
         <Link href="/app/style.css" rel="stylesheet" />
-        <script type="module" src={clientEntry('/app/voxel-background-client.ts')} />
-        <script type="module" src={clientEntry('/app/share-client.ts')} />
-        <noscript>
-          <style>{`.voxel-background{background-image:url('/voxel-background-fallback.webp');filter:none;transform:none}`}</style>
-        </noscript>
+        <script type="module" src={clientEntry('/app/terminal-client.ts')} />
       </head>
-      <body class="antialiased font-mono">{children}</body>
+      <body>{children}</body>
     </html>
   )
 })

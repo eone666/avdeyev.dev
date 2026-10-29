@@ -7,7 +7,7 @@ const handler: NotFoundHandler = (c) => {
     <ErrorPage
       code="404"
       title="Page not found"
-      description="This chunk hasn't generated yet."
+      description="No such file or directory."
     />,
     {
       title: 'Ivan Avdeyev | Page not found',

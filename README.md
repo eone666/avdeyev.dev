@@ -1,71 +1,73 @@
-# links
+# avdeyev.dev
 
-Personal link hub and CV, served at [avdeyev.dev](https://avdeyev.dev).
+Terminal-style personal link hub and CV at [avdeyev.dev](https://avdeyev.dev).
 
-Built with [HonoX](https://github.com/honojs/honox) (Hono + Vite, `hono/jsx`),
-Tailwind CSS v4 and TypeScript, running on Bun. No React.
+Built with HonoX (Hono + Vite), TypeScript, plain CSS, and Bun. The site uses
+server-rendered HTML with a small client module for interactions. React is used
+only by the standalone Forme PDF template.
 
 ## Getting started
 
-```bash
+```sh
 bun install
-bun run dev        # http://localhost:5173
+bun run dev        # website at http://localhost:5173, CV preview at :4242
 ```
 
 ## Scripts
 
-| Script              | What it does                                                   |
-| ------------------- | -------------------------------------------------------------- |
-| `bun run dev`       | Vite dev server plus Forme's live CV preview                   |
-| `bun run dev:site`  | Vite site server on `http://localhost:5173`                    |
-| `bun run dev:cv`    | Forme CV preview on `http://localhost:4242`                    |
-| `bun run build`     | Builds the site and CV into `dist/`                            |
-| `bun run build:site` | Builds the client and SSR bundles into `dist/`                |
-| `bun run build:cv`  | Renders the CV and embeds profile JSON and PDF metadata       |
-| `bun run start`     | Runs the built server (`dist/index.js`) on port 3000           |
-| `bun run lint`      | ESLint (`typescript-eslint`)                                   |
-| `bun test`          | Bun's test runner                                               |
-| `bun run typecheck` | `tsc --noEmit`                                                 |
+| Script | Purpose |
+| --- | --- |
+| `bun run dev` | Website and Forme preview together |
+| `bun run dev:site` | Website development server |
+| `bun run dev:cv` | Forme layout preview |
+| `bun run build` | Generate PDF/JSON, then build the website |
+| `bun run build:site` | Build client assets and SSR server |
+| `bun run build:cv` | Render PDF with attached JSON Resume |
+| `bun run start` | Serve `dist/index.js` on port 3000 |
+| `bun run typecheck` | TypeScript checks |
+| `bun run lint` | ESLint checks |
+| `bun test` | Site and CV tests |
+
+## Website
+
+- `app/components/terminal-home.tsx`: server-rendered menu, ASCII wordmark,
+  descriptions, and dialog content. Main links work with JavaScript disabled.
+- `shared/site.ts`: link destinations and project descriptions.
+- `app/terminal-client.ts`: menu selection, shortcuts, tabbed sections, clipboard
+  feedback, and shared keyboard/pointer input handling. No hydration framework is shipped.
+- `app/lib/terminal.ts`: ASCII text rendering and physical-key normalization.
+- `app/style.css`: responsive layouts, self-hosted Geist Mono, and the original
+  lime-green palette (`oklch(0.93 0.24 120)`). No external font requests.
+- `app/routes/_renderer.tsx`: metadata, JSON-LD, and asset loading.
+
+Desktop controls: ↑/↓ or J/K navigate links; ←/→ or H/L switch sections.
+Enter activates a link, C copies the email address, and ? opens keyboard help.
+Escape closes help.
+On touch devices, keyboard hints and hover descriptions are hidden;
+tabs and larger link targets support touch navigation.
+
+There is no command input, planet, or WebGL background.
+
+The 404 and 500 pages use the same terminal style. The client also handles return-link keyboard navigation on error pages. The former voxel scene, generated fallback
+images, Tailwind components, bitmap-font presentation, and associated capture
+scripts and dependencies have been removed.
 
 ## Layout
 
-```
-app/
-  routes/          file-based routes; _renderer.tsx is the document shell
-  components/      server-rendered components
-  lib/
-  voxel-background-client.ts  conditional WebGL loader
-  style.css        Tailwind entry, theme tokens, self-hosted fonts
-public/            static assets, copied to dist/ on build
-scripts/
-  build.mjs        production build orchestration
-  dev.mjs          local development orchestration
-  capture-*.mjs    visual asset generation
-  check-*.mjs      browser-level verification
-config/             build plugins and generated-entry helpers
-cv/                  standalone Forme source for `cv.pdf`
+```text
+app/         routes, terminal components, client interactions, CSS
+shared/      public link data, JSON-LD, resume helpers, CV icon catalogue
+cv/          JSON Resume source, PDF presentation, rendering and extraction tests
+public/      brand icons, robots/sitemap, generated PDF and resume JSON
+config/      Vite client build and Bun static-serving helpers
+scripts/     development and production build orchestration
 ```
 
-### Client-side code
+### CV icons
 
-Everything renders on the server. Only the optional background ships JS:
-
-- `voxel-background-client.ts` — a tiny loader for the WebGL scene behind the home and error pages.
-  It imports three.js dynamically and only after checking the viewport, so
-  narrow screens and Save-Data never fetch that 128 kB at all; what is left is
-  the canvas' CSS background.
-  The scene runtime is requested during browser idle time; mobile, Save-Data,
-  reduced-motion and hidden tabs do not request it. Sharing links need no JS.
-
-### Icons
-
-Use `<Icon name="mail-line" />` from `app/components/icon.tsx` on the site
-and `<PdfIcon name="mail-line" />` from `cv/icon.tsx` in the CV.
-Browse names at https://icon-sets.iconify.design/ri/; omit the `ri:` prefix.
-The Remix Icon catalogue is bundled locally and literal names are included in the build.
-
-Use literal names (including in arrays and objects), rather than constructing
-names at runtime. Invalid names fail with an explicit error.
+Use `<PdfIcon name="mail-line" />` from `cv/icon.tsx` (Remix Icon names without
+`ri:`). `shared/icons.ts` reads the local catalogue; SVG paths are normalized for
+Forme's renderer. Site navigation uses text rather than icon assets.
 
 ### The CV
 
@@ -130,3 +132,17 @@ docker compose up -d --build
 
 The SSR bundle inlines its dependencies, so the runtime image carries `dist/`
 and nothing else — no `node_modules`.
+
+## Docker
+
+```sh
+docker compose up -d --build
+```
+
+The standalone Compose file serves the site at `http://localhost:8000`.
+The multi-stage image generates `cv.pdf` and `resume.json` during the build;
+only the production bundle and generated public files enter the runtime image.
+
+This repository is also included as the `links/` submodule in
+`eone666/homelab-docker`. Use that repository's `./deploy.sh` to update the
+homelab checkout, fetch this site's latest `main`, and rebuild the site.

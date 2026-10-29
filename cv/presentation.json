@@ -41,7 +41,7 @@
     {
       "name": "avdeyev.dev",
       "url": "https://avdeyev.dev",
-      "description": "Built a personal site with TypeScript and a custom Three.js voxel background."
+      "description": "Built a terminal-style personal site with ASCII art, keyboard navigation, and responsive touch controls."
     }
   ]
 }

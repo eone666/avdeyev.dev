@@ -444,24 +444,28 @@
     {
       "name": "avdeyev.dev",
       "url": "https://avdeyev.dev",
-      "description": "Personal website, link hub, and generated PDF CV with a procedural Three.js voxel background.",
+      "description": "Personal website and link hub with a terminal-style interface, ASCII typography, keyboard navigation, responsive touch controls, and a generated PDF CV.",
       "highlights": [
-        "Server-renders the site with HonoX and Bun; uses TypeScript, Vite, and Tailwind CSS.",
-        "Loads the optional WebGL background dynamically, accounting for viewport size, Save-Data, reduced motion, and page visibility.",
-        "Generates a tagged PDF CV from a standalone Forme document.",
+        "Server-renders the interface and project content with HonoX and Bun, using TypeScript and plain CSS.",
+        "Implements accessible tabbed sections, arrow-key navigation, shortcuts, and a touch-specific mobile layout.",
+        "Uses text-based ASCII artwork and self-hosted Geist Mono with the original lime-green brand palette.",
+        "Generates a tagged PDF/A-3u CV and attaches a schema-validated JSON Resume with extended experience and project details.",
         "Hosts the Bun application in Docker.",
+        "Previously built a procedural Three.js voxel background for an earlier version of the site.",
         "Source: https://avdeyev.dev",
-        "CV summary: Built a personal site with TypeScript and a custom Three.js voxel background."
+        "CV summary: Built a terminal-style personal site with ASCII art, keyboard navigation, and responsive touch controls."
       ],
       "keywords": [
         "TypeScript",
         "HonoX",
         "Bun",
         "Vite",
-        "Tailwind CSS",
-        "Three.js",
+        "CSS",
+        "ASCII art",
+        "Keyboard navigation",
         "Docker",
-        "Forme"
+        "Forme",
+        "Three.js"
       ]
     },
     {

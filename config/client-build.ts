@@ -9,9 +9,7 @@ export function clientBuild(input: string[]): Plugin {
       build: {
         rolldownOptions: { input },
         assetsDir: 'static',
-        manifest: true,
-        // Three.js is an intentional, lazy desktop-only chunk (~515 kB).
-        chunkSizeWarningLimit: 550
+        manifest: true
       }
     })
   }

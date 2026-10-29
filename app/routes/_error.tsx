@@ -15,7 +15,7 @@ const handler: ErrorHandler = (e, c) => {
     <ErrorPage
       code="500"
       title="Internal server error"
-      description="Task failed successfully."
+      description="The process exited unexpectedly. Please try again later."
     />,
     {
       title: 'Ivan Avdeyev | Internal server error',

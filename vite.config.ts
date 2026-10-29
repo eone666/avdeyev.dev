@@ -1,16 +1,13 @@
 import { fileURLToPath } from 'node:url'
 import build from '@hono/vite-build/bun'
 import adapter from '@hono/vite-dev-server/bun'
-import tailwindcss from '@tailwindcss/vite'
 import honox from 'honox/vite'
 import { defineConfig } from 'vite'
 import { serveStaticWithHeaders } from './config/bun-server-entry.js'
 import { clientBuild } from './config/client-build.js'
-import { iconSubset } from './config/icon-subset.js'
 
 const clientEntries = [
-  '/app/voxel-background-client.ts',
-  '/app/share-client.ts',
+  '/app/terminal-client.ts',
   '/app/style.css'
 ]
 
@@ -28,13 +25,10 @@ export default defineConfig({
     }
   },
   plugins: [
-    iconSubset(),
     ...honoPlugins,
     clientBuild(clientEntries),
-    tailwindcss(),
     build({
       staticRoot: './dist',
-      external: ['three'],
       entryContentBeforeHooks: [serveStaticWithHeaders],
       staticPaths: ['/cv.pdf', '/resume.json']
     })

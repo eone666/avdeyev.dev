@@ -1,455 +1,550 @@
-@import 'tailwindcss' source('../app');
-
-/* Self-hosted, replaces next/font/google */
-@import '@fontsource-variable/geist-mono';
-@import '@fontsource-variable/pixelify-sans';
-
-@custom-variant dark (&:is(.dark *));
-
+@import '@fontsource-variable/geist-mono' ;
 :root {
-  --background: oklch(0.11 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.145 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.145 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.93 0.24 120);
-  --primary-foreground: oklch(0.11 0 0);
-  --secondary: oklch(0.2 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.22 0 0);
-  --muted-foreground: oklch(0.65 0 0);
-  --accent: oklch(0.93 0.24 120);
-  --accent-foreground: oklch(0.11 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.985 0 0);
-  --border: oklch(0.28 0 0);
-  --input: oklch(0.28 0 0);
-  --ring: oklch(0.93 0.24 120);
-  --chart-1: oklch(0.93 0.24 120);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --radius: 0.75rem;
-  --sidebar: oklch(0.145 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.93 0.24 120);
-  --sidebar-primary-foreground: oklch(0.11 0 0);
-  --sidebar-accent: oklch(0.2 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(0.28 0 0);
-  --sidebar-ring: oklch(0.93 0.24 120);
-
-  /* Pixel-UI palette: hard, un-blurred highlights and shadows. */
-  --pixel-light: oklch(1 0 0 / 0.14);
-  --pixel-dark: oklch(0 0 0 / 0.45);
-  --pixel-drop: oklch(0 0 0 / 0.55);
-  --pixel-glow: oklch(0.93 0.24 120 / 0.35);
-  --pixel-dither: oklch(1 0 0 / 0.022);
+  color-scheme: dark;
+  --bg: oklch(.11 0 0);
+  --fg: oklch(.985 0 0);
+  --primary: oklch(.93 .24 120);
+  --muted: oklch(.65 0 0);
+  --border: oklch(.28 0 0);
+  --card: oklch(.145 0 0);
+  --dim: color-mix(in oklch,var(--primary) 23%,var(--bg))
 }
-
-@theme inline {
-  --font-mono: 'Geist Mono Variable', ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-pixel: 'Pixelify Sans Variable', 'Geist Mono Variable', monospace;
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
+* {
+  box-sizing: border-box
 }
-
-@layer base {
+html {
+  background: var(--bg)
+}
+body {
+  margin: 0;
+  font: 13px/1.6 'Geist Mono Variable',ui-monospace,SFMono-Regular,Menlo,monospace;
+  color: var(--fg);
+  background: var(--bg)
+}
+button,input,a {
+  font: inherit
+}
+button,a {
+  -webkit-tap-highlight-color: transparent
+}
+button {
+  color: inherit;
+  cursor: pointer
+}
+a {
+  color: inherit;
+  text-decoration: none
+}
+:root:not([data-input=pointer]) :is(button,a,input):focus-visible {
+  outline: 1px solid var(--primary);
+  outline-offset: 4px
+}
+button {
+  border: 0;
+  background: none;
+  padding: 0
+}
+::selection {
+  background: var(--primary);
+  color: var(--bg)
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap
+}
+.skip {
+  position: fixed;
+  top: -60px;
+  left: 16px;
+  background: var(--primary);
+  color: var(--bg);
+  z-index: 10;
+  padding: 8px
+}
+.skip:focus {
+  top: 12px
+}
+.screen {
+  max-width: 1400px;
+  min-height: 100dvh;
+  margin: auto;
+  padding: 0 32px;
+  position: relative;
+  display: flex;
+  flex-direction: column
+}
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  isolation: isolate;
+  min-height: 0;
+  justify-content: flex-start;
+  padding: 64px 0 32px
+}
+.identity {
+  padding-top: 0;
+  text-align: center;
+  width: min(100%,720px)
+}
+.eyebrow {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  color: var(--muted);
+  font-size: 10px;
+  margin-bottom: 26px
+}
+.eyebrow span:first-child {
+  color: var(--primary)
+}
+.wordmark {
+  font-family: 'Geist Mono Variable',monospace;
+  font-size: clamp(8px,1.1vw,15px);
+  line-height: 1.05;
+  white-space: pre;
+  margin: 0 auto;
+  color: var(--primary);
+  text-shadow: 2px 2px 0 var(--dim);
+  display: inline-block;
+  text-align: left;
+  letter-spacing: 0;
+  font-weight: 400
+}
+.identity-label {
+  margin-top: 24px;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  font-size: 10px;
+  letter-spacing: .12em
+}
+.identity-label .divider {
+  color: var(--border)
+}
+.splash {
+  margin: 14px 0 0;
+  font-size: 11px;
+  color: var(--muted)
+}
+.menu {
+  width: min(100%,440px);
+  margin: 34px auto 0;
+  z-index: 2
+}
+.menu-row {
+  display: grid;
+  grid-template-columns: 18px 1fr auto 15px;
+  align-items: center;
+  gap: 8px;
+  min-height: 38px;
+  padding: 6px 12px;
+  border: 1px solid transparent;
+  transition: background-color .12s,border-color .12s;
+  position: relative
+}
+.menu-label {
+  white-space: nowrap
+}
+.menu-detail {
+  font-size: 10px;
+  color: var(--muted)
+}
+.cursor {
+  font-size: 19px;
+  line-height: 1;
+  color: var(--primary);
+  visibility: hidden
+}
+:root:not([data-input=pointer]) .menu-row:focus-visible {
+  border-color: var(--primary);
+  background: transparent;
+  outline: none
+}
+:root:not([data-input=pointer]) .menu-row:focus-visible .cursor {
+  visibility: visible
+}
+:root:not([data-input=pointer]) .menu-row:focus-visible .menu-label {
+  color: var(--primary)
+}
+.stars {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  height: 820px;
+  color: var(--primary);
+  font-size: 16px;
+  user-select: none
+}
+.stars span {
+  position: absolute;
+  opacity: .55
+}
+.stars span:nth-child(1) {
+  left: 18%;
+  top: 40%
+}
+.stars span:nth-child(2) {
+  left: 74%;
+  top: 24%
+}
+.stars span:nth-child(3) {
+  left: 83%;
+  top: 60%
+}
+.stars span:nth-child(4) {
+  left: 30%;
+  top: 18%
+}
+.stars span:nth-child(5) {
+  left: 70%;
+  top: 79%
+}
+.stars span:nth-child(6) {
+  left: 10%;
+  top: 70%
+}
+.stars span:nth-child(7) {
+  left: 29%;
+  top: 76%;
+  font-size: 10px
+}
+.stars span:nth-child(8) {
+  left: 91%;
+  top: 33%
+}
+kbd {
+  font: inherit;
+  color: var(--fg);
+  background: var(--fg);
+  color: var(--bg);
+  padding: 0 4px;
+  margin-right: 4px
+}
+.project {
+  display: block;
+  border-bottom: 1px solid var(--border);
+  padding: 16px 0
+}
+.project:first-child {
+  padding-top: 0
+}
+.project:last-child {
+  border: 0;
+  padding-bottom: 0
+}
+.project strong {
+  font-weight: 500;
+  color: var(--primary);
+  display: flex;
+  justify-content: space-between
+}
+.project p,.about-copy {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.8
+}
+.project small {
+  font-size: 10px;
+  color: var(--fg)
+}
+:root:not([data-input=pointer]) .project:focus-visible strong {
+  text-decoration: underline
+}
+.about-head {
+  font-size: 16px;
+  font-weight: 500
+}
+.token-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 18px 0
+}
+.token-list span {
+  font-size: 10px;
+  border: 1px solid var(--border);
+  padding: 3px 7px;
+  color: var(--primary)
+}
+@media(min-width:1500px) {
+  .screen {
+    max-width: 1500px
+  }
+  .identity {
+    padding-top: 0
+  }
+  .wordmark {
+    font-size: 17px
+  }
+  .menu {
+    margin-top: 40px
+  }
+  .menu-row {
+    min-height: 41px
+  }
+  main {
+    min-height: 0
+  }
+}
+@media(max-width:680px) {
+  .screen {
+    padding: 0 18px
+  }
+  .identity {
+    padding-top: 0
+  }
+  .eyebrow {
+    font-size: 9px;
+    margin-bottom: 25px
+  }
+  .eyebrow span:last-child {
+    display: none
+  }
+  .wordmark {
+    font-size: clamp(6px,2vw,11px)
+  }
+  .identity-label {
+    font-size: 8px;
+    gap: 8px;
+    margin-top: 20px;
+    letter-spacing: .04em
+  }
+  .splash {
+    font-size: 10px
+  }
+  .menu {
+    margin-top: 28px
+  }
+  .menu-row {
+    min-height: 40px;
+    grid-template-columns: 13px 1fr auto 15px;
+    padding-inline: 8px;
+    gap: 6px
+  }
+  .menu-detail {
+    font-size: 9px
+  }
+  .menu-label {
+    font-size: 12px
+  }
+  .stars {
+    height: 720px
+  }
+  .stars span {
+    opacity: .25
+  }
+  main {
+    min-height: 0;
+    padding-top: 32px
+  }
+}
+@media(prefers-reduced-motion:reduce) {
   * {
-    @apply border-border outline-ring/50;
-  }
-
-  body {
-    @apply bg-background text-foreground;
-  }
-
-  /* HonoX wraps every island in this custom element; keep it out of layout. */
-  honox-island {
-    display: contents;
+    transition: none!important
   }
 }
-
-@layer utilities {
-  @keyframes mc-wobble {
-
-    0%,
-    100% {
-      transform: translateY(0) rotate(0deg);
-    }
-
-    25% {
-      transform: translateY(-2px) rotate(-1deg);
-    }
-
-    50% {
-      transform: translateY(0) rotate(1deg);
-    }
-
-    75% {
-      transform: translateY(1px) rotate(-0.5deg);
-    }
+/* Touch navigation: keep the terminal character, drop keyboard-only chrome. */
+#toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 20;
+  max-width: calc(100% - 32px);
+  border: 1px solid var(--primary);
+  padding: 10px 16px;
+  background: var(--bg);
+  color: var(--primary);
+  font-size: 11px;
+  white-space: nowrap
+}
+@media(max-width:680px),(hover:none) and (pointer:coarse) {
+  .menu-row .cursor {
+    display: none
   }
-
-  @keyframes mc-float {
-
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-
-    50% {
-      transform: translateY(-3px);
-    }
+  .menu-row {
+    grid-template-columns: 1fr auto 15px;
+    gap: 9px;
+    min-height: 49px;
+    border: 1px solid transparent;
+    border-bottom-color: var(--border);
+    padding: 9px 9px
   }
-
-  .animate-mc-wobble {
-    animation: mc-wobble 2.5s ease-in-out infinite;
+  .menu-label {
+    font-size: 12px
   }
-
-  .animate-mc-float {
-    animation: mc-float 1.8s ease-in-out infinite;
+  .menu-detail {
+    font-size: 9px
   }
-
-  /*
-   * Pixel-UI surfaces. These are hand-written utilities, so they land after
-   * Tailwind's own in the utilities layer and win the tie against rounded-*
-   * and shadow-* on the same element.
-   */
-
-  /* Raised panel: light bevel top-left, dark bottom-right, hard drop shadow. */
-  .pixel-panel {
-    border-radius: 0;
-    box-shadow:
-      inset 3px 3px 0 0 var(--pixel-light),
-      inset -3px -3px 0 0 var(--pixel-dark),
-      6px 6px 0 0 var(--pixel-drop);
-  }
-
-  /*
-   * Wordmark. The hard offset shadow is how Minecraft renders text — no blur.
-   * The second shadow is the ambient glow the logo image used to carry.
-   */
-  .pixel-mark {
-    text-shadow:
-      4px 4px 0 var(--pixel-drop),
-      0 0 24px var(--pixel-glow);
-  }
-
-  .pixel-btn {
-    --pixel-bevel: 2px;
-    --pixel-depth: 4px;
-    --pixel-nudge: 2px;
-
-    border-radius: 0;
-    box-shadow:
-      inset var(--pixel-bevel) var(--pixel-bevel) 0 0 var(--pixel-light),
-      inset calc(var(--pixel-bevel) * -1) calc(var(--pixel-bevel) * -1) 0 0 var(--pixel-dark),
-      var(--pixel-depth) var(--pixel-depth) 0 0 var(--pixel-drop);
-    /* steps() so the button snaps between states instead of gliding. */
-    transition:
-      transform 90ms steps(2),
-      box-shadow 90ms steps(2);
-  }
-
-  /* Compact variant for small icon controls, so the shadow stays in scale. */
-  .pixel-btn-sm {
-    --pixel-bevel: 1px;
-    --pixel-depth: 2px;
-    --pixel-nudge: 1px;
-  }
-
-  .pixel-btn:hover {
-    transform: translate(calc(var(--pixel-nudge) * -1), calc(var(--pixel-nudge) * -1));
-    box-shadow:
-      inset var(--pixel-bevel) var(--pixel-bevel) 0 0 var(--pixel-light),
-      inset calc(var(--pixel-bevel) * -1) calc(var(--pixel-bevel) * -1) 0 0 var(--pixel-dark),
-      calc(var(--pixel-depth) + var(--pixel-nudge)) calc(var(--pixel-depth) + var(--pixel-nudge)) 0 0 var(--pixel-drop);
-  }
-
-  /*
-   * box-shadow is spoken for by the bevel, and Tailwind draws its focus ring
-   * with box-shadow too — so focus gets a real outline instead. Also beats
-   * the `outline-none` in buttonVariants on specificity.
-   */
-  .pixel-btn:focus-visible {
-    outline: 3px solid var(--ring);
-    outline-offset: 2px;
-  }
-
-  /* Pressed: bevel inverts and the button sits down onto its own shadow. */
-  .pixel-btn:active {
-    transform: translate(var(--pixel-depth), var(--pixel-depth));
-    box-shadow:
-      inset var(--pixel-bevel) var(--pixel-bevel) 0 0 var(--pixel-dark),
-      inset calc(var(--pixel-bevel) * -1) calc(var(--pixel-bevel) * -1) 0 0 var(--pixel-light),
-      0 0 0 0 var(--pixel-drop);
-  }
-
-  /*
-   * The WebGL cloud sky sits here. z-index -1 puts it behind the page content
-   * while still painting above the canvas background, so the card needs no
-   * wrapper and keeps its own width basis.
-   */
-  .voxel-background {
-    position: fixed;
-    inset: 0;
-    z-index: -1;
-    display: block;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-
-    /*
-     * The sun and its halo live in the scene itself, so the only thing left
-     * here is light pooling along the horizon — the canvas is drawn with
-     * alpha, so its own background shows through at no cost. 70% is where the
-     * horizon lands for the camera's fixed vertical field of view.
-     */
-    background-image:
-      url('/voxel-background-placeholder.webp'),
-      radial-gradient(150% 26% at 50% 70%,
-        oklch(0.93 0.24 120 / 0.05) 0%,
-        transparent 80%);
-    background-position: center;
-    background-size: cover;
-    filter: blur(18px);
-    transform: scale(1.04);
-    transition: filter 400ms ease-out, transform 400ms ease-out;
-  }
-
-  /* Once WebGL has painted its first frame, keep only the cheap horizon wash. */
-  .voxel-background[data-scene='live'] {
-    background-image:
-      radial-gradient(150% 26% at 50% 70%,
-        oklch(0.93 0.24 120 / 0.05) 0%,
-        transparent 80%);
-    filter: none;
-    transform: none;
-  }
-
-  .voxel-background[data-scene='static'] {
-    background-image:
-      url('/voxel-background-fallback.webp'),
-      radial-gradient(150% 26% at 50% 70%,
-        oklch(0.93 0.24 120 / 0.05) 0%,
-        transparent 80%);
-    filter: none;
-    transform: none;
-  }
-
-  @media (max-width: 767px) {
-    .voxel-background {
-      background-image:
-        url('/voxel-background-fallback-mobile.webp'),
-        radial-gradient(150% 26% at 50% 70%,
-          oklch(0.93 0.24 120 / 0.05) 0%,
-          transparent 80%);
-      filter: none;
-      transform: none;
-    }
-  }
-  /* 3px checkerboard, barely visible — gives the backdrop a pixel grain. */
-  .pixel-dither {
-    background-image: conic-gradient(var(--pixel-dither) 0 25%,
-        transparent 0 50%,
-        var(--pixel-dither) 0 75%,
-        transparent 0);
-    background-size: 6px 6px;
-  }
-
-  .use-mm>* {
-    --spacing: 1mm;
-
-    &.border {
-      border-width: calc(1 * var(--spacing));
-    }
-
-    &.border-0 {
-      border-width: calc(0 * var(--spacing));
-    }
-
-    &.border-2 {
-      border-width: calc(2 * var(--spacing));
-    }
-
-    &.border-4 {
-      border-width: calc(4 * var(--spacing));
-    }
-
-    &.border-8 {
-      border-width: calc(8 * var(--spacing));
-    }
-
-    &.border-t {
-      border-top-width: calc(1 * var(--spacing));
-    }
-
-    &.border-t-0 {
-      border-top-width: calc(0 * var(--spacing));
-    }
-
-    &.border-t-2 {
-      border-top-width: calc(2 * var(--spacing));
-    }
-
-    &.border-t-4 {
-      border-top-width: calc(4 * var(--spacing));
-    }
-
-    &.border-b {
-      border-bottom-width: calc(1 * var(--spacing));
-    }
-
-    &.border-b-0 {
-      border-bottom-width: calc(0 * var(--spacing));
-    }
-
-    &.border-b-2 {
-      border-bottom-width: calc(2 * var(--spacing));
-    }
-
-    &.border-b-4 {
-      border-bottom-width: calc(4 * var(--spacing));
-    }
-
-    &.border-l {
-      border-left-width: calc(1 * var(--spacing));
-    }
-
-    &.border-l-0 {
-      border-left-width: calc(0 * var(--spacing));
-    }
-
-    &.border-l-2 {
-      border-left-width: calc(2 * var(--spacing));
-    }
-
-    &.border-l-4 {
-      border-left-width: calc(4 * var(--spacing));
-    }
-
-    &.border-r {
-      border-right-width: calc(1 * var(--spacing));
-    }
-
-    &.border-r-0 {
-      border-right-width: calc(0 * var(--spacing));
-    }
-
-    &.border-r-2 {
-      border-right-width: calc(2 * var(--spacing));
-    }
-
-    &.border-r-4 {
-      border-right-width: calc(4 * var(--spacing));
-    }
-
-    &.border-x {
-      border-left-width: calc(1 * var(--spacing));
-      border-right-width: calc(1 * var(--spacing));
-    }
-
-    &.border-y {
-      border-top-width: calc(1 * var(--spacing));
-      border-bottom-width: calc(1 * var(--spacing));
-    }
-
-    /* Rounded corners using spacing */
-    &.rounded {
-      border-radius: calc(1 * var(--spacing));
-    }
-
-    &.rounded-sm {
-      border-radius: calc(0.5 * var(--spacing));
-    }
-
-    &.rounded-md {
-      border-radius: calc(1.5 * var(--spacing));
-    }
-
-    &.rounded-lg {
-      border-radius: calc(2 * var(--spacing));
-    }
-
-    &.rounded-xl {
-      border-radius: calc(3 * var(--spacing));
-    }
-
-    &.rounded-2xl {
-      border-radius: calc(4 * var(--spacing));
-    }
-
-    &.rounded-3xl {
-      border-radius: calc(6 * var(--spacing));
-    }
+  .stars {
+    height: 620px
   }
 }
-
-/*
- * The wobble, the float and the button snap are all decorative. None of them
- * were gated before; they are now.
- */
-@media (prefers-reduced-motion: reduce) {
-
-  .voxel-background {
-    background-image:
-      url('/voxel-background-fallback.webp'),
-      radial-gradient(150% 26% at 50% 70%,
-        oklch(0.93 0.24 120 / 0.05) 0%,
-        transparent 80%);
-    filter: none;
-    transform: none;
-    transition: none;
-  }
-
-  /* The sky checks this media query itself and stops its render loop. */
-  .animate-mc-wobble,
-  .animate-mc-float {
-    animation: none;
-  }
-
-  .pixel-btn {
-    transition: none;
-  }
-
-  .pixel-btn:hover,
-  .pixel-btn:active {
-    transform: none;
-  }
+[hidden] {
+  display: none!important
 }
+.error-screen {
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-height: 100dvh;
+  padding: 32px 18px
+}
+.error-screen .wordmark {
+  font-size: clamp(14px,3vw,24px);
+  margin: 35px 0
+}
+.error-screen h1 {
+  font-size: 18px;
+  font-weight: 500
+}
+.error-screen p {
+  color: var(--muted)
+}
+.back-home {
+  margin: 22px 0;
+  background: var(--border);
+  padding: 12px 24px;
+  color: var(--fg)
+}
+
+:root:not([data-input=pointer]) .project:focus-visible { outline: 1px solid var(--primary); outline-offset: 4px; }
+
+main > .identity, main > .menu { flex-shrink: 0; }
+
+.sections {
+  width: min(100%,680px);
+  margin-top: 30px;
+  position: relative;
+  z-index: 2;
+  flex-shrink: 0
+}
+.section-tabs {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 30px;
+  font-size: 12px
+}
+.section-tabs::before,.section-tabs::after {
+  content: '';
+  height: 1px;
+  background: var(--border);
+  flex: 1
+}
+.section-tabs button {
+  padding: 3px 6px;
+  color: var(--muted);
+  white-space: nowrap
+}
+.section-tabs button[aria-selected=true] {
+  color: var(--bg);
+  background: var(--primary)
+}
+.section-tabs button:hover:not([aria-selected=true]) { color: var(--primary) }
+[role=tabpanel] { min-height: 310px; outline: none }
+.sections .menu { margin: 0 auto }
+.sections .about-head { margin-top: 0 }
+@media(max-width:680px),(hover:none) and (pointer:coarse) {
+  .sections { margin-top: 26px }
+  .section-tabs { gap: 6px; margin-bottom: 26px }
+  .section-tabs button { padding: 10px 4px; min-height: 44px; font-size: 11px }
+  [role=tabpanel] { min-height: 0 }
+}
+
+#help-dialog {
+  width: min(520px,calc(100% - 32px));
+  max-height: 85dvh;
+  padding: 22px;
+  border: 1px solid var(--primary);
+  background: var(--bg);
+  color: var(--fg);
+  font: inherit
+}
+#help-dialog::backdrop { background: #000c }
+.help-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px }
+.help-heading h2 { margin: 0; font-size: 14px; color: var(--primary); font-weight: 500 }
+.help-heading button { color: var(--muted); font-size: 11px; min-height: 44px }
+.help-shortcuts { margin: 18px 0 0 }
+.help-shortcuts div { display: grid; grid-template-columns: 130px 1fr; gap: 12px; padding: 7px 0 }
+.help-shortcuts dt { color: var(--primary) }
+.help-shortcuts dd { margin: 0; color: var(--muted) }
+@media(max-width:400px) {
+  .help-heading { align-items: flex-start }
+  .help-shortcuts div { grid-template-columns: 100px 1fr; font-size: 11px }
+}
+
+.tab-hint {
+  text-align: center;
+  color: var(--muted);
+  font-size: 9px;
+  margin-bottom: 8px
+}
+@media(max-width:680px),(hover:none) and (pointer:coarse) {
+  .tab-hint { display: none }
+}
+
+.project-actions { display: flex; gap: 14px; align-items: center }
+@media(max-width:680px),(hover:none) and (pointer:coarse) {
+}
+
+.terminal-footer { position: relative; z-index: 3; padding-bottom: 16px }
+.status-description { margin: 0 0 10px; padding: 0 10px; font-size: 10px; color: var(--muted); min-height: 16px }
+.statusbar { display: flex; align-items: stretch; background: var(--border); font-size: 10px; color: var(--fg) }
+.status-navigation,.status-actions { display: flex; align-items: center; gap: 18px; padding: 6px 12px }
+.status-navigation { flex-wrap: wrap; row-gap: 8px }
+.status-navigation>span { white-space: nowrap }
+.status-actions { margin-left: auto; flex-shrink: 0 }
+.statusbar kbd { border: 0; background: var(--fg); color: var(--bg); padding: 0 4px; margin-right: 4px }
+.statusbar button { white-space: nowrap; padding: 2px 0 }
+.statusbar button:hover { color: var(--primary) }
+.statusbar button:focus-visible { outline-offset: 2px }
+@media(max-width:680px),(hover:none) and (pointer:coarse) {
+  .status-description,.status-navigation,.statusbar kbd { display: none }
+  .terminal-footer { padding-bottom: 12px }
+  .status-actions { gap: 18px; padding: 0 12px }
+  .status-actions button { min-height: 44px }
+}
+
+@media(max-width:680px),(hover:none) and (pointer:coarse) {
+  .terminal-footer { display: none }
+}
+
+.link-target { color: var(--primary); text-align: right; font-size: 13px }
+
+.no-js-screen { justify-content: center; padding-block: 64px }
+.no-js-content { width: min(100%,520px) }
+.no-js-path { color: var(--primary); font-size: 11px; margin: 0 0 48px }
+.no-js-status { display: inline-block; background: var(--primary); color: var(--bg); padding: 4px 10px; font-size: 12px }
+.no-js-content h1 { font-size: clamp(22px,5vw,32px); line-height: 1.4; font-weight: 500; margin: 20px 0 }
+.no-js-content>p:not(.no-js-path):not(.no-js-status) { color: var(--muted); font-size: 12px; line-height: 1.8 }
+.no-js-content nav { display: grid; gap: 8px; margin: 28px 0 }
+.no-js-content nav a { display: flex; justify-content: space-between; padding: 12px; background: var(--border) }
+.no-js-content nav a:hover,.back-home:hover { background: var(--primary); color: var(--bg) }
+.no-js-return a { color: var(--primary); text-decoration: underline; text-underline-offset: 3px }
+
+:root[data-input=pointer] :focus { outline: none }
+@media(hover:hover) {
+  :root[data-input=pointer] .menu-row:hover {
+    border-color: var(--primary);
+    background: transparent
+  }
+  :root[data-input=pointer] .menu-row:hover .menu-label { color: var(--primary) }
+  :root[data-input=pointer] .menu-row:hover .cursor { visibility: visible }
+  :root[data-input=pointer] .project:hover { outline: 1px solid var(--primary); outline-offset: 4px }
+  :root[data-input=pointer] .project:hover strong { text-decoration: underline }
+}
+
+/* Press-and-hold uses the same frame as pointer hover and keyboard focus. */
+:root[data-input=pointer] .menu-row:active { border-color: var(--primary); background: transparent }
+:root[data-input=pointer] .menu-row:active .menu-label { color: var(--primary) }
+:root[data-input=pointer] .project:active { outline: 1px solid var(--primary); outline-offset: 4px }
+:root[data-input=pointer] .project:active strong { text-decoration: underline }
