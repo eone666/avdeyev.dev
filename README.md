@@ -143,6 +143,6 @@ The standalone Compose file serves the site at `http://localhost:8000`.
 The multi-stage image generates `cv.pdf` and `resume.json` during the build;
 only the production bundle and generated public files enter the runtime image.
 
-This repository is also included as the `links/` submodule in
+This repository is also included as the `avdeyev.dev/` submodule in
 `eone666/homelab-docker`. Use that repository's `./up.sh` to update the
 homelab checkout, fetch this site's latest `main`, and deploy the full Compose stack.
