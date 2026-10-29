@@ -7,3 +7,11 @@ dist
 
 # Temporary build-time renderer
 .render/
+
+# Generated inside the dedicated CV build stage, never taken from the host.
+public/cv.pdf
+public/resume.json
+
+# Tests are checked outside the production image build.
+**/*.test.ts
+**/*.test.tsx

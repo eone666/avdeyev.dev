@@ -129,9 +129,13 @@ docker compose up -d --build
 ```
 
 The site is available at `http://localhost:8000` (container port 3000).
-The builder installs development dependencies, generates `cv.pdf` and
-`resume.json`, bundles the client, and renders `index.html`, `404.html`, and
-`50x.html`. The temporary Hono renderer and Vite manifest are removed after export.
+The dependency stage installs development dependencies. A separate `cv` stage
+builds and validates `cv.pdf` and `resume.json`; it is reused when only website
+code changes. The website builder copies just its required inputs, bundles the
+client, and renders `index.html`, `404.html`, and `50x.html`. Documentation and
+editable OG source files do not invalidate these build steps. Host-generated
+PDF/JSON files are excluded from the Docker context and copied from the CV stage.
+The temporary Hono renderer and Vite manifest are removed after export.
 
 The final scratch image uses Static Web Server 2.44.1 as user `65532:65532`.
 It contains only the server binary, `config/static-web-server.toml`, and static
