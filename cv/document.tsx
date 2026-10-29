@@ -1,10 +1,11 @@
 /** @jsxImportSource react */
 import type { ReactNode } from 'react'
 import { PdfIcon } from './icon'
-import profile from './profile.json'
-import { locationText, workDateText } from './format'
+import resume from './resume.json'
+import presentation from './presentation.json'
+import { workDateText } from './format'
 import { standardFonts } from '@formepdf/fonts-standard'
-import { PROFILE_URL } from '../shared/resume'
+import { ATTACHMENT_NOTE } from '../shared/resume'
 import type { IconName } from '../shared/icons'
 import {
   Document,
@@ -19,17 +20,12 @@ import {
   type Style,
 } from '@formepdf/react'
 
-type Location = {
-  city?: string
-  countryCode?: string
-}
-
 type WorkItem = {
   position: string
   company: string
   startDate: string
   endDate: string | null
-  location: Location | null
+  location: string
   remote?: boolean
   highlights: string[]
 }
@@ -42,7 +38,12 @@ const visibleSkills = [
       "JavaScript",
       "HTML",
       "CSS",
-      "SQL"
+      "SCSS",
+      "SQL",
+      "Kotlin",
+      "Java",
+      "C",
+      "Gleam"
     ]
   },
   {
@@ -85,7 +86,7 @@ const visibleSkills = [
 const BLACK = '#000000'
 const GRAY = '#374151'
 const LIGHT_GRAY = '#d1d5db'
-const PAGE_GAP = 20
+const PAGE_GAP = 16
 
 function SectionTitle({ icon, children }: { icon?: IconName; children: ReactNode }) {
   return (
@@ -144,7 +145,10 @@ function Header() {
   )
 }
 
-const work: WorkItem[] = profile.work.slice(0, 3)
+const work: WorkItem[] = presentation.work.map(item => {
+  const job = resume.work.find(job => job.name === item.name)!
+  return { ...job, company: job.name, endDate: job.endDate ?? null, location: job.location, highlights: item.highlights }
+})
 
 function WorkExperience({ items, title = false }: { items: WorkItem[]; title?: boolean }) {
   return (
@@ -156,10 +160,10 @@ function WorkExperience({ items, title = false }: { items: WorkItem[]; title?: b
             <View style={{ flexDirection: 'row', alignItems: 'flex-start', justifyContent: 'space-between', gap: 6, marginBottom: 6 }}>
               <View style={{ flexGrow: 1 }}>
                 <Text style={{ fontSize: 13.5, fontWeight: 700 }}>{item.position}</Text>
-                <Text style={{ fontSize: 10, color: GRAY, fontWeight: 500 }}>{item.company} · {locationText(item.location, item.remote)}</Text>
+                <Text style={{ fontSize: 10, color: GRAY, fontWeight: 500 }}>{item.company} · {item.location}</Text>
               </View>
               <View wrap={false} style={{ height: 22, border: `0.75 solid ${BLACK}`, paddingHorizontal: 9, alignItems: 'center', justifyContent: 'center' }}>
-                <Text style={{ fontSize: 10, fontWeight: 600 }}>{workDateText(item.startDate)}–{workDateText(item.endDate)}</Text>
+                <Text style={{ fontSize: 10, fontWeight: 600, position: 'relative', top: -1.5 }}>{workDateText(item.startDate)}–{workDateText(item.endDate)}</Text>
               </View>
             </View>
             <View style={{ gap: 6 }}>
@@ -193,7 +197,7 @@ function SkillsBlock({ title, skills }: { title: string; skills: string[] }) {
 }
 
 function SelectedProjects() {
-  const projects = profile.selectedProjects
+  const projects = presentation.projects
   return (
     <View wrap={false}>
       <SectionTitle icon="apps-line">Selected Projects</SectionTitle>
@@ -222,7 +226,7 @@ function PageNumber({ children, profileLink = false }: { children: ReactNode; pr
   return <Fixed position="footer" style={{ fontFamily: 'Liberation Mono' }}>
     <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
       <View style={{ flexGrow: 1 }}>
-        {profileLink && <Text href={PROFILE_URL} style={{ fontSize: 7 }}>Machine-readable profile: avdeyev.dev/profile.json</Text>}
+        {profileLink && <Text style={{ fontSize: 7 }}>{ATTACHMENT_NOTE}</Text>}
       </View>
       <Text style={{ fontSize: 9 }}>{children}</Text>
     </View>
@@ -233,7 +237,7 @@ export default (
   <Document
     title="Ivan Avdeyev | CV"
     author="Ivan Avdeyev"
-    subject={`${profile.basics.summary} Extended profile v${profile.profileVersion}: ${PROFILE_URL}. Skills: ${profile.skills.flatMap(group => group.keywords).join(', ')}.`}
+    subject={`${resume.basics.summary} ${ATTACHMENT_NOTE}`}
     creator="Forme"
     lang="en"
     tagged
@@ -265,7 +269,7 @@ export default (
               <Text style={{ fontSize: 10, color: GRAY, fontWeight: 500 }}>Eastern Technical and Humanities College · Oskemen, KZ</Text>
             </View>
             <View wrap={false} style={{ height: 22, border: `0.75 solid ${BLACK}`, paddingHorizontal: 9, alignItems: 'center', justifyContent: 'center' }}>
-              <Text style={{ fontSize: 10, fontWeight: 600 }}>2016–2020</Text>
+              <Text style={{ fontSize: 10, fontWeight: 600, position: 'relative', top: -1.5 }}>2016–2020</Text>
             </View>
           </View>
           <Text style={{ fontSize: 10 }}>Vocational · 1305023 - Software Technician, 1305011 - Designer</Text>
@@ -274,11 +278,10 @@ export default (
 
       <View>
         <SectionTitle icon="tools-line">Technical Skills</SectionTitle>
-        <View style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        <View style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', alignItems: 'stretch', gap: 12 }}>
           {visibleSkills.map((group) => <SkillsBlock key={group.name} title={group.name} skills={group.keywords} />)}
-        </View>
-        <View style={{ marginTop: 8 }}>
-          <SkillsBlock title="Rendering & Performance" skills={['SSR', 'SSG', 'ISR', 'Web performance profiling', 'Media optimization']} />
+          <SkillsBlock title="Rendering & Performance" skills={['SSR', 'SSG', 'ISR', 'Media optimization', 'Web performance', 'Code splitting']} />
+          <SkillsBlock title="Concepts & Processes" skills={['Agile', 'Scrum', 'Architecture', 'Software Design', 'UX', 'SEO']} />
         </View>
       </View>
 

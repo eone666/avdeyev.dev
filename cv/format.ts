@@ -6,8 +6,3 @@ export function workDateText(value: string | null) {
     month: 'short', year: 'numeric', timeZone: 'UTC',
   }).format(new Date(Date.UTC(year, month - 1)))
 }
-
-export function locationText(location: { city?: string; countryCode?: string } | null, remote = false) {
-  if (remote) return 'Remote'
-  return [location?.city, location?.countryCode].filter(Boolean).join(', ')
-}

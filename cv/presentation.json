@@ -1,0 +1,47 @@
+{
+  "work": [
+    {
+      "name": "Raison Securities Ltd",
+      "highlights": [
+        "Updated React screens and UI components in native Android/iOS shells, helped design APIs, fixed bugs, and wrote unit tests.",
+        "Collaborated on the Nuxt 2-to-Astro website migration, improving performance and developer experience.",
+        "Built most reusable page blocks with a designer, accelerating page assembly.",
+        "Used Lighthouse to optimize JS, images, fonts, third-party scripts, layout stability, accessibility, and SEO."
+      ]
+    },
+    {
+      "name": "Tile.Expert Ltd",
+      "highlights": [
+        "Helped migrate a tile retail website from PHP templates and jQuery to Next.js.",
+        "Developed localized navigation and advanced product filtering for a tile retail platform.",
+        "Built and unit-tested components from designs; documented them in Storybook."
+      ]
+    },
+    {
+      "name": "LLC Rating",
+      "highlights": [
+        "Built React dashboards for a municipal administration with charts, maps, tables, and filters.",
+        "Migrated JS to TypeScript for maintainability; wrote unit and E2E tests.",
+        "Created SQL tables, queries, and views; prepared data sources and calculations in Cube.js.",
+        "Developed hospital COVID-19 tracking and employee timesheet interfaces, collaborating closely with a backend developer on the latter."
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "name": "Treegger",
+      "url": "https://github.com/eone666/treegger",
+      "description": "Designed a TypeScript UI runtime with signals, direct DOM updates, keyed lists, and scoped effects. Supports HTML templates and JSX without a framework-specific compiler."
+    },
+    {
+      "name": "luci-theme-shadcnui",
+      "url": "https://github.com/eone666/luci-theme-shadcnui",
+      "description": "Built a shadcn/ui-inspired theme for OpenWrt's LuCI interface with light and dark modes and customizable colors."
+    },
+    {
+      "name": "avdeyev.dev",
+      "url": "https://avdeyev.dev",
+      "description": "Built a personal site with TypeScript and a custom Three.js voxel background."
+    }
+  ]
+}

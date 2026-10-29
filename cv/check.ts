@@ -1,13 +1,14 @@
 import assert from 'node:assert/strict'
 import { getDocument } from 'pdfjs-dist/legacy/build/pdf.mjs'
 import { PDFDocument, PDFName, PDFDict, PDFArray, PDFRawStream, decodePDFRawStream } from 'pdf-lib'
-import profile from './profile.json'
+import resume from './resume.json'
+import presentation from './presentation.json'
 import { workDateText } from './format'
-import { PROFILE_URL } from '../shared/resume'
+import { ATTACHMENT_NOTE } from '../shared/resume'
 import { validateResume } from '../shared/resume-validation'
 
 /** Inspect the rendered file using an independent PDF parser, not layout metadata. */
-export async function checkCv(pdfBytes: Uint8Array, expectedProfile: string, expectedResume: string) {
+export async function checkCv(pdfBytes: Uint8Array, expectedResume: string) {
   const pdf = await getDocument({ data: pdfBytes.slice(), useSystemFonts: true, isEvalSupported: false, verbosity: 0 }).promise
   try {
     const texts: string[] = []
@@ -17,15 +18,15 @@ export async function checkCv(pdfBytes: Uint8Array, expectedProfile: string, exp
       const content = await page.getTextContent()
       texts.push(content.items.map(item => 'str' in item ? item.str : '').join(' ').replace(/\s+/g, ' '))
       const annotations = await page.getAnnotations()
-      assert.equal(annotations.some(item => item.url === PROFILE_URL), i === pdf.numPages, 'Profile link must appear only on the final page')
+      assert.equal(texts[i - 1].includes(ATTACHMENT_NOTE), i === pdf.numPages, 'AI attachment note must appear only on the final page')
       for (const annotation of annotations) {
         if (annotation.url) links.push(annotation.url)
       }
     }
     const text = texts.join(' ')
-    assert.ok(text.includes(profile.basics.name), 'Candidate name missing from text layer')
-    assert.ok(text.includes(profile.basics.email), 'Email missing from text layer')
-    const github = profile.basics.profiles.find(item => item.network === 'GitHub')
+    assert.ok(text.includes(resume.basics.name), 'Candidate name missing from text layer')
+    assert.ok(text.includes(resume.basics.email), 'Email missing from text layer')
+    const github = resume.basics.profiles.find(item => item.network === 'GitHub')
     assert.ok(github && texts[0].includes(github.username), 'GitHub username missing from first page')
     assert.ok(links.includes(github.url), 'GitHub profile link missing from PDF')
     assert.ok(links.includes('https://t.me/eone666'), 'Telegram contact link missing from PDF')
@@ -33,24 +34,23 @@ export async function checkCv(pdfBytes: Uint8Array, expectedProfile: string, exp
       assert.ok(text.includes(heading), `Missing heading: ${heading}`)
     }
     let previousJob = -1
-    for (const job of profile.work.slice(0, 3)) {
-      const company = text.indexOf(job.company)
-      assert.ok(company > previousJob, `Work history reading order is incorrect: ${job.company}`)
-      const date = `${workDateText(job.startDate)}–${workDateText(job.endDate)}`
-      assert.ok(text.indexOf(date, company) > company, `Dates missing after company: ${job.company}`)
-      for (const highlight of job.highlights) assert.ok(text.includes(highlight), `Missing work highlight: ${highlight}`)
+    for (const visible of presentation.work) {
+      const job = resume.work.find(item => item.name === visible.name)!
+      const company = text.indexOf(job.name)
+      assert.ok(company > previousJob, `Work history reading order is incorrect: ${job.name}`)
+      const date = `${workDateText(job.startDate)}–${workDateText(job.endDate ?? null)}`
+      assert.ok(text.indexOf(date, company) > company, `Dates missing after company: ${job.name}`)
+      for (const highlight of visible.highlights) assert.ok(text.includes(highlight), `Missing work highlight: ${highlight}`)
       previousJob = company
     }
-    for (const selected of profile.selectedProjects) {
+    for (const selected of presentation.projects) {
       assert.ok(text.includes(selected.name), `Missing project: ${selected.name}`)
       assert.ok(links.includes(new URL(selected.url).href), `Missing project link: ${selected.name}`)
     }
-    assert.ok(links.includes(PROFILE_URL), 'Public profile URL missing from PDF links')
-    assert.ok(text.includes('avdeyev.dev/profile.json'), 'Public profile URL missing from PDF text')
     const files = await pdf.getAttachments()
     assert.ok(files, 'PDF attachments missing')
+    assert.deepEqual(Object.keys(files), ['resume.json'])
     const decoder = new TextDecoder()
-    assert.equal(decoder.decode(files['profile.json']?.content), expectedProfile)
     assert.equal(decoder.decode(files['resume.json']?.content), expectedResume)
     validateResume(JSON.parse(decoder.decode(files['resume.json'].content)))
   } finally {
@@ -59,8 +59,8 @@ export async function checkCv(pdfBytes: Uint8Array, expectedProfile: string, exp
   const structure = await PDFDocument.load(pdfBytes, { updateMetadata: false })
   assert.ok(structure.catalog.has(PDFName.of('StructTreeRoot')), 'Tagged PDF structure missing')
   const associated = structure.catalog.lookup(PDFName.of('AF'), PDFArray)
-  assert.equal(associated.size(), 2)
-  const expectedRelationships: Record<string, string> = { 'profile.json': '/Supplement', 'resume.json': '/Alternative' }
+  assert.equal(associated.size(), 1)
+  const expectedRelationships: Record<string, string> = { 'resume.json': '/Alternative' }
   for (const ref of associated.asArray()) {
     const file = structure.context.lookup(ref, PDFDict)
     const name = file.get(PDFName.of('F'))

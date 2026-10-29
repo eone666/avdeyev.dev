@@ -1,62 +1,36 @@
-import profile from '../cv/profile.json'
+import resume from '../cv/resume.json'
 
-export const RESUME_SCHEMA_URL = 'https://raw.githubusercontent.com/jsonresume/resume-schema/b25e3f4bbafd349c2c5bbaa62602c03c228762db/schema.json'
-export const PROFILE_URL = `${profile.basics.url}/profile.json`
-export const RESUME_URL = `${profile.basics.url}/resume.json`
+export const RESUME_SCHEMA_URL = resume.$schema
+export const RESUME_URL = `${resume.basics.url}/resume.json`
+export const ATTACHMENT_NOTE = 'For AI readers: see the attached resume.json for extended experience and project details.'
 
-/** Standard fields are projected from the extended author-maintained profile. */
 export function jsonResume() {
-  return {
-    $schema: RESUME_SCHEMA_URL,
-    basics: profile.basics,
-    work: profile.work.map(job => ({
-      name: job.company,
-      position: job.position,
-      startDate: job.startDate,
-      ...(job.endDate ? { endDate: job.endDate } : {}),
-      location: job.remote ? 'Remote' : [job.location?.city, job.location?.countryCode].filter(Boolean).join(', '),
-      highlights: job.highlights,
-    })),
-    education: profile.education.map(item => ({
-      institution: item.institution, area: item.area, studyType: item.studyType,
-      startDate: item.startDate, endDate: item.endDate, courses: item.qualifications,
-    })),
-    skills: profile.skills.map(({ name, keywords }) => ({ name, keywords })),
-    languages: profile.languages.map(({ language, fluency }) => ({ language, fluency })),
-    projects: profile.projectDetails.flatMap(project => [
-      { name: project.name, url: project.url, description: project.summary, highlights: project.highlights, keywords: project.technologies },
-      ...('subprojects' in project ? project.subprojects ?? [] : []).map(sub => ({
-        name: sub.name, url: sub.url, description: sub.summary, keywords: sub.technologies,
-      })),
-    ]),
-    meta: { canonical: RESUME_URL, lastModified: profile.reviewedAt },
-  }
+  return resume
 }
 
 export function personJsonLd() {
   return {
     '@context': 'https://schema.org',
     '@type': 'Person',
-    '@id': `${profile.basics.url}/#person`,
-    name: profile.basics.name,
-    url: profile.basics.url,
-    image: `${profile.basics.url}/logo.webp`,
-    jobTitle: profile.basics.label,
-    description: profile.basics.summary,
-    email: `mailto:${profile.basics.email}`,
+    '@id': `${resume.basics.url}/#person`,
+    name: resume.basics.name,
+    url: resume.basics.url,
+    image: `${resume.basics.url}/logo.webp`,
+    jobTitle: resume.basics.label,
+    description: resume.basics.summary,
+    email: `mailto:${resume.basics.email}`,
     address: {
-      '@type': 'PostalAddress', addressLocality: profile.basics.location.city,
-      addressCountry: profile.basics.location.countryCode,
+      '@type': 'PostalAddress', addressLocality: resume.basics.location.city,
+      addressCountry: resume.basics.location.countryCode,
     },
     sameAs: [
-      ...profile.basics.profiles.map(item => item.url),
+      ...resume.basics.profiles.map(item => item.url),
       'https://t.me/eone666', 'https://instagram.com/avdeyev.dev',
     ],
-    knowsAbout: profile.skills.flatMap(group => group.keywords),
-    knowsLanguage: profile.languages.map(item => ({ '@type': 'Language', name: item.language, alternateName: item.code })),
+    knowsAbout: resume.skills.flatMap(group => group.keywords),
+    knowsLanguage: resume.languages.map(item => ({ '@type': 'Language', name: item.language })),
     subjectOf: [
-      { '@type': 'DigitalDocument', name: 'CV', url: `${profile.basics.url}/cv.pdf`, encodingFormat: 'application/pdf' },
-      { '@type': 'DigitalDocument', name: 'Extended professional profile', url: PROFILE_URL, encodingFormat: 'application/json' },
+      { '@type': 'DigitalDocument', name: 'CV', url: `${resume.basics.url}/cv.pdf`, encodingFormat: 'application/pdf' },
       { '@type': 'DigitalDocument', name: 'JSON Resume', url: RESUME_URL, encodingFormat: 'application/json' },
     ],
   }

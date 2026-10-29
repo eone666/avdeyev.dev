@@ -69,97 +69,56 @@ names at runtime. Invalid names fail with an explicit error.
 
 ### The CV
 
-The card links to `/cv.pdf`, which opens in a new tab. Its standalone source is
-`cv/document.tsx`, outside the web application. Forme renders that template
-directly to PDF through its page-native WASM engine, so no browser, application
-route or running server is involved.
+`bun run build:cv` generates two public artifacts from local sources:
 
-`bun run build:cv` generates three gitignored public artifacts:
+- `/cv.pdf`: a two-page tagged PDF/A-3u CV with an embedded `resume.json`.
+- `/resume.json`: the complete machine-readable resume, identical to the attachment.
 
-- `/cv.pdf`: a tagged PDF/A-3u document with embedded fonts, a visible profile URL,
-  and two associated JSON files.
-- `/profile.json`: the complete extended profile, identical to the attachment.
-- `/resume.json`: a JSON Resume projection validated against the official schema.
+`cv/resume.json` is the only machine-readable source. It uses documented JSON
+Resume fields only and validates against the vendored official schema in
+`cv/json-resume.schema.json` (jsonresume/resume-schema commit
+`b25e3f4bbafd349c2c5bbaa62602c03c228762db`). Validation additionally rejects
+undocumented extension fields even where the upstream schema permits them.
+The build does not fetch schemas or GitHub data.
 
-The full `bun run build` generates these artifacts first, then Vite copies them
-into `dist/`. All three paths are reserved for static serving in production.
-A deployment is required before updated files become available at avdeyev.dev.
+Extended context is preserved in standard fields: work summaries and highlights,
+projects linked to employers through `entity`, project descriptions, roles,
+keywords, source URLs in highlights, and skill context in the basics summary.
+Current employment omits `endDate`; known date precision is retained (`YYYY-MM`
+for employment and `YYYY` for education). Profile maintenance uses `meta.version`
+and `meta.lastModified`; dated adoption observations remain in project highlights.
 
-`cv/profile.json` holds the public profile: employment, skills, selected projects,
-education, languages, and extended project descriptions with source references.
-The visible CV reads employment and selected projects from that file. Its compact
-skill list is maintained independently in `cv/document.tsx` as `visibleSkills`.
-`skills` contains the complete merged CV and public GitHub profile stack with sources;
-`projectDetails` includes additional public projects, assignment examples, and
-branch-specific implementation details. These sections enrich only the attachment
-and metadata, keeping the visible CV compact. Keep release and development-branch
-features distinct and include review dates for time-sensitive adoption figures.
-Keep the remaining header, summary, education, and language text in
-`cv/document.tsx` consistent when updating those details.
+The short human-facing work and project descriptions live in
+`cv/presentation.json`, while `cv/document.tsx` defines the layout, summary, and
+compact skills. Megagroup remains in the complete resume and is omitted from the
+visible PDF. Edit the complete resume and presentation together when facts change.
 
-`scripts/build-cv.ts` uses the Forme API to render PDF and attachments together.
-`cv/render.ts` attaches `profile.json` as `Supplement` and `resume.json` as
-`Alternative`, both with MIME type `application/json`. The native generator adds
-catalog `/AF` relationships, attachment metadata, Unicode mappings, embedded
-Liberation Mono fonts, and PDF/A-3u XMP identification. The metadata subject
-contains the extended summary, profile version, public URL, and skill names.
-No post-render PDF mutation is used.
+`scripts/build-cv.ts` calls `cv/render.ts` to render the PDF and one associated
+JSON file in a single Forme pass. `resume.json` has MIME type `application/json`
+and `/AFRelationship /Alternative`. The final-page footer points AI readers to
+this attachment. It contains no public-profile link. The old profile artifact is
+removed during the build so it cannot be copied into a new deployment.
 
-`cv/check.ts` uses PDF.js to independently extract page text, hyperlinks, and
-attachments. Every build checks work history order, companies, date ranges,
-complete visible work bullets, project links, the public JSON link, exact
-attachment contents, and JSON Resume validity. PDF-lib checks the tagged
-structure and Associated File relationships. This structural check is not a
-substitute for a full PDF/A validator. To validate a generated file with veraPDF:
+`cv/check.ts` independently extracts text, links, and attachments using PDF.js.
+Every build checks reading order, visible work text, dates, project links, the
+final-page attachment note, exact embedded JSON contents, and schema validity.
+PDF-lib checks tagging, the associated-file relationship, and PDF/A metadata.
+Tests also check the final-page footer clearance. Structural checks do not
+replace a full conformance validator; run veraPDF for that:
 
 ```sh
 verapdf --flavour 3u --format text public/cv.pdf
 ```
 
-`shared/resume.ts` projects the source profile to JSON Resume and Schema.org
-`Person`. The website includes JSON-LD and alternate links to both JSON formats.
-`cv/json-resume.schema.json` is vendored from jsonresume/resume-schema at commit
-`b25e3f4bbafd349c2c5bbaa62602c03c228762db`; its pinned URL is emitted as `$schema`.
-The normal build validates locally and requires no GitHub access.
+The production build runs the CV build before Vite copies the PDF and JSON into
+`dist/`; both routes are reserved for static serving. The site exposes Schema.org
+`Person` JSON-LD and an alternate link to `/resume.json`. Generated public files
+are gitignored. A deployment is required before updated files are publicly served.
 
-The Forme live preview shows the page layout; `bun run build:cv` produces the
-public artifacts and embedded data.
-
-Metadata and attachments provide supplementary context for software that reads
-them. Do not rely on an ATS extracting them; essential qualifications belong in
-the visible document too. Review factual claims and source references when
-editing the profile, and update `reviewedAt` after a new review.
-
-Profile version 2 uses ISO 8601 dates at the known precision: `YYYY-MM` for
-employment, `YYYY` for education, and `YYYY-MM-DD` for review dates. A null work
-`endDate` means the position is current. Locations use English city names,
-ISO 3166-1 alpha-2 `countryCode` values, and English country names. Remote work
-has `remote: true` and a null location rather than a fictional city. Languages
-include ISO 639-1 `code` values. The CV formats these values for human readers.
-
-Profile version 3 retains those date and location conventions and adds:
-
-- `work[].projects`: project context, individual role, confirmed technologies,
-  contributions, and qualitative outcomes where known. Empty technology lists
-  mean that the project-specific stack has not been confirmed.
-- `work[].testing`: confirmed test types and context, without inferring tools
-  from the general skill list.
-- `technologyAliases`: canonical technology names mapped to alternative names.
-- `skills[].experienceRefs`: local JSON Pointer references to relevant work or
-  public project entries. These provide group-level context, not a claim that
-  every keyword in a group was used in every referenced entry.
-- `adoption.downloadsLowerBound`: a numeric conservative download count;
-  `observedDisplay` and `checkedAt` preserve the original observation.
-
-`reviewedAt` tracks profile review, while `profileVersion` tracks the format.
-Project adoption observations retain their own dates. `bun test cv/` checks date
-conventions, skill uniqueness, local references, selected project consistency,
-and the visible CV layout. `bun test` also validates the standard export,
-JSON-LD serialization, PDF text extraction, hyperlinks, and attached data.
-
-Use `bun run dev:cv` for Forme's live preview and layout inspector on
-`http://localhost:4242`. The regular `bun run dev` starts that preview alongside
-the Vite site server.
+Use `bun run dev:cv` for the Forme live preview on `http://localhost:4242`.
+The preview shows layout; `bun run build:cv` creates the distributable PDF with
+its attachment. `bun test` covers the generated PDF, complete resume schema,
+presentation consistency, JSON-LD serialization, and site logic.
 
 ## Deployment
 

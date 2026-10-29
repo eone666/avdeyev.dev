@@ -1,6 +1,6 @@
 import { jsxRenderer } from 'hono/jsx-renderer'
 import { Link } from 'honox/server'
-import { jsonForHtml, personJsonLd, PROFILE_URL, RESUME_URL } from '../../shared/resume'
+import { jsonForHtml, personJsonLd, RESUME_URL } from '../../shared/resume'
 
 const DEFAULT_TITLE = 'Ivan Avdeyev | Frontend Developer'
 const DEFAULT_DESCRIPTION = 'Frontend developer Ivan Avdeyev — projects, professional profiles, contact details and CV.'
@@ -52,7 +52,6 @@ export default jsxRenderer(({ children, title, description, canonical, robots, v
         <meta name="twitter:image:alt" content="Avdeyev.dev logo" />
 
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: jsonForHtml(person) }} />
-        <link rel="alternate" type="application/json" title="Extended professional profile" href={PROFILE_URL} />
         <link rel="alternate" type="application/json" title="JSON Resume" href={RESUME_URL} />
         <link rel="icon" href="/favicon.ico" sizes="48x48" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
