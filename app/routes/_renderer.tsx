@@ -23,7 +23,7 @@ export default jsxRenderer(({ children, title, description, canonical, robots, v
   const person = personJsonLd()
 
   return (
-    <html lang="en">
+    <html lang="en" class="bg-background scheme-dark">
       <head>
         <meta charset="utf-8" />
         <meta name="viewport" content={viewport ?? DEFAULT_VIEWPORT} />
@@ -62,7 +62,7 @@ export default jsxRenderer(({ children, title, description, canonical, robots, v
         <Link href="/app/style.css" rel="stylesheet" />
         <script type="module" src={clientEntry('/app/terminal-client.ts')} />
       </head>
-      <body>{children}</body>
+      <body class="m-0 bg-background font-mono text-xs leading-normal text-foreground selection:bg-primary selection:text-background">{children}</body>
     </html>
   )
 })

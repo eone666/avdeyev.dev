@@ -18,6 +18,7 @@ const honoPlugins = honox({
 
 export default defineConfig(({ mode }) => ({
   appType: 'mpa',
+  css: { postcss: fileURLToPath(new URL('.', import.meta.url)) },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./app', import.meta.url))

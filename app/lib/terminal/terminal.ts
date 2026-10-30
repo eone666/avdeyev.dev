@@ -16,12 +16,6 @@ export function asciiWordmark(text: string) {
     (glyphs[letter]?.[row] ?? '00000').replaceAll('1', '█').replaceAll('0', ' ')).join(' ')).join('\n')
 }
 
-export function almatyTime() {
-  return 'ALMT ' + new Intl.DateTimeFormat('en-GB', {
-    timeZone: 'Asia/Almaty', hour: '2-digit', minute: '2-digit',
-  }).format(new Date())
-}
-
 /** Use physical keys so terminal shortcuts are independent of input language. */
 export function terminalKey(event: Pick<KeyboardEvent, 'code' | 'key' | 'shiftKey'>) {
   if (/^Key[A-Z]$/.test(event.code)) return event.code.slice(3).toLowerCase()

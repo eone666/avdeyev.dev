@@ -2,7 +2,7 @@
 
 Terminal-style personal link hub and CV at [avdeyev.dev](https://avdeyev.dev).
 
-Built with HonoX (Hono + Vite), TypeScript, plain CSS, and Bun. The site uses
+Built with HonoX (Hono + Vite), TypeScript, Tailwind CSS v4, CVA, and Bun. The site uses
 HTML rendered at build time, with a small client module for interactions. React is used
 only by the standalone Forme PDF template.
 
@@ -30,13 +30,18 @@ bun run dev        # website at http://localhost:5173, CV preview at :4242
 
 ## Website
 
-- `app/components/terminal-home.tsx`: server-rendered menu, ASCII wordmark,
+- `app/components/terminal-home/`: server-rendered menu, ASCII wordmark,
   descriptions, and dialog content. Main links work with JavaScript disabled.
+- `app/components/navigation-item/`: the shared Links, Projects,
+  and CV row. Cursor column, padding, separator, border, and pointer/keyboard
+  states are defined here for every viewport; page-specific overrides are avoided.
+- `app/components/section-tabs/`: shared terminal tabs.
+- `app/components/skill-list/`: non-interactive terminal skill labels.
 - `shared/site.ts`: link destinations and project descriptions.
 - `app/terminal-client.ts`: menu selection, shortcuts, tabbed sections, clipboard
   feedback, and shared keyboard/pointer input handling. No hydration framework is shipped.
-- `app/lib/terminal.ts`: ASCII text rendering and physical-key normalization.
-- `app/style.css`: responsive layouts, self-hosted Geist Mono, and the original
+- `app/lib/terminal/`: ASCII text rendering and physical-key normalization.
+- `app/style.css`: theme tokens, custom variants, self-hosted Geist Mono, and the original
   lime-green palette (`oklch(0.93 0.24 120)`). No external font requests.
 - `app/routes/_renderer.tsx`: metadata, JSON-LD, and asset loading.
 
@@ -49,7 +54,7 @@ tabs and larger link targets support touch navigation.
 There is no command input, planet, or WebGL background.
 
 The 404 and 500 pages use the same terminal style. The client also handles return-link keyboard navigation on error pages. The former voxel scene, generated fallback
-images, Tailwind components, bitmap-font presentation, and associated capture
+images, obsolete components, bitmap-font presentation, and associated capture
 scripts and dependencies have been removed.
 
 ## Layout
@@ -161,3 +166,7 @@ homelab checkout, fetch this site's latest `main`, and deploy the full Compose s
 Its editable SVG source is `assets/og-card.svg`, including the self-hosted
 Geist Mono font. Export the SVG at its native size to replace the PNG.
 The image response allows cross-origin embedding and CORS reads explicitly.
+
+Shared UI components own their Tailwind classes and CVA variants. The local
+`config/pixels-to-rem.mjs` PostCSS plugin converts pixel values to rem (base 16),
+including arbitrary utilities and media queries; 1px borders remain pixels.

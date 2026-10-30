@@ -1,10 +1,11 @@
+import '@fontsource-variable/geist-mono'
 import { terminalKey } from './lib/terminal'
 import { createInputNavigation } from './lib/input-navigation'
 
 function initializeTerminal() {
   const navigation = createInputNavigation()
   const menu = document.querySelector<HTMLElement>('#menu')
-  const rows = Array.from(menu?.querySelectorAll<HTMLAnchorElement>('.menu-row') ?? [])
+  const rows = Array.from(menu?.querySelectorAll<HTMLAnchorElement>('.nav-item') ?? [])
   const description = document.querySelector<HTMLElement>('#description')
   const tabs = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-tab]'))
   const sections = Array.from(document.querySelectorAll<HTMLElement>('[data-section]'))
@@ -28,7 +29,6 @@ function initializeTerminal() {
 
   function select(index: number, focus = false) {
     selected = (index + rows.length) % rows.length
-    rows.forEach((row, i) => { row.dataset.selected = String(i === selected) })
     if (description) description.textContent = rows[selected].dataset.description ?? ''
     if (focus && document.activeElement !== rows[selected]) rows[selected].focus({ preventScroll: true })
   }
@@ -97,7 +97,7 @@ function initializeTerminal() {
     const backward = ['ArrowUp', 'k'].includes(key)
     if (forward || backward) {
       const scope = sections.find(section => !section.hidden) ?? document
-      const controls = Array.from(scope.querySelectorAll<HTMLAnchorElement>(sections.length ? 'a[href]' : '.back-home'))
+      const controls = Array.from(scope.querySelectorAll<HTMLAnchorElement>(sections.length ? 'a[href]' : '[data-return-link]'))
         .filter(control => control.getClientRects().length > 0 && !control.classList.contains('skip'))
       if (!controls.length) return
       const hovered = navigation.pointerItem(controls)

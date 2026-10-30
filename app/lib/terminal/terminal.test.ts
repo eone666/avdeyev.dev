@@ -1,5 +1,5 @@
 import { expect, test } from 'bun:test'
-import { terminalKey } from './terminal'
+import { asciiWordmark, terminalKey } from '.'
 
 test('physical shortcuts work with Latin and Russian key values', () => {
   for (const [code, latin, russian] of [
@@ -13,3 +13,13 @@ test('physical shortcuts work with Latin and Russian key values', () => {
   expect(terminalKey({ code: 'Digit3', key: '3', shiftKey: false })).toBe('3')
   expect(terminalKey({ code: 'ArrowDown', key: 'ArrowDown', shiftKey: false })).toBe('ArrowDown')
 })
+
+test('ASCII title and error codes preserve a rectangular six-line text grid', () => {
+  for (const title of ['AVDEYEV.DEV', '404', '500']) {
+    const lines = asciiWordmark(title).split('\n')
+    expect(lines).toHaveLength(6)
+    expect(new Set(lines.map(line => line.length)).size).toBe(1)
+    expect(lines.some(line => line.includes('█'))).toBe(true)
+  }
+})
+

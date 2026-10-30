@@ -15,8 +15,8 @@ RUN bun run build:cv
 # Copy only inputs needed to export the website. Documentation and design
 # sources (assets/) do not invalidate either build stage.
 FROM deps AS builder
-COPY tsconfig.json vite.config.ts ./
-COPY config/client-build.ts ./config/
+COPY tsconfig.json vite.config.ts postcss.config.mjs ./
+COPY config/client-build.ts config/pixels-to-rem.mjs ./config/
 COPY app/ ./app/
 COPY shared/resume.ts shared/site.ts ./shared/
 COPY cv/resume.json ./cv/
