@@ -5,7 +5,7 @@
   --breakpoint-xs: 25rem;
   --leading-readable: 1.8;
   --leading-ascii: 1.05;
-  --text-shadow-ascii: .125rem .125rem 0 var(--dim);
+  --drop-shadow-ascii: .125rem .125rem 0 var(--dim);
   --text-ui-xs: .5rem;
   --text-ui-sm: .5625rem;
   --text-ui-xs--line-height: inherit;

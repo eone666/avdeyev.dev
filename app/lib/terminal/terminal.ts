@@ -10,7 +10,7 @@ const glyphs: Record<string, string[]> = {
   '5': ['11111', '11000', '11110', '00011', '00011', '11110'],
 }
 
-/** Text cells remain aligned in the shared monospaced font. */
+/** Shared six-row cell map for the ASCII-style wordmarks. */
 export function asciiWordmark(text: string) {
   return Array.from({ length: 6 }, (_, row) => Array.from(text, letter =>
     (glyphs[letter]?.[row] ?? '00000').replaceAll('1', '█').replaceAll('0', ' ')).join(' ')).join('\n')
