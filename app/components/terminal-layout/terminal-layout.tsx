@@ -10,7 +10,7 @@ const frameStyles = cva('screen relative mx-auto flex min-h-dvh flex-col', {
 })
 const mainStyles = cva('relative isolate flex min-h-0 flex-1 flex-col items-center', {
   variants: { layout: {
-    home: 'justify-start pt-28 pb-8 narrow:pt-8',
+    home: 'justify-start pt-28 pb-8 narrow:pt-20',
     error: 'justify-center py-8 text-center',
     fallback: 'justify-center py-16',
   } }, defaultVariants: { layout: 'home' },
@@ -18,7 +18,8 @@ const mainStyles = cva('relative isolate flex min-h-0 flex-1 flex-col items-cent
 export type TerminalLayoutProps = PropsWithChildren<{
   layout?: 'home' | 'error' | 'fallback'
   footer?: PropsWithChildren['children']
+  header?: PropsWithChildren['children']
 }>
-export function TerminalLayout({ layout = 'home', children, footer }: TerminalLayoutProps) {
-  return <div class={frameStyles({ layout })}><main class={mainStyles({ layout })}>{children}</main>{footer}</div>
+export function TerminalLayout({ layout = 'home', children, footer, header }: TerminalLayoutProps) {
+  return <div class={frameStyles({ layout })}>{header}<main class={mainStyles({ layout })}>{children}</main>{footer}</div>
 }

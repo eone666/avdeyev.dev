@@ -1,6 +1,7 @@
 import { NavigationItem } from '../navigation-item'
 import { SectionTabs } from '../section-tabs'
 import { SkillList } from '../skill-list'
+import { TerminalCommand } from '../terminal-command'
 import { TerminalLayout } from '../terminal-layout'
 import { IdentityHeader } from '../identity-header'
 import { TerminalStars } from '../terminal-stars'
@@ -21,7 +22,7 @@ export function TerminalHome() {
     <div class="terminal-app">
       <a class={`skip fixed -top-15 left-4 z-10 bg-primary p-2 text-background focus:top-3 ${focusRing}`} href="#sections">Skip to sections</a>
       <TerminalStars />
-      <TerminalLayout footer={<StatusBar />}>
+      <TerminalLayout header={<TerminalCommand />} footer={<StatusBar />}>
         <IdentityHeader />
         <div class="sections relative z-2 mt-8 w-full max-w-170 shrink-0 mobile:mt-7" id="sections">
           <SectionTabs tabs={[

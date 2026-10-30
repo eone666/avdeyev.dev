@@ -3,6 +3,15 @@ import { terminalKey } from './lib/terminal'
 import { createInputNavigation } from './lib/input-navigation'
 
 function initializeTerminal() {
+  const timestamp = document.querySelector<HTMLTimeElement>('#command-timestamp')
+  if (timestamp) {
+    const openedAt = new Date()
+    timestamp.dateTime = openedAt.toISOString()
+    timestamp.textContent = openedAt.toLocaleTimeString(undefined, {
+      hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23'
+    })
+    timestamp.title = `Local time · ${Intl.DateTimeFormat().resolvedOptions().timeZone}`
+  }
   const navigation = createInputNavigation()
   const menu = document.querySelector<HTMLElement>('#menu')
   const rows = Array.from(menu?.querySelectorAll<HTMLAnchorElement>('.nav-item') ?? [])
