@@ -4,8 +4,8 @@ import { PDFDocument, PDFName, PDFDict, PDFArray, PDFRawStream, decodePDFRawStre
 import resume from './resume.json'
 import presentation from './presentation.json'
 import { workDateText } from './format'
-import { ATTACHMENT_NOTE } from '../shared/resume'
-import { validateResume } from '../shared/resume-validation'
+import { ATTACHMENT_NOTE } from './lib/resume'
+import { validateResume } from './lib/resume-validation'
 
 /** Inspect the rendered file using an independent PDF parser, not layout metadata. */
 export async function checkCv(pdfBytes: Uint8Array, expectedResume: string) {

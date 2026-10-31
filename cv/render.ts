@@ -1,7 +1,7 @@
 import { renderDocumentWithLayout } from '@formepdf/core'
 import document from './document'
-import { jsonResume } from '../shared/resume'
-import { validateResume } from '../shared/resume-validation'
+import { jsonResume } from './lib/resume'
+import { validateResume } from './lib/resume-validation'
 
 export async function renderCv() {
   const resume = jsonResume()

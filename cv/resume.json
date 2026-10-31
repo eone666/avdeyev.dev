@@ -17,7 +17,7 @@
         "url": "https://www.linkedin.com/in/eone666/"
       }
     ],
-    "summary": "Frontend developer building React and TypeScript interfaces for web and mobile applications. Experience includes a Nuxt 2-to-Astro website migration, reusable page components built with designers, Lighthouse-driven optimization, Next.js migration work, localized product filters, and Storybook components. Developed municipal analytics dashboards and prepared data with SQL and Cube.js. Personal projects explore signal-based UI runtimes, Three.js graphics, OpenWrt theming, and embedded firmware.\n\nSkill context and sources:\nLanguages: Sources: https://avdeyev.dev/cv.pdf Related experience: LLC Rating, LLC Megagroup IT, Treegger, luci-theme-shadcnui, avdeyev.dev, YAFF, interview-assignments\nFrontend frameworks: Self-reported in the public GitHub profile. Sources: https://github.com/eone666/eone666/blob/main/README.md Related experience: Raison Securities Ltd, Tile.Expert Ltd, LLC Rating, LLC Megagroup IT, avdeyev.dev, interview-assignments\nState and data: Self-reported in the public GitHub profile. Sources: https://github.com/eone666/eone666/blob/main/README.md Related experience: Raison Securities Ltd, interview-assignments\nStyling and components: Self-reported in the public GitHub profile. Sources: https://github.com/eone666/eone666/blob/main/README.md Related experience: LLC Megagroup IT, avdeyev.dev, interview-assignments\nForms and validation: Self-reported in the public GitHub profile. Sources: https://github.com/eone666/eone666/blob/main/README.md Related experience: interview-assignments\nBackend: Sources: https://github.com/eone666/eone666/blob/main/README.md, https://avdeyev.dev/cv.pdf Related experience: LLC Rating\nDatabases: Self-reported in the public GitHub profile. Sources: https://github.com/eone666/eone666/blob/main/README.md Related experience: LLC Rating\nBuild and DevOps: Sources: https://github.com/eone666/eone666/blob/main/README.md, https://avdeyev.dev/cv.pdf Related experience: luci-theme-shadcnui, avdeyev.dev, YAFF, interview-assignments\nTesting and tooling: Wrote unit tests at Raison and Tile.Expert, and unit and end-to-end tests at Rating. Testing tools used across professional work include Jest, Vitest, React Testing Library, and Playwright. Sources: https://github.com/eone666/eone666/blob/main/README.md, https://avdeyev.dev/cv.pdf Related experience: Raison Securities Ltd, Tile.Expert Ltd, LLC Rating, Treegger\nAI and coding tools: Self-reported in the public GitHub profile. Sources: https://github.com/eone666/eone666/blob/main/README.md\nAdditional languages and embedded development: Occasional use, as described in the public GitHub profile. Sources: https://github.com/eone666/eone666/blob/main/README.md Related experience: mc-telegram-notifier, 4x3_keypad\nGraphics and UI runtimes: Sources: https://avdeyev.dev, https://github.com/eone666/treegger Related experience: Treegger, avdeyev.dev, YAFF\nLanguage codes: Russian (ru), English (en).",
+    "summary": "Frontend developer building React and TypeScript interfaces for web and mobile applications. Experience includes a Nuxt 2-to-Astro website migration, reusable page components built with designers, Lighthouse-driven optimization, Next.js migration work, localized product filters, and Storybook components. Developed municipal analytics dashboards and prepared data with SQL and Cube.js. Personal projects explore Rust terminal and WebAssembly interfaces, signal-based UI runtimes, Three.js graphics, OpenWrt theming, and embedded firmware.\n\nSkill context and sources:\nLanguages: Sources: https://avdeyev.dev/cv.pdf Related experience: LLC Rating, LLC Megagroup IT, Treegger, luci-theme-shadcnui, avdeyev.dev, YAFF, interview-assignments\nFrontend frameworks: Self-reported in the public GitHub profile. Sources: https://github.com/eone666/eone666/blob/main/README.md Related experience: Raison Securities Ltd, Tile.Expert Ltd, LLC Rating, LLC Megagroup IT, avdeyev.dev, interview-assignments\nState and data: Self-reported in the public GitHub profile. Sources: https://github.com/eone666/eone666/blob/main/README.md Related experience: Raison Securities Ltd, interview-assignments\nStyling and components: Self-reported in the public GitHub profile. Sources: https://github.com/eone666/eone666/blob/main/README.md Related experience: LLC Megagroup IT, avdeyev.dev, interview-assignments\nForms and validation: Self-reported in the public GitHub profile. Sources: https://github.com/eone666/eone666/blob/main/README.md Related experience: interview-assignments\nBackend: Sources: https://github.com/eone666/eone666/blob/main/README.md, https://avdeyev.dev/cv.pdf Related experience: LLC Rating\nDatabases: Self-reported in the public GitHub profile. Sources: https://github.com/eone666/eone666/blob/main/README.md Related experience: LLC Rating\nBuild and DevOps: Sources: https://github.com/eone666/eone666/blob/main/README.md, https://avdeyev.dev/cv.pdf Related experience: luci-theme-shadcnui, avdeyev.dev, YAFF, interview-assignments\nTesting and tooling: Wrote unit tests at Raison and Tile.Expert, and unit and end-to-end tests at Rating. Testing tools used across professional work include Jest, Vitest, React Testing Library, and Playwright. Sources: https://github.com/eone666/eone666/blob/main/README.md, https://avdeyev.dev/cv.pdf Related experience: Raison Securities Ltd, Tile.Expert Ltd, LLC Rating, Treegger\nAI and coding tools: Self-reported in the public GitHub profile. Sources: https://github.com/eone666/eone666/blob/main/README.md\nAdditional languages and embedded development: Occasional use, as described in the public GitHub profile. Sources: https://github.com/eone666/eone666/blob/main/README.md Related experience: mc-telegram-notifier, 4x3_keypad\nGraphics and UI runtimes: Sources: https://avdeyev.dev, https://github.com/eone666/treegger Related experience: Treegger, avdeyev.dev, YAFF\nLanguage codes: Russian (ru), English (en).",
     "location": {
       "city": "Almaty",
       "countryCode": "KZ"
@@ -99,7 +99,8 @@
         "TypeScript",
         "JavaScript",
         "HTML",
-        "CSS"
+        "CSS",
+        "Rust"
       ]
     },
     {
@@ -177,7 +178,10 @@
         "Vite",
         "Docker",
         "CI/CD",
-        "Git"
+        "Git",
+        "GitHub Actions",
+        "GitHub Releases",
+        "WebAssembly"
       ]
     },
     {
@@ -223,7 +227,10 @@
         "WebGL",
         "Signals",
         "DOM",
-        "JSX"
+        "JSX",
+        "Ratatui",
+        "Ratzilla",
+        "Crossterm"
       ]
     },
     {
@@ -444,28 +451,33 @@
     {
       "name": "avdeyev.dev",
       "url": "https://avdeyev.dev",
-      "description": "Personal website and link hub with a terminal-style interface, ASCII typography, keyboard navigation, responsive touch controls, and a generated PDF CV.",
+      "description": "Personal portfolio implemented as a native Rust terminal application and a browser WebAssembly application sharing the same Ratatui interface.",
       "highlights": [
-        "Pre-renders the interface and project content at build time with HonoX and Bun, using TypeScript and plain CSS.",
-        "Implements accessible tabbed sections, arrow-key navigation, shortcuts, and a touch-specific mobile layout.",
-        "Uses text-based ASCII artwork and self-hosted Geist Mono with the original lime-green brand palette.",
-        "Generates a tagged PDF/A-3u CV and attaches a schema-validated JSON Resume with extended experience and project details.",
-        "Serves static HTML and assets from a minimal Static Web Server Docker image; keeps JavaScript frameworks and build tools out of the runtime image.",
-        "Previously built a procedural Three.js voxel background for an earlier version of the site.",
-        "Source: https://avdeyev.dev",
-        "CV summary: Built a terminal-style personal site with ASCII art, keyboard navigation, and responsive touch controls."
+        "Shares Ratatui widgets and application state between native terminals through Crossterm and browsers through Ratzilla/WebAssembly.",
+        "Supports keyboard shortcuts, Tab and Shift-Tab focus navigation, mouse and touch input, with independently scrolling lists and fixed headers and footers.",
+        "Uses event-driven rendering, reusable buffers, bitmap ASCII artwork, and self-hosted JetBrains Mono in the browser.",
+        "Provides a readable shell launcher: local development downloads from the preview server, while production downloads binaries and SHA-256 checksums only from GitHub Releases.",
+        "Configures GitHub Actions to check and build Linux/macOS ARM64 and x86_64 binaries, publish versioned WASM and native release assets, and deploy static assets and a routing Worker to Cloudflare.",
+        "Generates a tagged two-page PDF/A-3u candidate CV with an attached schema-validated JSON Resume in an isolated Bun/Forme build step.",
+        "Generates static HTML metadata and Schema.org JSON-LD from portfolio data without server-rendering a separate interface.",
+        "Previously built HonoX/Bun versions and a procedural Three.js voxel background for earlier versions of the site.",
+        "Source: https://github.com/eone666/avdeyev.dev",
+        "CV summary: Built a Rust terminal portfolio with Ratatui and Ratzilla/WASM, shared keyboard and mouse controls, and GitHub Actions deployment to Cloudflare Workers."
       ],
       "keywords": [
-        "TypeScript",
-        "HonoX",
-        "Bun",
-        "Vite",
-        "CSS",
+        "Rust",
+        "Ratatui",
+        "Ratzilla",
+        "Crossterm",
+        "WebAssembly",
         "ASCII art",
         "Keyboard navigation",
-        "Docker",
-        "Forme",
-        "Three.js"
+        "GitHub Actions",
+        "GitHub Releases",
+        "Cloudflare Workers",
+        "TypeScript",
+        "Bun",
+        "Forme"
       ]
     },
     {

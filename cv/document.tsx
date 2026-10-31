@@ -5,8 +5,8 @@ import resume from './resume.json'
 import presentation from './presentation.json'
 import { workDateText } from './format'
 import { standardFonts } from '@formepdf/fonts-standard'
-import { ATTACHMENT_NOTE } from '../shared/resume'
-import type { IconName } from '../shared/icons'
+import { ATTACHMENT_NOTE } from './lib/resume'
+import type { IconName } from './lib/icons'
 import {
   Document,
   Fixed,

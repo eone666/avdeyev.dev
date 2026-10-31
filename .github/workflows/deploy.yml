@@ -1,0 +1,193 @@
+name: Release and deploy
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Finish each deployment before starting another; never interrupt publication.
+concurrency:
+  group: production
+  cancel-in-progress: false
+
+jobs:
+  check:
+    if: github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+      - uses: Swatinem/rust-cache@v2
+      - run: cargo test --locked --workspace
+      - run: cargo clippy --locked --workspace --all-targets -- -D warnings
+      - run: node --test worker/index.test.mjs
+      - run: sh -n public/install.sh && sh -n public/install-dev.sh
+
+  native:
+    needs: check
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            target: x86_64-unknown-linux-musl
+          - os: ubuntu-latest
+            target: aarch64-unknown-linux-musl
+          - os: macos-latest
+            target: aarch64-apple-darwin
+          - os: macos-latest
+            target: x86_64-apple-darwin
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: ${{ matrix.target }}
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: ${{ matrix.target }}
+      - name: Cache cross compiler
+        if: runner.os == 'Linux'
+        uses: actions/cache@v4
+        with:
+          path: ~/.cargo/bin/cross
+          key: cross-${{ runner.os }}-0.2.5
+      - name: Linux static binary
+        if: runner.os == 'Linux'
+        run: |
+          command -v cross || cargo install cross --version 0.2.5 --locked
+          cross build --locked --release -p avdeyev-tui --bin avdeyev-tui --target ${{ matrix.target }}
+      - name: macOS binary
+        if: runner.os == 'macOS'
+        run: cargo build --locked --release -p avdeyev-tui --bin avdeyev-tui --target ${{ matrix.target }}
+      - run: cp target/${{ matrix.target }}/release/avdeyev-tui avdeyev-tui-${{ matrix.target }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: native-${{ matrix.target }}
+          path: avdeyev-tui-${{ matrix.target }}
+          if-no-files-found: error
+
+  web:
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+        with:
+          key: wasm
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cargo/bin/wasm-bindgen
+          key: wasm-bindgen-${{ runner.os }}-0.2.130
+      - name: Install WASM tools
+        run: |
+          command -v wasm-bindgen || cargo install wasm-bindgen-cli --version 0.2.130 --locked
+          sudo apt-get update
+          sudo apt-get install -y binaryen
+      - run: cargo xtask wasm
+      - name: Prepare versioned static site
+        env:
+          RELEASE_TAG: build-${{ github.sha }}
+        run: |
+          mkdir -p dist
+          cp -R public/. dist/
+          rm -rf dist/wasm dist/download dist/install-dev.sh
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+          page = Path('dist/index.html')
+          page.write_text(page.read_text().replace('/wasm/avdeyev_tui.js', f'/wasm/{os.environ["RELEASE_TAG"]}/avdeyev_tui.js'))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: wasm
+          path: public/wasm/*
+          if-no-files-found: error
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: dist/
+          if-no-files-found: error
+
+  cv:
+    needs: check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: '1'
+      - uses: actions/cache@v4
+        with:
+          path: ~/.bun/install/cache
+          key: cv-${{ runner.os }}-${{ hashFiles('cv/bun.lock') }}
+      - run: bun install --cwd cv --frozen-lockfile
+      - run: bun test --cwd cv
+      - run: bun run --cwd cv typecheck
+      - run: bun run --cwd cv build
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cv
+          path: |
+            public/cv.pdf
+            public/resume.json
+          if-no-files-found: error
+
+  publish:
+    needs: [native, web, cv]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: native-*
+          path: release
+          merge-multiple: true
+      - uses: actions/download-artifact@v4
+        with:
+          name: wasm
+          path: release
+      - name: Publish complete release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          RELEASE_TAG: build-${{ github.sha }}
+        run: |
+          cd release
+          sha256sum avdeyev-tui-* avdeyev_tui* > checksums.txt
+          if gh release view "$RELEASE_TAG" --json isDraft --jq '.isDraft' > ../release-draft.txt; then
+            if [ "$(cat ../release-draft.txt)" = false ]; then exit 0; fi
+          else
+            gh release create "$RELEASE_TAG" --target "$GITHUB_SHA" --draft --title "Build $GITHUB_SHA" --generate-notes
+          fi
+          gh release upload "$RELEASE_TAG" ./* --clobber
+          gh release edit "$RELEASE_TAG" --draft=false --latest
+
+  deploy:
+    needs: publish
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: dist
+      - uses: actions/download-artifact@v4
+        with:
+          name: cv
+          path: dist
+      - uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          wranglerVersion: "4.156.0"
+          command: deploy

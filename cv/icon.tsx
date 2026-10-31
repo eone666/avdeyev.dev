@@ -1,7 +1,7 @@
 /** @jsxImportSource react */
 import { Svg } from '@formepdf/react'
 import svgpath from 'svgpath'
-import { getIcon, type IconName } from '../shared/icons'
+import { getIcon, type IconName } from './lib/icons'
 
 /**
  * Remix Icon for PDFs. Browse https://icon-sets.iconify.design/ri/.

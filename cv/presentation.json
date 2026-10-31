@@ -41,7 +41,7 @@
     {
       "name": "avdeyev.dev",
       "url": "https://avdeyev.dev",
-      "description": "Built a terminal-style personal site with ASCII art, keyboard navigation, and responsive touch controls."
+      "description": "Built a Rust terminal portfolio with Ratatui and Ratzilla/WASM, shared keyboard and mouse controls, and GitHub Actions deployment to Cloudflare Workers."
     }
   ]
 }

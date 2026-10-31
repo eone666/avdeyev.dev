@@ -1,41 +1,11 @@
-# prod
-dist/
-
-# dev
-.hono/
-.wrangler/
-.yarn/
-!.yarn/releases
-.vscode/*
-!.vscode/launch.json
-!.vscode/*.code-snippets
-.idea/workspace.xml
-.idea/usage.statistics.xml
-.idea/shelf
-
-# deps
-node_modules/
-
-# env
-.env
-.env.production
-.dev.vars
-
-# logs
-logs/
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
-# misc
+/target/
+/tui/target/
+/public/wasm/
 .DS_Store
-
-# Generated from cv/document.tsx by `bun run build:cv`
-public/cv.pdf
-public/resume.json
-
-# Temporary build-time renderer
-.render/
+/cv/node_modules/
+/public/cv.pdf
+/public/resume.json
+/public/download/
+/public/index.html
+/dist/
+/.wrangler/

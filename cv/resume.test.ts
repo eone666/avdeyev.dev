@@ -1,7 +1,7 @@
 import { expect, test } from 'bun:test'
 import resume from './resume.json'
 import presentation from './presentation.json'
-import { validateResume } from '../shared/resume-validation'
+import { validateResume } from './lib/resume-validation'
 
 test('the complete machine-readable source conforms to JSON Resume', () => {
   expect(() => validateResume(resume)).not.toThrow()
