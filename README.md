@@ -28,12 +28,12 @@ email; ? opens help; Esc closes it. Q or Ctrl-C exits the native app.
 
 ## Deployment
 
-Push to `master` builds the four native binaries, WASM and CV, publishes a
-`build-<commit SHA>` GitHub Release, then deploys static assets and the Worker.
+Push to `master` builds the four native binaries, WASM and CV, publishes native binaries in a
+`build-<commit SHA>` GitHub Release, then deploys WASM, static assets and the Worker.
 Set GitHub secrets `CLOUDFLARE_API_TOKEN` (Workers edit) and `CLOUDFLARE_ACCOUNT_ID`.
 The release repository must be public. `wrangler.jsonc` binds the Worker to
 `avdeyev.dev` as a Custom Domain during deployment.
-WASM URLs are pinned to the release; production `install.sh` downloads only
+WASM is served by Cloudflare at commit-versioned URLs; production `install.sh` downloads only
 from GitHub Releases. Local `cargo xtask serve` uses `install-dev.sh` instead.
 
 ## Sources and checks

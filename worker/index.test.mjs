@@ -29,30 +29,17 @@ test('curl gets the exact production installer; browsers get HTML', async () => 
   assert.equal((await worker.fetch(new Request(origin + '/install-dev.sh'), env)).status, 404);
 });
 
-test('versioned WASM and JS are fetched from the corresponding release with correct MIME', async () => {
-  const originalFetch = globalThis.fetch;
-  const calls = [];
-  globalThis.fetch = async (url) => { calls.push(url); return new Response('asset'); };
-  try {
-    for (const [asset, mime] of [['avdeyev_tui.js', 'text/javascript; charset=utf-8'], ['avdeyev_tui_bg.wasm', 'application/wasm']]) {
-      const response = await worker.fetch(new Request(`${origin}/wasm/${tag}/${asset}`), env);
-      assert.equal(await response.text(), 'asset');
-      assert.equal(response.headers.get('Content-Type'), mime);
-      assert.equal(response.headers.get('Cache-Control'), 'public, max-age=31536000, immutable');
-      assert.equal(calls.at(-1), `https://github.com/eone666/avdeyev.dev/releases/download/${tag}/${asset}`);
-    }
-    const head = await worker.fetch(new Request(`${origin}/wasm/${tag}/avdeyev_tui.js`, { method: 'HEAD' }), env);
-    assert.equal(await head.text(), '');
-    globalThis.fetch = async () => new Response('not yet available', { status: 404 });
-    const missing = await worker.fetch(new Request(`${origin}/wasm/${tag}/avdeyev_tui.js`), env);
-    assert.equal(missing.status, 502);
-    assert.equal(missing.headers.get('Cache-Control'), null);
-  } finally { globalThis.fetch = originalFetch; }
-});
-
-test('rejects invalid release paths and non-read methods without fetching upstream', async () => {
-  for (const path of ['/wasm/latest/avdeyev_tui.js', `/wasm/${tag}/other.js`, '/wasm/arbitrary/file']) {
-    assert.equal((await worker.fetch(new Request(origin + path), env)).status, 404);
+test('static JS and WASM are served directly by Cloudflare assets', async () => {
+  const paths = [];
+  const staticEnv = { ASSETS: { async fetch(request) {
+    paths.push(new URL(request.url).pathname);
+    return new Response('asset', { headers: { 'Content-Type': paths.at(-1).endsWith('.wasm') ? 'application/wasm' : 'text/javascript' } });
+  } } };
+  for (const asset of ['avdeyev_tui.js', 'avdeyev_tui_bg.wasm']) {
+    const path = `/wasm/${tag}/${asset}`;
+    const response = await worker.fetch(new Request(origin + path), staticEnv);
+    assert.equal(await response.text(), 'asset');
+    assert.equal(paths.at(-1), path);
   }
   assert.equal((await worker.fetch(new Request(origin, { method: 'POST' }), env)).status, 405);
 });

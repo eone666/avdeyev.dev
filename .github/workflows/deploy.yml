@@ -86,30 +86,47 @@ jobs:
         with:
           path: ~/.cargo/bin/wasm-bindgen
           key: wasm-bindgen-${{ runner.os }}-0.2.130
+      - uses: actions/cache@v4
+        with:
+          path: ~/.local/binaryen-116
+          key: binaryen-${{ runner.os }}-116
       - name: Install WASM tools
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           command -v wasm-bindgen || cargo install wasm-bindgen-cli --version 0.2.130 --locked
-          sudo apt-get update
-          sudo apt-get install -y binaryen
+          if [ ! -x "$HOME/.local/binaryen-116/bin/wasm-opt" ]; then
+            mkdir -p "$HOME/.local/binaryen-116"
+            gh release download version_116 --repo WebAssembly/binaryen --pattern binaryen-version_116-x86_64-linux.tar.gz --dir "$RUNNER_TEMP"
+            tar -xzf "$RUNNER_TEMP/binaryen-version_116-x86_64-linux.tar.gz" --strip-components=1 -C "$HOME/.local/binaryen-116"
+          fi
+          echo "$HOME/.local/binaryen-116/bin" >> "$GITHUB_PATH"
       - run: cargo xtask wasm
+      - run: node worker/check-wasm.mjs public/wasm/avdeyev_tui_bg.wasm
       - name: Prepare versioned static site
         env:
           RELEASE_TAG: build-${{ github.sha }}
         run: |
           mkdir -p dist
           cp -R public/. dist/
-          rm -rf dist/wasm dist/download dist/install-dev.sh
+          rm -rf dist/download dist/install-dev.sh
+          mv dist/wasm "$RUNNER_TEMP/portfolio-wasm"
+          mkdir -p "dist/wasm/$RELEASE_TAG"
+          cp "$RUNNER_TEMP/portfolio-wasm/"* "dist/wasm/$RELEASE_TAG/"
           python3 - <<'PY'
           import os
           from pathlib import Path
           page = Path('dist/index.html')
           page.write_text(page.read_text().replace('/wasm/avdeyev_tui.js', f'/wasm/{os.environ["RELEASE_TAG"]}/avdeyev_tui.js'))
           PY
-      - uses: actions/upload-artifact@v4
-        with:
-          name: wasm
-          path: public/wasm/*
-          if-no-files-found: error
+      - name: Smoke-test browser WASM before publication
+        run: |
+          python3 -m http.server 4173 --bind 127.0.0.1 --directory dist > "$RUNNER_TEMP/portfolio-http.log" 2>&1 &
+          preview_pid=$!
+          trap 'kill "$preview_pid"' EXIT
+          curl --retry 5 --retry-connrefused --retry-delay 1 -fsS http://127.0.0.1:4173/ > /dev/null
+          timeout 30s google-chrome --headless --no-sandbox --disable-gpu --dump-dom --virtual-time-budget=10000 http://127.0.0.1:4173/ > "$RUNNER_TEMP/portfolio-dom.html"
+          rg -q 'data-renderer="ratzilla"' "$RUNNER_TEMP/portfolio-dom.html"
       - uses: actions/upload-artifact@v4
         with:
           name: site
@@ -152,10 +169,6 @@ jobs:
           pattern: native-*
           path: release
           merge-multiple: true
-      - uses: actions/download-artifact@v4
-        with:
-          name: wasm
-          path: release
       - name: Publish complete release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -163,7 +176,7 @@ jobs:
           RELEASE_TAG: build-${{ github.sha }}
         run: |
           cd release
-          sha256sum avdeyev-tui-* avdeyev_tui* > checksums.txt
+          sha256sum avdeyev-tui-* > checksums.txt
           if gh release view "$RELEASE_TAG" --json isDraft --jq '.isDraft' > ../release-draft.txt; then
             if [ "$(cat ../release-draft.txt)" = false ]; then exit 0; fi
           else
