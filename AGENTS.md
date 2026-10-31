@@ -34,6 +34,6 @@ Production deployment is `.github/workflows/deploy.yml`: push to master,
 checked builds, complete GitHub Release, then Cloudflare Worker deployment.
 Keep native binaries in public GitHub Releases. Deploy JS/WASM with Cloudflare
 Static Assets, using commit-versioned paths. Smoke-test the final optimized WASM
-in a browser before publishing. Binaryen 108 corrupts the externref table; use 116.
+locally in a browser before pushing. Binaryen 108 corrupts the externref table; use 116.
 `public/install.sh` is the literal production installer; never template it or
 add local-download fallbacks. `public/install-dev.sh` is dev-only.

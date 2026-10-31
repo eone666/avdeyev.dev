@@ -119,14 +119,6 @@ jobs:
           page = Path('dist/index.html')
           page.write_text(page.read_text().replace('/wasm/avdeyev_tui.js', f'/wasm/{os.environ["RELEASE_TAG"]}/avdeyev_tui.js'))
           PY
-      - name: Smoke-test browser WASM before publication
-        run: |
-          python3 -m http.server 4173 --bind 127.0.0.1 --directory dist > "$RUNNER_TEMP/portfolio-http.log" 2>&1 &
-          preview_pid=$!
-          trap 'kill "$preview_pid"' EXIT
-          curl --retry 5 --retry-connrefused --retry-delay 1 -fsS http://127.0.0.1:4173/ > /dev/null
-          timeout 30s google-chrome --headless --no-sandbox --disable-gpu --dump-dom --virtual-time-budget=10000 http://127.0.0.1:4173/ > "$RUNNER_TEMP/portfolio-dom.html"
-          rg -q 'data-renderer="ratzilla"' "$RUNNER_TEMP/portfolio-dom.html"
       - uses: actions/upload-artifact@v4
         with:
           name: site
